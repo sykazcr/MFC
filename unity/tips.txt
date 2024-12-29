@@ -149,3 +149,6 @@ class Process2
         }
     }
 }
+
+https://qiita.com/Nossa/items/947f8985e4d5f13d9bc2
+外部リソースの解放には using ステートメントを使う
