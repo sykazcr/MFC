@@ -1,0 +1,151 @@
+https://www.bilibili.com/video/BV1pC4y1p7iK/?spm_id_from=333.337.search-card.all.click&vd_source=679170e463d34386319e9e1d9a327c75
+Unity 同时显示多个Scene
+哈法程序员
+
+--
+E:\werk\gamer\UnitySTC2025
+
+https://assetstore.unity.com/packages/tools/physics/silantro-helicopter-simulator-toolkit-142612
+Silantro Helicopter Simulator Toolkit
+
+https://assetstore.unity.com/packages/tools/physics/controlled-flight-lite-178925
+flight lite tracks★
+
+https://www.bilibili.com/video/BV1vf4y1F76k?spm_id_from=333.788.recommend_more_video.-1&vd_source=679170e463d34386319e9e1d9a327c75
+BGCurve　＋　Shader
+https://assetstore.unity.com/packages/tools/utilities/bg-curve-59043
+
+
+https://cgbox.jp/2023/12/01/unity-camera-change/
+カメラ切替
+
+https://minatame-lab.com/unity2d-camera-move-zoomin-zoomout/
+カメラ移動
+
+https://stackoverflow.com/questions/19653304/changes-the-image-source-cyclically-in-wpf?rq=3
+Changes the image source cyclically in WPF
+DispatcherTimer dispatcherTimer = new DispatcherTimer();
+dispatcherTimer.Tick += dispatcherTimer_Tick;
+dispatcherTimer.Interval = new TimeSpan(0, 0, 0, 500);
+
+private void dispatcherTimer_Tick(object sender, EventArgs e) {
+   // assign new source to the Image
+}
+
+using System;
+using System.IO;
+
+class Program
+{
+    static void Main()
+    {
+        // Create a MemoryStream and write some data to it
+        using (MemoryStream memoryStream = new MemoryStream())
+        {
+            byte[] data = { 0x01, 0x02, 0x03, 0x04, 0x05 };
+            memoryStream.Write(data, 0, data.Length);
+
+            // Convert the MemoryStream to a byte array
+            byte[] byteArray = memoryStream.ToArray();
+
+            // Display the byte array
+            Console.WriteLine(BitConverter.ToString(byteArray));
+        }
+    }
+}
+
+class Program
+{
+    static void Main()
+    {
+        // Example byte array
+        byte[] byteArray = { 0x01, 0x02, 0x03, 0x04, 0x05 };
+
+        // Create a MemoryStream from the byte array
+        using (MemoryStream memoryStream = new MemoryStream(byteArray))
+        {
+            // Use the MemoryStream here
+            // For example, read the first byte
+            int firstByte = memoryStream.ReadByte();
+            Console.WriteLine("First byte: " + firstByte);
+        }
+    }
+}
+
+
+https://jp-seemore.com/sys/17566/
+共有メモリの作成とアクセス
+
+using System;
+using System.IO.MemoryMappedFiles;
+using System.Threading;
+
+class Process1
+{
+    static void Main()
+    {
+        // Create or open a named mutex
+        using (Mutex mutex = new Mutex(false, "Global\\MySharedMemoryMutex"))
+        {
+            // Create or open a memory-mapped file
+            using (MemoryMappedFile mmf = MemoryMappedFile.CreateOrOpen("Global\\MySharedMemory", 1024))
+            {
+                // Lock the mutex to ensure exclusive access
+                mutex.WaitOne();
+
+                try
+                {
+                    // Write to the shared memory
+                    using (MemoryMappedViewAccessor accessor = mmf.CreateViewAccessor())
+                    {
+                        byte[] message = System.Text.Encoding.UTF8.GetBytes("Hello from Process 1");
+                        accessor.WriteArray(0, message, 0, message.Length);
+                    }
+                }
+                finally
+                {
+                    // Release the mutex
+                    mutex.ReleaseMutex();
+                }
+            }
+        }
+    }
+}
+
+using System;
+using System.IO.MemoryMappedFiles;
+using System.Threading;
+
+class Process2
+{
+    static void Main()
+    {
+        // Open the named mutex
+        using (Mutex mutex = new Mutex(false, "Global\\MySharedMemoryMutex"))
+        {
+            // Open the memory-mapped file
+            using (MemoryMappedFile mmf = MemoryMappedFile.OpenExisting("Global\\MySharedMemory"))
+            {
+                // Lock the mutex to ensure exclusive access
+                mutex.WaitOne();
+
+                try
+                {
+                    // Read from the shared memory
+                    using (MemoryMappedViewAccessor accessor = mmf.CreateViewAccessor())
+                    {
+                        byte[] buffer = new byte[1024];
+                        accessor.ReadArray(0, buffer, 0, buffer.Length);
+                        string message = System.Text.Encoding.UTF8.GetString(buffer).TrimEnd('\0');
+                        Console.WriteLine("Message from Process 1: " + message);
+                    }
+                }
+                finally
+                {
+                    // Release the mutex
+                    mutex.ReleaseMutex();
+                }
+            }
+        }
+    }
+}
