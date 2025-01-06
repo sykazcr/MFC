@@ -152,3 +152,64 @@ class Process2
 
 https://qiita.com/Nossa/items/947f8985e4d5f13d9bc2
 外部リソースの解放には using ステートメントを使う
+
+
+https://www.bilibili.com/video/BV1p14y1p7XQ?spm_id_from=333.788.videopod.sections&vd_source=679170e463d34386319e9e1d9a327c75
+unity语句解释 第三人称移动和自由视角（你提需求我来试着做）
+
+
+--
+フレームに基づくアニメーションの本体は、CompositionTarget.Renderingイベントです。 下記のコードでは、RenderFrameが、1/60秒ごとに呼び出されます。要素を動かすコードをRenderFrameに記述しておけば、要素が1/60秒ごとに動き、その結果、アニメーションになります。 ちらつきは発生しません。
+        protected void UpdateColor(object sender, EventArgs e)
+        {
+            if (_frameCounter++ == 0)
+            {
+                // Starting timing.
+                _stopwatch.Start();
+            }
+
+            // Determine frame rate in fps (frames per second).
+            _frameRate =  (long)(_frameCounter/_stopwatch.Elapsed.TotalSeconds);
+            if (_frameRate > 0)
+            {
+                // Update elapsed time, number of frames, and frame rate.
+                MyStopwatchLabel.Content = _stopwatch.Elapsed.ToString();
+                MyFrameCounterLabel.Content = _frameCounter.ToString(CultureInfo.InvariantCulture);
+                MyFrameRateLabel.Content = _frameRate.ToString();
+            }
+
+            // Update the background of the canvas by converting MouseMove info to RGB info.
+            _redColor = (byte)(_pt.X/3.0);
+            _blueColor = (byte)(_pt.Y/2.0);
+            MyCanvas.Background = new SolidColorBrush(Color.FromRgb(_redColor, 0x0, _blueColor));
+        }
+--
+
+https://sakura.hippy.jp/meta/
+ メタセコ素材       
+https://www.vector.co.jp/download/file/winnt/art/fh753210.html
+mqoファイルにボーンを入れてモーションを作るツール
+fbx出力機能が改善。
+https://ochakkolab.jp/LABMenu/RokDeBone2.html
+
+
+https://qiita.com/Marimoiro/items/e255eecc265cd5a45025
+.Netのソースコードを読む
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
