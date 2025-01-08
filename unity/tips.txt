@@ -307,15 +307,21 @@ namespace WpfApp1
     }
 }
 
+https://www.youtube.com/watch?v=pJQndtJ2rk0
 
 
+https://github.com/UnderageStudents/ScrollWheel
 
 
+https://www.bilibili.com/video/BV1bEtieyEvo/?spm_id_from=333.337.search-card.all.click&vd_source=679170e463d34386319e9e1d9a327c75
+unity如何实现在已画好的轨迹上移动物体
 
 
+https://www.youtube.com/watch?v=L7VXcZXlhww&list=PLmlTJLlksckis8mq3dQJpjqJTn9xeeE-9&index=4
+Unity Tutorial: How to Move Objects Along a Drawn Path in Unity 2D
 
-
-
+https://www.youtube.com/watch?v=PSiR5eEATfg
+trail Renderer【unity】
 
 
 
