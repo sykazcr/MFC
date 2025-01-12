@@ -323,7 +323,160 @@ Unity Tutorial: How to Move Objects Along a Drawn Path in Unity 2D
 https://www.youtube.com/watch?v=PSiR5eEATfg
 trail Renderer【unity】
 
+----
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+//using UnityEngine.Windows;
 
+public class UndaiControl : MonoBehaviour
+{
+    //public Camera sndcamera;
+    public Transform カメラ位置;
+    public Transform 雲台;
+    public Vector3 previousMousePosition;
+    public float moveSpeed = 0.4f;
+    public float speed = 0.4f;
+    public Vector3 Player_pos;
+
+    public float rotateSpeed = 75.0f;
+    private float vInput;
+    private float hIuput;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        vInput = Input.GetAxis("Vertical");
+        hIuput = Input.GetAxis("Horizontal");
+
+        if (Input.GetKey(KeyCode.UpArrow))
+            transform.position += 雲台.up * speed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.DownArrow))
+            transform.position -= 雲台.up * speed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.D))
+            transform.position += 雲台.right * speed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.A))
+            transform.position -= 雲台.right * speed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.W))
+            transform.position += 雲台.forward * speed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.S))
+            transform.position -= 雲台.forward * speed * Time.deltaTime;
+
+        if (Input.GetMouseButton(0))
+        {
+            雲台.Rotate(Vector3.up * (previousMousePosition - Input.mousePosition).x* moveSpeed);
+            カメラ位置.Rotate(Vector3.right*(previousMousePosition - Input.mousePosition).y* moveSpeed);
+        }
+
+        Vector3 diff = 雲台.position - Player_pos;
+        if (Input.GetKey(KeyCode.LeftArrow))
+        {
+            //this.transform.Translate(Vector3.forward * vInput * moveSpeed * Time.deltaTime);
+            //this.transform.Rotate(Vector3.up * hIuput * rotateSpeed * Time.deltaTime * (-1));
+            雲台.Rotate(Vector3.forward * 3 * moveSpeed);
+        }
+
+        if (Input.GetKey(KeyCode.RightArrow))
+        {
+            //this.transform.Translate(Vector3.forward * vInput * moveSpeed * Time.deltaTime * (-1));
+            //this.transform.Rotate(Vector3.up * hIuput * rotateSpeed * Time.deltaTime);
+            雲台.Rotate(Vector3.forward * (-3) * moveSpeed);
+        }
+
+        previousMousePosition = Input.mousePosition;
+        Player_pos = 雲台.position;
+
+        //this.transform.Rotate(Vector3.up * hIuput * rotateSpeed * Time.deltaTime);
+    }
+}
+
+---
+using System.Collections;
+using System.Collections.Generic;
+using UnityEngine;
+
+public class lineDra : MonoBehaviour
+{
+    public GameObject lineholder;
+    public LineRenderer lineRenderer;
+    public GameObject plane;
+    public bool trig = false;
+    public int idx = 0;
+
+    public Vector3 pointA;
+    public Vector3 pointB;
+    public float lerpTime = 2f;
+    public float currentLerpTime;
+    public bool isLerping=true;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        lineRenderer = lineholder.GetComponent<LineRenderer>();
+        lineRenderer.positionCount = 8;  // 頂点の数
+        lineRenderer.SetPosition(0, new Vector3(24, 0, -18));  // 始点
+        lineRenderer.SetPosition(1, new Vector3(33, 5, 9));  // 終点
+        lineRenderer.SetPosition(2, new Vector3(10, 12, 22));  // 終点
+        lineRenderer.SetPosition(3, new Vector3(-17, 12, 24));  // 終点
+        lineRenderer.SetPosition(4, new Vector3(-35, 15, 10));  // 終点
+        lineRenderer.SetPosition(5, new Vector3(-37, 20, -18));  // 終点
+        lineRenderer.SetPosition(6, new Vector3(-30, 36, -37));  // 終点
+        lineRenderer.SetPosition(7, new Vector3(-12, 40, -45));  // 終点
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.L))
+        {
+            isLerping = true;
+            currentLerpTime = 0f;
+        }
+
+        if (lineRenderer != null && idx < 8-1 && trig)
+        {
+            Vector3 pos = lineRenderer.GetPosition(idx);
+            pointA = lineRenderer.GetPosition(idx);
+            pointB = lineRenderer.GetPosition(idx+1);
+            //plane.transform.Translate(pos);
+//            plane.transform.position = pos;
+
+            if (isLerping)
+            {
+                currentLerpTime += Time.deltaTime;
+                if (currentLerpTime >= lerpTime)
+                {
+                    //currentLerpTime = lerpTime;
+                    //isLerping = false;
+                    currentLerpTime = 0f;
+                    idx++;
+                }
+
+                float perc = currentLerpTime / lerpTime;
+                if (perc>0f)
+                {
+                    plane.transform.position = Vector3.Lerp(pointA, pointB, perc);
+
+                }
+            }
+
+
+//            idx++;
+        }
+
+    }
+}
 
 
 
