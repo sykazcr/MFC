@@ -481,4 +481,124 @@ public class lineDra : MonoBehaviour
 "C:\Users\sykazcr\AppData\Local\Temp\2MVDNv93BLM4rVhpHsdfDsT405e\FDM.exe" --type=utility --field-trial-handle=1716,8122787305451273709,7713133456717190153,131072 --enable-features=WebComponentsV0Enabled --disable-features=SpareRendererForSitePerProcess --lang=ja --service-sandbox-type=network --mojo-platform-channel-handle=2136 /prefetch:8
 
 https://www.race-technology.com/ja/gopro/example-videos
-        
+
+public class UndaiControl : MonoBehaviour
+{
+    //public Camera sndcamera;
+    public GameObject カメラ位置;
+    public GameObject 雲台;
+    public Camera sndCamera;
+    public Vector3 previousMousePosition;
+    public Vector3 currentMousePosition;
+    public float moveSpeed = 0.4f;
+    public float speed = 0.4f;
+    public Vector3 Player_pos;
+    Vector3 雲台固定高度;
+
+    public float rotateSpeed = 75.0f;
+    private float vInput;
+    private float hIuput;
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        雲台固定高度 = 雲台.transform.position;
+        雲台固定高度.y = 80f;
+        雲台.transform.position = 雲台固定高度;
+
+        previousMousePosition = Input.mousePosition;
+        currentMousePosition = Input.mousePosition;
+    }
+    public float MouseZoomSpeed = 15.0f;
+    public float ZoomMinBound = 0.1f;
+    public float ZoomMaxBound = 179.9f;
+
+      
+
+    void CameraFodZoom()
+    {
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+        Zoom(scroll, MouseZoomSpeed);
+    }
+
+
+    void Zoom(float deltaMagnitudeDiff, float speed)
+    {
+        sndCamera.fieldOfView += deltaMagnitudeDiff * speed;
+        sndCamera.fieldOfView = Mathf.Clamp(sndCamera.fieldOfView, ZoomMinBound, ZoomMaxBound);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        CameraFodZoom();
+
+        vInput = Input.GetAxis("Vertical");
+        hIuput = Input.GetAxis("Horizontal");
+        float scroll = Input.GetAxis("Mouse ScrollWheel");
+
+        // 雲台高度固定
+        雲台固定高度 = 雲台.transform.position;
+        if(Mathf.Abs(雲台固定高度.y-80f) > 1)
+        {
+            Debug.Log("雲台固定高度" + 雲台固定高度);
+        }
+        //雲台固定高度.y = 80f;
+        //雲台.transform.position = 雲台固定高度;
+
+
+        if (Input.GetKey(KeyCode.D))
+            transform.position += 雲台.transform.right * speed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.A))
+            transform.position -= 雲台.transform.right * speed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.W))
+            transform.position += 雲台.transform.forward * speed * Time.deltaTime;
+
+        if (Input.GetKey(KeyCode.S))
+            transform.position -= 雲台.transform.forward * speed * Time.deltaTime;
+
+        //回転
+        // 画面外にマウス位置は記憶しない
+        //Debug.Log(Input.mousePosition);
+        float w = Screen.width;
+        float h = Screen.height;
+        if((Input.mousePosition.x < w) && (Input.mousePosition.y < h))
+        {
+            // 画面範囲外から戻る時マウスは一回Reset
+            if (Input.GetMouseButtonDown(0) || Input.GetMouseButtonDown(2))
+            {
+                previousMousePosition = Input.mousePosition;
+            }
+
+            if (Input.GetMouseButton(0))
+            {
+                currentMousePosition = Input.mousePosition;
+                //Debug.Log(previousMousePosition);
+                //Debug.Log(currentMousePosition);
+                Vector3 v = previousMousePosition - Input.mousePosition;
+
+                雲台.transform.Rotate(Vector3.up * v.x * moveSpeed * 0.1f);
+                カメラ位置.transform.Rotate(Vector3.left * v.y * moveSpeed * 0.1f);
+                v.z = 10f;
+                if (Input.GetKey(KeyCode.LeftShift))
+                {
+                    sndCamera.transform.Rotate(Vector3.forward * v.z * moveSpeed * 0.1f);
+                }
+
+                previousMousePosition = Input.mousePosition;
+            }
+            // mouse wheel 雲台移動（天井平面で）
+            if (Input.GetMouseButton(2))
+            {
+                Vector3 v = previousMousePosition - Input.mousePosition;
+                v.y = 雲台固定高度.y;
+                // X軸移動
+                雲台.transform.Translate(Vector3.right * v.x * speed * 0.1f);
+                // Z軸移動
+                雲台.transform.Translate(Vector3.up * v.y * speed * 0.1f);
+                previousMousePosition = Input.mousePosition;
+            }
+        }
+
