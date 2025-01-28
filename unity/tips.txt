@@ -602,3 +602,157 @@ public class UndaiControl : MonoBehaviour
             }
         }
 
+---
+https://qiita.com/nneri/items/e101376b2c159c56b9c4#:~:text=%E3%81%BE%E3%81%9A%E3%80%81%20%E3%81%93%E3%81%A1%E3%82%89%E3%81%AEGithub%E3%81%AE%E3%83%9A%E3%83%BC%E3%82%B8%20%E3%81%AECode%E3%81%8B%E3%82%89zip%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E3%83%80%E3%82%A6%E3%83%B3%E3%83%AD%E3%83%BC%E3%83%89%E3%81%97%E3%81%BE%E3%81%99%E3%80%82%20Blender%E3%81%AE%E3%83%97%E3%83%AA%E3%83%95%E3%82%A1%E3%83%AC%E3%83%B3%E3%82%B9%E3%81%AE%E3%82%A2%E3%83%89%E3%82%AA%E3%83%B3%E3%81%AE%E3%82%A4%E3%83%B3%E3%82%B9%E3%83%88%E3%83%BC%E3%83%AB%E3%81%8B%E3%82%89%E8%90%BD%E3%81%A8%E3%81%97%E3%81%9Fzip%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E9%96%8B%E3%81%8D%E3%81%BE%E3%81%99%E3%80%82%20%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%81%BF%E3%81%9F%E3%81%84%E3%83%95%E3%82%A1%E3%82%A4%E3%83%AB%E3%82%92%E9%81%B8%E3%81%B3%E3%80%81%E5%8F%B3%E5%81%B4%E3%81%AEOrigin,Japan%20Mesh%20Code%E3%81%AB%E4%B8%AD%E5%BF%83%E3%81%AB%E3%81%97%E3%81%9F%E3%81%84%E5%9C%B0%E5%9F%9F%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%82%B3%E3%83%BC%E3%83%89%E3%82%92%E5%85%A5%E3%82%8C%E3%81%BE%E3%81%99%E3%80%82%20%E3%81%93%E3%82%93%E3%81%AA%E6%84%9F%E3%81%98%E3%81%A7%E8%AA%AD%E3%81%BF%E8%BE%BC%E3%82%81%E3%81%BE%E3%81%99%E3%80%82%20%E3%83%87%E3%83%95%E3%82%A9%E3%83%AB%E3%83%88%E3%81%AE%E4%B8%AD%E5%BF%83%E3%81%AE%E5%9C%B0%E5%9F%9F%E3%83%A1%E3%83%83%E3%82%B7%E3%83%A5%E3%82%B3%E3%83%BC%E3%83%89%E3%81%AF%E6%9D%B1%E4%BA%AC%E9%A7%85%E3%81%AE%E3%81%82%E3%81%9F%E3%82%8A
+PlateauのCityGMLをBlenderで読み込むアドオンを書いた
+
+{"id":1,"name":"sample1234567890","rate":2.553}
+{"id":1,"name":"sample1⼲ 567890","rate":2.553}
+
+https://qiita.com/tera1707/items/2a774f4a76c48fc849fa
+[C#] .NET標準のDataContractJsonSerializerクラスを使ってjsonを読み書きする
+using System;
+using System.Collections.Generic;
+using System.IO;
+using System.Runtime.Serialization;
+using System.Runtime.Serialization.Json;
+using System.Text;
+
+namespace JsonTest
+{
+    class Program
+    {
+        static void Main(string[] args)
+        {
+            // デシリアライズ(jsonファイル→クラスオブジェクト)
+            string jsonFilePath = @"TestData.json";
+            var data = new List<PointData>();
+
+            using (var ms = new FileStream(jsonFilePath, FileMode.Open))
+            {
+                var serializer = new DataContractJsonSerializer(typeof(List<PointData>));
+                data = (List<PointData>)serializer.ReadObject(ms);
+            }
+
+            // シリアライズ(クラスオブジェクト→jsonファイル)
+            string jsonFilePathOut = @"TestDataOut.json";
+
+            using (var stream = new MemoryStream())
+            using (var fs = new FileStream(jsonFilePathOut, FileMode.Create))
+            using (var sw = new StreamWriter(fs))
+            {
+                var serializer = new DataContractJsonSerializer(typeof(List<PointData>));
+                serializer.WriteObject(stream, data);
+                var str2write = Encoding.UTF8.GetString(stream.ToArray());
+                sw.Write(str2write);
+            }
+
+            // 終わり
+            Console.WriteLine("json読み書き完了");
+            Console.ReadLine();
+        }
+    }
+
+    [DataContract]
+    public class PointData
+    {
+        [DataMember]
+        public List<double> small { get; set; }
+
+        [DataMember]
+        public List<double> large { get; set; }
+    }
+}
+
+
+[
+    {
+        "small": [
+            123.456,
+            789.012
+        ],
+        "large": [
+            987.654,
+            654.321
+        ]
+    },
+    {
+        "small": [
+            111.456,
+            222.012
+        ],
+        "large": [
+            333.654,
+            444.321
+        ]
+    }
+]
+--
+[{"id":1,"name":"sample1234567890","rate":2.553},{"id":1,"name":"sample1234567890","rate":2.553}]
+   public void OnBtnClick()
+   {
+       Debug.Log("JsonSender");
+       List<Item> items = new List<Item>();
+       // 共有するオブジェクト
+       var item = new Item
+       {
+           ID = 1,
+           Rate = 2.553,
+           Name = "sample1234567890",
+       };
+       items.Add(item);
+       var item2 = new Item
+       {
+           ID = 1,
+           Rate = 2.553,
+           Name = "sample1234567890",
+       };
+       items.Add(item2);
+
+       int pos = 0;
+       var sharedMemory = MemoryMappedFile.CreateNew("share", 1024 * 1024 * 5); // 5MB分領域を確保
+       using (MemoryMappedViewAccessor view = sharedMemory.CreateViewAccessor())
+       {
+           string jsonStr = JsonUtility.Serialize(items);
+           char[] jsonCharArray = jsonStr.ToCharArray(0, jsonStr.Length); // C#のcharは2byte
+           view.Write(0, jsonCharArray.Length);
+           view.WriteArray(sizeof(int), jsonCharArray, 0, jsonCharArray.Length);
+
+           //string jsonStr = JsonUtility.Serialize(item);
+           //char[] jsonCharArray = jsonStr.ToCharArray(0, jsonStr.Length); // C#のcharは2byte
+
+           //// 受け取り手はサイズが分からないので先頭にサイズを書いておく
+           //view.Write(0, jsonCharArray.Length);
+
+           //// Json文字列を共有メモリに書き込み
+           //view.WriteArray(sizeof(int), jsonCharArray, 0, jsonCharArray.Length);
+
+           //pos = sizeof(int) + jsonCharArray.Length * sizeof(char); //C#のcharは2byte
+           //view.Write(pos, jsonCharArray.Length);
+
+           //pos += sizeof(int);
+           //// Json文字列を共有メモリに書き込み
+           //view.WriteArray(pos, jsonCharArray, 0, jsonCharArray.Length);
+           //pos += jsonCharArray.Length * sizeof(char);
+       }
+
+       Console.ReadLine(); // プロセスが終了するとデータが消えるのでここで止めておく
+
+       using (sharedMemory) { }
+   }
+   
+       public void OnReceiverBtnClick()
+    {
+        List<Item> items = new List<Item>();
+        Debug.Log("OnReceiverBtnClick");
+        string json = ReadDataByJson();
+
+        // 読み取ったデータをデシリアライズしてオブジェクトに戻す
+        //var item = JsonUtility.Deserialize<Item>(json);
+        items = JsonUtility.Deserialize<List<Item>>(json);
+
+        Console.WriteLine($"{items}");
+        // > ID=1, Rate=2.553, Name=sample1234567890
+
+        //json = ReadDataByJson(sizeof(int)+47*2);
+    }
