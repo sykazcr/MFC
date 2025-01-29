@@ -756,3 +756,14 @@ namespace JsonTest
 
         //json = ReadDataByJson(sizeof(int)+47*2);
     }
+--
+    void Start()
+    {
+        Debug.Log("Start : " + gameObject.name);
+        if(gameObject.name == "Slider")
+        {
+            slider = gameObject.GetComponent<Slider>();
+            Debug.Log("Start : " + slider);
+            slider.maxValue = 100;
+        }
+    }
