@@ -767,3 +767,8 @@ namespace JsonTest
             slider.maxValue = 100;
         }
     }
+--
+https://shibuya24.info/entry/unity-mesh-dynamic-vertex-color
+
+https://www.youtube.com/watch?v=fv5OqLD3lEY
+【Unity】Meshクラス入門・ラインを描いてみよう！
