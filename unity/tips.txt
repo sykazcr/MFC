@@ -772,3 +772,8 @@ https://shibuya24.info/entry/unity-mesh-dynamic-vertex-color
 
 https://www.youtube.com/watch?v=fv5OqLD3lEY
 【Unity】Meshクラス入門・ラインを描いてみよう！
+--
+https://qiita.com/OKsaiyowa/items/3a32537a5158cf749074
+【Unity(C#)】TrailRendererにMeshColliderを付与する
+https://qiita.com/OKsaiyowa/items/a7c679b06ddd2825e007
+【Unity(C#)】JsonUtilityを使ったセーブ、ロードの実装
