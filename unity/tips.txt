@@ -777,3 +777,374 @@ https://qiita.com/OKsaiyowa/items/3a32537a5158cf749074
 【Unity(C#)】TrailRendererにMeshColliderを付与する
 https://qiita.com/OKsaiyowa/items/a7c679b06ddd2825e007
 【Unity(C#)】JsonUtilityを使ったセーブ、ロードの実装
+
+
+-		vertices	UnityEngine.Vector3[8]	UnityEngine.Vector3[]
++		[0]	"(0.00, 1.00, 1.00)"	UnityEngine.Vector3
++		[1]	"(2.00, 1.00, 1.00)"	UnityEngine.Vector3
++		[2]	"(2.00, 1.00, 1.00)"	UnityEngine.Vector3
++		[3]	"(0.00, 1.00, 1.00)"	UnityEngine.Vector3
++		[4]	"(0.00, 1.00, 1.00)"	UnityEngine.Vector3
++		[5]	"(2.00, 1.00, 1.00)"	UnityEngine.Vector3
++		[6]	"(2.00, 1.00, 1.00)"	UnityEngine.Vector3
++		[7]	"(0.00, 1.00, 1.00)"	UnityEngine.Vector3
+   Properties
+   {
+       _MainTex ("Texture", 2D) = "white" {}
+   }
+
+https://gametukurikata.com/customize/sceneview/gizmos
+UnityのGizmosを使ってシーンビューで視覚的なデバッグの補助をする
+
+--
+
+using System.Collections.Generic;
+using System.Text;
+using UnityEditor;
+using UnityEngine;
+public static class EditorMeshInfoDrawer
+{
+    private const string MENU_PATH = "Tools/Scene Drawer/Show Mesh Info";
+
+    private static readonly StringBuilder _builder = new StringBuilder();
+    private static GUIStyle _style;
+    [MenuItem(MENU_PATH)]
+    private static void MenuAction()
+    {
+        EditorPrefs.SetBool(MENU_PATH, !EditorPrefs.GetBool(MENU_PATH, false));
+    }
+    [MenuItem(MENU_PATH, true)]
+    private static bool MenuValidate()
+    {
+        Menu.SetChecked(MENU_PATH, EditorPrefs.GetBool(MENU_PATH, false));
+        return true;
+    }
+    [DrawGizmo(GizmoType.Selected)]
+    public static void DrawGizmo(MeshFilter meshFilter, GizmoType type)
+    {
+        if (!EditorPrefs.GetBool(MENU_PATH, false))
+            return;
+        if (meshFilter.sharedMesh == null)
+            return;
+        if (_style == null)
+        {
+            _style = new GUIStyle(GUI.skin.window);
+            _style.padding.bottom -= 27;
+            _style.padding.left -= 7;
+            _style.padding.right -= 7;
+            _style.margin = new RectOffset();
+            _style.richText = true;
+        }
+        // 同じ座標が存在するのでキャッシュ
+        var dic = new Dictionary<Vector3, List<int>>();
+        var mesh = meshFilter.sharedMesh;
+        //for (var index = 0; index < mesh.uv.Length; index++)
+        //{
+        //    var pos = meshFilter.transform.position + meshFilter.transform.rotation * mesh.vertices[index];
+        //    if (!dic.ContainsKey(pos))
+        //        dic.Add(pos, new List<int>());
+        //    dic[pos].Add(index);
+        //}
+        for (var index = 0; index < mesh.vertices.Length; index++)
+        {
+            var pos = meshFilter.transform.position + meshFilter.transform.rotation * mesh.vertices[index];
+            if (!dic.ContainsKey(pos))
+                dic.Add(pos, new List<int>());
+            dic[pos].Add(index);
+        }
+        foreach (var pair in dic)
+        {
+            _builder.Clear();
+            foreach (var index in pair.Value)
+                if (mesh.colors.Length > index)
+                {
+                    var color = ColorUtility.ToHtmlStringRGB(mesh.colors[index]);
+                    _builder.AppendLine($"<color=#{color}>uv:{mesh.vertices[index]}</color>");
+                }
+                else
+                {
+                    _builder.AppendLine("" + mesh.vertices[index]);
+                   // _builder.AppendLine("vertices:" + mesh.vertices[index]);
+                }
+            Handles.Label(pair.Key, _builder.ToString(), _style);
+        }
+    }
+}
+--
+using Unity.VisualScripting;
+using UnityEngine;
+using UnityEngine.UIElements;
+
+public class LineRendererToMesh : MonoBehaviour
+{
+    public LineRenderer lineRenderer;
+    public Material meshMaterial;
+
+    void Start()
+    {
+        // Create a LineRenderer if it doesn't exist
+        if (lineRenderer == null)
+        {
+            lineRenderer = gameObject.AddComponent<LineRenderer>();
+        }
+
+        // Set LineRenderer properties
+        lineRenderer.positionCount = 5;  // Number of points in the line
+        lineRenderer.SetPosition(0, new Vector3(0, 0, 0));
+        lineRenderer.SetPosition(1, new Vector3(1, 1, 0));
+        lineRenderer.SetPosition(2, new Vector3(2, 0, 0));
+        lineRenderer.SetPosition(3, new Vector3(3, 1, 0));
+        lineRenderer.SetPosition(4, new Vector3(4, 0, 0));
+        lineRenderer.widthMultiplier = 0.1f;
+        lineRenderer.startWidth = 0.5f;
+        lineRenderer.endWidth = 0.5f;
+
+        // Bake the LineRenderer into a Mesh
+        for (int i = 0; i < lineRenderer.positionCount-1; i++)
+        {
+            Mesh mesh = new Mesh();
+            //BakeLineRendererMesh(lineRenderer, mesh);
+            //BakeOneSegmentMeshDiagonal(lineRenderer, mesh, i);
+            BakeOneSegmentMesh(lineRenderer, mesh, i);
+
+            // Create a GameObject to hold the mesh
+            GameObject meshObject = new GameObject("LineRendererMesh"+i.ToString());
+            MeshFilter meshFilter = meshObject.AddComponent<MeshFilter>();
+            MeshRenderer meshRenderer = meshObject.AddComponent<MeshRenderer>();
+            meshFilter.mesh = mesh;
+            Material meshMaterial = new Material(Shader.Find("Standard"));
+            meshRenderer.material = meshMaterial;  // Assign a material to the mesh
+
+            // Add a MeshCollider and assign the mesh to it
+            MeshCollider meshCollider = meshObject.AddComponent<MeshCollider>();
+            meshCollider.sharedMesh = mesh;
+        }
+    }
+    void BakeOneSegmentMesh(LineRenderer lr, Mesh mesh, int startPosIndex)
+    {
+        Vector3[] all_line_positions = new Vector3[lr.positionCount];
+        lr.GetPositions(all_line_positions);
+
+        Vector3[] positions = new Vector3[2];
+        positions[0] = all_line_positions[startPosIndex];
+        positions[1] = all_line_positions[startPosIndex + 1];
+
+        Vector3 relativePos = positions[1] - positions[0];
+        float distance1 = Vector3.Distance(positions[1], positions[0]);
+        Quaternion rotation = Quaternion.LookRotation(relativePos, Vector3.up);
+
+        Vector3 eulerAngles = rotation.eulerAngles;
+
+        //float angle = -30f; // Angle in degrees
+        ////Vector3 axis = Vector3.up; // Axis of rotation (e.g., Y-axis)
+        //Vector3 axis = Vector3.forward; // Axis of rotation (e.g., Z-axis)
+
+        //Quaternion rotation2 = Quaternion.AngleAxis(angle, axis);
+        //Debug.Log("Quaternion2: " +  rotation2);
+
+        Vector3 center = (positions[0] + positions[1]) / 2;
+        Vector3 size = new Vector3(lr.startWidth / 2, lr.startWidth, distance1 / 2 );
+
+        Vector3[] vertices = new Vector3[4 * 2];
+        //float x, y, z;
+        //float angle = eulerAngles.x*Mathf.Deg2Rad;
+        //x = -size.x + Mathf.Abs(size.y * Mathf.Sin(angle));
+        //y = -size.y * Mathf.Cos(angle);
+        //vertices[0] = center + rotation * (new Vector3(x, y, size.z * 2) / 2);
+
+        //x = size.x + Mathf.Abs(size.y * Mathf.Sin(angle));
+        //y = -size.y * Mathf.Cos(angle);
+        //vertices[1] = center + rotation * (new Vector3(x, y, size.z * 2) / 2);
+
+        //x = size.x + Mathf.Abs(size.y * Mathf.Sin(angle));
+        //y = size.y * Mathf.Cos(angle);
+        //vertices[2] = center + rotation * (new Vector3(x, y, size.z * 2) / 2);
+
+        //x = -size.x + Mathf.Abs(size.y * Mathf.Sin(angle));
+        //y = size.y * Mathf.Cos(angle);
+        //vertices[3] = center + rotation * (new Vector3(x, y, size.z * 2) / 2);
+        //vertices[0] = center + rotation * (new Vector3(-size.x, -size.y, size.z * 2-0.5f) / 2);
+        //vertices[1] = center + rotation * (new Vector3(size.x, -size.y, size.z * 2- 0.5f) / 2);
+        //vertices[2] = center + rotation * (new Vector3(size.x, size.y, size.z * 2+ 0.5f) / 2);
+        //vertices[3] = center + rotation * (new Vector3(-size.x, size.y, size.z * 2+ 0.5f) / 2);
+
+        ////
+        //vertices[4] = center + rotation * (new Vector3(-size.x, -size.y, -size.z * 2- 0.5f) / 2);
+        //vertices[5] = center + rotation * (new Vector3(size.x, -size.y, -size.z * 2- 0.5f) / 2);
+        //vertices[6] = center + rotation * (new Vector3(size.x, size.y, -size.z * 2+ 0.5f) / 2);
+        //vertices[7] = center + rotation * (new Vector3(-size.x, size.y, -size.z * 2+ 0.5f) / 2);
+
+        vertices[0] = center + rotation * (new Vector3(-size.x, -size.y, size.z * 2) / 2);
+        vertices[1] = center + rotation * (new Vector3(size.x, -size.y, size.z * 2) / 2);
+        vertices[2] = center + rotation * (new Vector3(size.x, size.y, size.z * 2) / 2);
+        vertices[3] = center + rotation * (new Vector3(-size.x, size.y, size.z * 2) / 2);
+
+        //
+        vertices[4] = center + rotation * (new Vector3(-size.x, -size.y, -size.z * 2) / 2);
+        vertices[5] = center + rotation * (new Vector3(size.x, -size.y, -size.z * 2) / 2);
+        vertices[6] = center + rotation * (new Vector3(size.x, size.y, -size.z * 2) / 2);
+        vertices[7] = center + rotation * (new Vector3(-size.x, size.y, -size.z * 2) / 2);
+
+        // Example: Create a simple mesh from the positions
+        int[] triangles = new int[]
+        {
+            // Front
+            0, 1, 5,
+            0, 5, 4,
+            // Back
+            2, 3, 7,
+            2, 7, 6,
+            // Left
+            0, 4, 7,
+            0, 7, 3,
+            // Right
+            1, 2, 6,
+            1, 6, 5,
+            // Bottom
+            0, 2, 1,
+            0, 3, 2,
+            // Top
+            4, 5, 6,
+            4, 6, 7,
+        };
+
+        Vector2[] uvs = new Vector2[vertices.Length];
+
+        for (int i = 0; i < 4; i++)
+        {
+            uvs[i * 2] = new Vector2((float)i / (vertices.Length - 1), 1);
+            uvs[i * 2 + 1] = new Vector2((float)i / (vertices.Length - 1), 0);
+        }
+
+        for (int i = 0; i < 2 - 1; i++)
+        {
+            int index = i * 6;
+            triangles[index] = i * 2;
+            triangles[index + 1] = i * 2 + 1;
+            triangles[index + 2] = i * 2 + 2;
+            triangles[index + 3] = i * 2 + 2;
+            triangles[index + 4] = i * 2 + 1;
+            triangles[index + 5] = i * 2 + 3;
+        }
+
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        mesh.uv = uvs;
+        mesh.RecalculateNormals();
+    }
+
+    void BakeOneSegmentMeshDiagonal(LineRenderer lr, Mesh mesh, int startPosIndex)
+    {
+        Vector3[] all_line_positions = new Vector3[lr.positionCount];
+        lr.GetPositions(all_line_positions);
+
+        Vector3[] positions = new Vector3[2];
+        positions[0] = all_line_positions[startPosIndex];
+        positions[1] = all_line_positions[startPosIndex + 1];
+
+        // Example: Create a simple mesh from the positions
+        Vector3[] vertices = new Vector3[2 * 2];
+        int[] triangles = new int[(2 - 1) * 6];
+        Vector2[] uvs = new Vector2[vertices.Length];
+
+        for (int i = 0; i < 2; i++)
+        {
+            vertices[i * 2] = positions[i] + Vector3.up * lr.startWidth * 0.5f;
+            vertices[i * 2 + 1] = positions[i] - Vector3.up * lr.startWidth * 0.5f;
+            uvs[i * 2] = new Vector2((float)i / (2 - 1), 1);
+            uvs[i * 2 + 1] = new Vector2((float)i / (2 - 1), 0);
+        }
+
+        for (int i = 0; i < 2 - 1; i++)
+        {
+            int index = i * 6;
+            triangles[index] = i * 2;
+            triangles[index + 1] = i * 2 + 1;
+            triangles[index + 2] = i * 2 + 2;
+            triangles[index + 3] = i * 2 + 2;
+            triangles[index + 4] = i * 2 + 1;
+            triangles[index + 5] = i * 2 + 3;
+        }
+
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        mesh.uv = uvs;
+        mesh.RecalculateNormals();
+    }
+    void BakeLineRendererMesh(LineRenderer lr, Mesh mesh)
+    {
+        Vector3[] positions = new Vector3[lr.positionCount];
+        lr.GetPositions(positions);
+
+        // Example: Create a simple mesh from the positions
+        Vector3[] vertices = new Vector3[positions.Length * 2];
+        int[] triangles = new int[(positions.Length - 1) * 6];
+        Vector2[] uvs = new Vector2[vertices.Length];
+
+        for (int i = 0; i < positions.Length; i++)
+        {
+            vertices[i * 2] = positions[i] + Vector3.up * lr.widthMultiplier * 0.5f;
+            vertices[i * 2 + 1] = positions[i] - Vector3.up * lr.widthMultiplier * 0.5f;
+            uvs[i * 2] = new Vector2((float)i / (positions.Length - 1), 1);
+            uvs[i * 2 + 1] = new Vector2((float)i / (positions.Length - 1), 0);
+        }
+
+        for (int i = 0; i < positions.Length - 1; i++)
+        {
+            int index = i * 6;
+            triangles[index] = i * 2;
+            triangles[index + 1] = i * 2 + 1;
+            triangles[index + 2] = i * 2 + 2;
+            triangles[index + 3] = i * 2 + 2;
+            triangles[index + 4] = i * 2 + 1;
+            triangles[index + 5] = i * 2 + 3;
+        }
+
+        mesh.vertices = vertices;
+        mesh.triangles = triangles;
+        mesh.uv = uvs;
+        mesh.RecalculateNormals();
+    }
+
+    void SetImage()
+    {
+        //MeshFilter meshFilter;
+        //MeshRenderer meshRenderer;
+        //Mesh mesh;
+        ////GameObject meshObject;
+        //Material[] materials;
+        //GameObject meshObject = new GameObject("LineRendererMesh");
+        //meshFilter = meshObject.AddComponent<MeshFilter>();
+        //meshRenderer = meshObject.AddComponent<MeshRenderer>();
+        
+        //mesh = new Mesh();
+
+        //if (meshFilter == null || meshRenderer == null)
+        //{
+        //    Debug.LogErrorFormat("meshFilter: {0}, meshRenderer:{1}", meshFilter, meshRenderer);
+        //}
+
+        //Vector3[] Points = new Vector3[]
+        //{
+        //    new Vector3(-1, -1, 0),
+        //    new Vector3(-1, 1, 0),
+        //    new Vector3(1, 1, 0),
+        //    new Vector3(1, -1, 0),
+        //};
+
+        //mesh.vertices = Points;
+        //mesh.subMeshCount = 1;
+        //mesh.SetTriangles(new int[] { 0, 1, 2, 3, 0, 2 }, 0);
+
+        //mesh.uv = new Vector2[]
+        //{
+        //    new Vector2(0, 0),
+        //    new Vector2(0, 1),
+        //    new Vector2(1, 1),
+        //    new Vector2(1, 0),
+        //};
+
+        ////meshRenderer.sharedMaterials = materials;
+        //meshFilter.sharedMesh = mesh;
+    }
+}
