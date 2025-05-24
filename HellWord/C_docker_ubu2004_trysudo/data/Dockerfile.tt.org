@@ -1,0 +1,30 @@
+# Use Ubuntu 20.04 as the base image
+FROM ubuntu:20.04
+
+# Set environment variables to avoid interactive prompts during package installation
+ENV DEBIAN_FRONTEND=noninteractive
+
+# Update package lists and install necessary packages
+RUN apt-get update && apt-get install -y \
+    sudo \
+    curl \
+    vim \
+    && rm -rf /var/lib/apt/lists/*
+
+# Create myuser and mygroup with the same UID/GID as the host system
+ARG USER_ID=1001
+ARG GROUP_ID=1001
+RUN groupadd -g ${GROUP_ID} comm2 && \
+    useradd -m -u ${USER_ID} -g comm2 -s /bin/bash comm2 && \
+    echo "comm2 ALL=(ALL) NOPASSWD: ALL" >> /etc/sudoers
+
+# Set the user for the container
+USER comm2
+
+# Set the default working directory
+WORKDIR /home/comm2
+
+# Command to keep the container running
+CMD ["/bin/bash"]
+
+

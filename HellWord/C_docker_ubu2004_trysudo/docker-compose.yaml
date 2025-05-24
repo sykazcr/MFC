@@ -1,0 +1,22 @@
+#version: '3.9'
+
+services:
+  my_service:
+    image: myubuntu_sudo_try0d
+    build:
+      context: .
+      dockerfile: Dockerfile
+      args:
+        USER_ID: 1001 
+        GROUP_ID: 1001 
+    container_name: my_container_sudo_try0c
+    stdin_open: true
+    tty: true
+    volumes:
+      - /home/comm2:/home/comm2
+    environment:
+      - USER_ID= 1001
+      - GROUP_ID= 1001
+    user: "1001:1001"
+    #    user: "${USER_ID}:${GROUP_ID}"
+
