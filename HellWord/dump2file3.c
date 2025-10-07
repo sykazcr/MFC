@@ -14,6 +14,32 @@ void *g_p_datas = NULL;
 static char *make_timestamp_filename(void) {
     struct timespec ts;
     if (clock_gettime(CLOCK_REALTIME, &ts) != 0) return NULL;
+
+    struct tm tm;
+    if (localtime_r(&ts.tv_sec, &tm) == NULL) return NULL;
+
+    char tbuf[32];
+    if (strftime(tbuf, sizeof tbuf, "%Y%m%d_%H%M%S", &tm) == 0) return NULL;
+
+    int ms = (int)(ts.tv_nsec / 1000000);
+
+    /* compute required size, allocate, then write */
+    int needed = snprintf(NULL, 0, "%s_%03d.txt", tbuf, ms);
+    if (needed < 0) return NULL;
+    size_t size = (size_t)needed + 1;
+    char *name = malloc(size);
+    if (!name) return NULL;
+    if (snprintf(name, size, "%s_%03d.txt", tbuf, ms) < 0) {
+        free(name);
+        return NULL;
+    }
+    return name;
+}
+
+#if 0
+static char *make_timestamp_filename(void) {
+    struct timespec ts;
+    if (clock_gettime(CLOCK_REALTIME, &ts) != 0) return NULL;
     struct tm tm;
     if (localtime_r(&ts.tv_sec, &tm) == NULL) return NULL;
     char buf[64];
@@ -24,6 +50,7 @@ static char *make_timestamp_filename(void) {
     snprintf(name, 64, "%s_%03d.txt", buf, ms);
     return name;
 }
+#endif
 
 /* Dump every 4 bytes as one hex line "0x12345678\n". Returns 0 on success. */
 int dump_all_data_to_file(void) {
