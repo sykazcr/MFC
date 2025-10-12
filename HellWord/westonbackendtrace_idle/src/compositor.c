@@ -2896,7 +2896,7 @@ output_repaint_timer_arm(struct weston_compositor *compositor)
 	bool any_should_repaint = false;
 	struct timespec now;
 	int64_t msec_to_next = INT64_MAX;
-    weston_log("[TTT][%s][%d] \n", __func__, __LINE__);
+    weston_log("[TTT][%s][%d][A] \n", __func__, __LINE__);
 
 	weston_compositor_read_presentation_clock(compositor, &now);
 
@@ -2912,6 +2912,24 @@ output_repaint_timer_arm(struct weston_compositor *compositor)
 			msec_to_next = msec_to_this;
 
 		any_should_repaint = true;
+#if 1 // for debug
+	/* compute human-friendly values for logging */
+	double now_pclock_s = now.tv_sec + now.tv_nsec / 1e9;
+	double target_pclock_s = 0.0;
+	int64_t delta_ms_log = 0;
+
+	if (any_should_repaint) {
+	    /* find earliest target (we already computed msec_to_next from output->next_repaint) */
+	    /* convert the selected absolute target time to seconds for logging */
+	    target_pclock_s = output->next_repaint.tv_sec + output->next_repaint.tv_nsec / 1e9;
+
+	    /* delta between target and now in ms (signed) for logging */
+	    delta_ms_log = (int64_t)((target_pclock_s - now_pclock_s) * 1000.0);
+
+	    weston_log("[TTT][%s][%d]b now_pclock=%.6f target_pclock=%.6f delta_ms=%+" PRId64 "\n",
+	               __func__, __LINE__, now_pclock_s, target_pclock_s, delta_ms_log);
+	}
+#endif
 	}
 
 	if (!any_should_repaint)
@@ -2937,10 +2955,46 @@ output_repaint_timer_handler(void *data)
 	struct timespec now;
 	void *repaint_data = NULL;
 	int ret = 0;
-    weston_log("[TTT][%s][%d] \n", __func__, __LINE__);
+    weston_log("[TTT][%s][%d][A] \n", __func__, __LINE__);
 
 	weston_compositor_read_presentation_clock(compositor, &now);
 
+#if 1  // for debug
+/* after calling weston_compositor_read_presentation_clock(compositor, &now); */
+	{
+	    struct timespec min_target_ts;
+	    bool found = false;
+	    struct weston_output *o;
+	    double now_pclock_s, target_pclock_s;
+	    int64_t diff_ms;
+
+	    /* find earliest next_repaint among outputs */
+	    wl_list_for_each(o, &compositor->output_list, link) {
+	        if (o->repaint_status != REPAINT_SCHEDULED)
+	            continue;
+	        if (!found) {
+	            min_target_ts = o->next_repaint;
+	            found = true;
+	        } else {
+	        	//msec_rel = timespec_sub_to_msec(&output->next_repaint, &now);
+	            if (timespec_sub_to_msec(&o->next_repaint, &min_target_ts) < 0)
+	                min_target_ts = o->next_repaint;
+	        }
+	    }
+
+	    now_pclock_s = now.tv_sec + now.tv_nsec / 1e9;
+
+	    if (found) {
+	        target_pclock_s = min_target_ts.tv_sec + min_target_ts.tv_nsec / 1e9;
+	        diff_ms = (int64_t)((now_pclock_s - target_pclock_s) * 1000.0);
+	        weston_log("[TTT][%s][%d][handler] now_pclock=%.6f target_pclock=%.6f now-target_ms=%+" PRId64 "\n",
+	                   __func__, __LINE__, now_pclock_s, target_pclock_s, diff_ms);
+	    } else {
+	        weston_log("[TTT][%s][%d][handler] now_pclock=%.6f no scheduled target\n",
+	                   __func__, __LINE__, now_pclock_s);
+	    }
+	}
+#endif
 	if (compositor->backend->repaint_begin)
 		repaint_data = compositor->backend->repaint_begin(compositor);
 
