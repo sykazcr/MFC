@@ -50,6 +50,9 @@
 #include <gst/wayland/wayland.h>
 #include <gst/video/videooverlay.h>
 
+#define GST_INFO_OBJ_FNLOC(obj, fmt, ...) \
+  GST_INFO_OBJECT(obj, "%s %s: " fmt, G_STRFUNC, G_STRLOC, ##__VA_ARGS__)
+
 /* signals */
 enum
 {
@@ -154,11 +157,15 @@ gst_wayland_pool_class_init (GstWaylandPoolClass * klass)
 {
   GstBufferPoolClass *pool_class = GST_BUFFER_POOL_CLASS (klass);
   pool_class->get_options = gst_wayland_pool_get_options;
+	
+GST_INFO_OBJ_FNLOC(pool_class, "[WWW] ");
+
 }
 
 static void
 gst_wayland_pool_init (GstWaylandPool * pool)
 {
+GST_INFO_OBJ_FNLOC(pool, "[WWW] ");
 }
 
 static void
@@ -173,6 +180,7 @@ gst_wayland_sink_class_init (GstWaylandSinkClass * klass)
   gstelement_class = (GstElementClass *) klass;
   gstbasesink_class = (GstBaseSinkClass *) klass;
   gstvideosink_class = (GstVideoSinkClass *) klass;
+GST_INFO_OBJ_FNLOC(gstvideosink_class, "[WWW] ");
 
   gobject_class->set_property = gst_wayland_sink_set_property;
   gobject_class->get_property = gst_wayland_sink_get_property;
@@ -215,6 +223,8 @@ gst_wayland_sink_init (GstWaylandSink * sink)
 {
   g_mutex_init (&sink->display_lock);
   g_mutex_init (&sink->render_lock);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
+
 }
 
 static void
@@ -222,6 +232,7 @@ gst_wayland_sink_set_fullscreen (GstWaylandSink * sink, gboolean fullscreen)
 {
   if (fullscreen == sink->fullscreen)
     return;
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   g_mutex_lock (&sink->render_lock);
   sink->fullscreen = fullscreen;
@@ -234,6 +245,7 @@ gst_wayland_sink_get_property (GObject * object,
     guint prop_id, GValue * value, GParamSpec * pspec)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (object);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   switch (prop_id) {
     case PROP_DISPLAY:
@@ -257,6 +269,7 @@ gst_wayland_sink_set_property (GObject * object,
     guint prop_id, const GValue * value, GParamSpec * pspec)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (object);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   switch (prop_id) {
     case PROP_DISPLAY:
@@ -279,6 +292,7 @@ static void
 gst_wayland_sink_finalize (GObject * object)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (object);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] Finalizing the sink..");
 
   GST_DEBUG_OBJECT (sink, "Finalizing the sink..");
 
@@ -306,6 +320,7 @@ gst_wayland_sink_set_display_from_context (GstWaylandSink * sink,
 {
   struct wl_display *display;
   GError *error = NULL;
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   display = gst_wayland_display_handle_context_get_handle (context);
   sink->display = gst_wl_display_new_existing (display, FALSE, &error);
@@ -326,6 +341,7 @@ gst_wayland_sink_find_display (GstWaylandSink * sink)
   GstContext *context = NULL;
   GError *error = NULL;
   gboolean ret = TRUE;
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   g_mutex_lock (&sink->display_lock);
 
@@ -376,6 +392,7 @@ gst_wayland_sink_change_state (GstElement * element, GstStateChange transition)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (element);
   GstStateChangeReturn ret = GST_STATE_CHANGE_SUCCESS;
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   switch (transition) {
     case GST_STATE_CHANGE_NULL_TO_READY:
@@ -434,6 +451,7 @@ static void
 gst_wayland_sink_set_context (GstElement * element, GstContext * context)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (element);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   if (gst_context_has_context_type (context,
           GST_WAYLAND_DISPLAY_HANDLE_CONTEXT_TYPE)) {
@@ -459,6 +477,7 @@ gst_wayland_sink_get_caps (GstBaseSink * bsink, GstCaps * filter)
   GstCaps *caps;
 
   sink = GST_WAYLAND_SINK (bsink);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   caps = gst_pad_get_pad_template_caps (GST_VIDEO_SINK_PAD (sink));
   caps = gst_caps_make_writable (caps);
@@ -523,6 +542,7 @@ gst_wayland_create_pool (GstWaylandSink * sink, GstCaps * caps)
   GstStructure *structure;
   gsize size = sink->video_info.size;
   GstAllocator *alloc;
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   pool = g_object_new (gst_wayland_pool_get_type (), NULL);
 
@@ -548,6 +568,7 @@ gst_wayland_sink_set_caps (GstBaseSink * bsink, GstCaps * caps)
   GstVideoFormat format;
 
   sink = GST_WAYLAND_SINK (bsink);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   GST_DEBUG_OBJECT (sink, "set caps %" GST_PTR_FORMAT, caps);
 
@@ -600,6 +621,7 @@ gst_wayland_sink_propose_allocation (GstBaseSink * bsink, GstQuery * query)
   GstBufferPool *pool = NULL;
   gboolean need_pool;
   GstAllocator *alloc;
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   gst_query_parse_allocation (query, &caps, &need_pool);
 
@@ -622,6 +644,7 @@ static void
 frame_redraw_callback (void *data, struct wl_callback *callback, uint32_t time)
 {
   GstWaylandSink *sink = data;
+GST_INFO_OBJ_FNLOC(sink, "[WWW] frame_redraw_cb");
 
   GST_LOG ("frame_redraw_cb");
 
@@ -644,6 +667,7 @@ render_last_buffer (GstWaylandSink * sink, gboolean redraw)
   const GstVideoInfo *info = NULL;
   struct wl_surface *surface;
   struct wl_callback *callback;
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   wlbuffer = gst_buffer_get_wl_buffer (sink->last_buffer);
   surface = gst_wl_window_get_wl_surface (sink->window);
@@ -663,6 +687,7 @@ static void
 on_window_closed (GstWlWindow * window, gpointer user_data)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (user_data);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   /* Handle window closure by posting an error on the bus */
   GST_ELEMENT_ERROR (sink, RESOURCE, NOT_FOUND,
@@ -680,6 +705,7 @@ gst_wayland_sink_show_frame (GstVideoSink * vsink, GstBuffer * buffer)
   GstVideoInfo old_vinfo;
   GstMemory *mem;
   struct wl_buffer *wbuf = NULL;
+GST_INFO_OBJ_FNLOC(sink, "[WWW] show frame start");
 
   GstFlowReturn ret = GST_FLOW_OK;
 
@@ -897,6 +923,8 @@ dst_map_failed:
 done:
   {
     g_mutex_unlock (&sink->render_lock);
+  	GST_INFO_OBJ_FNLOC(sink, "[WWW] show frame done");
+
     return ret;
   }
 }
@@ -907,6 +935,9 @@ gst_wayland_sink_videooverlay_init (GstVideoOverlayInterface * iface)
   iface->set_window_handle = gst_wayland_sink_set_window_handle;
   iface->set_render_rectangle = gst_wayland_sink_set_render_rectangle;
   iface->expose = gst_wayland_sink_expose;
+
+	GST_INFO_OBJ_FNLOC(iface, "[WWW]");
+
 }
 
 static void
@@ -916,6 +947,7 @@ gst_wayland_sink_set_window_handle (GstVideoOverlay * overlay, guintptr handle)
   struct wl_surface *surface = (struct wl_surface *) handle;
 
   g_return_if_fail (sink != NULL);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   if (sink->window != NULL) {
     GST_WARNING_OBJECT (sink, "changing window handle is not supported");
@@ -956,6 +988,7 @@ gst_wayland_sink_set_render_rectangle (GstVideoOverlay * overlay,
     gint x, gint y, gint w, gint h)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (overlay);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   g_return_if_fail (sink != NULL);
 
@@ -978,6 +1011,7 @@ static void
 gst_wayland_sink_expose (GstVideoOverlay * overlay)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (overlay);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   g_return_if_fail (sink != NULL);
 
@@ -996,6 +1030,8 @@ gst_wayland_sink_waylandvideo_init (GstWaylandVideoInterface * iface)
 {
   iface->begin_geometry_change = gst_wayland_sink_begin_geometry_change;
   iface->end_geometry_change = gst_wayland_sink_end_geometry_change;
+GST_INFO_OBJ_FNLOC(iface, "[WWW] ");
+
 }
 
 static void
@@ -1003,6 +1039,7 @@ gst_wayland_sink_begin_geometry_change (GstWaylandVideo * video)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (video);
   g_return_if_fail (sink != NULL);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   g_mutex_lock (&sink->render_lock);
   if (!sink->window || !sink->window->area_subsurface) {
@@ -1021,6 +1058,7 @@ gst_wayland_sink_end_geometry_change (GstWaylandVideo * video)
 {
   GstWaylandSink *sink = GST_WAYLAND_SINK (video);
   g_return_if_fail (sink != NULL);
+GST_INFO_OBJ_FNLOC(sink, "[WWW] ");
 
   g_mutex_lock (&sink->render_lock);
   if (!sink->window || !sink->window->area_subsurface) {
@@ -1037,7 +1075,11 @@ gst_wayland_sink_end_geometry_change (GstWaylandVideo * video)
 static gboolean
 plugin_init (GstPlugin * plugin)
 {
-  GST_DEBUG_CATEGORY_INIT (gstwayland_debug, "waylandsink", 0,
+	
+GST_INFO_OBJ_FNLOC(gstwayland_debug, "waylandsink", 0,
+      " wayland video sink");
+
+	GST_DEBUG_CATEGORY_INIT (gstwayland_debug, "waylandsink", 0,
       " wayland video sink");
 
   gst_wl_shm_allocator_register ();
