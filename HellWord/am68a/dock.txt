@@ -1,0 +1,324 @@
+
+
+pip3 install torch==1.13.1 torchvision==0.14.1 \
+--extra-index-url https://download.pytorch.org/whl/cu118 
+
+pip3 install tensorflow==2.18.0 \
+ tensorflow-model-optimization==0.8.0 \
+ tf_keras==2.18.0 \
+ tf2onnx==1.16.1 \
+ onnx==1.14.0 
+     
+ export WORK=/home/comm/work/sandboc/
+ cd $WORK
+ drpai_compaction_tool/scripts/setup_tf.sh 
+ 
+ $ cd $WORK $ export PYTHONPATH="$(pwd):$PYTHONPATH" $ export TF_USE_LEGACY_KERAS=1 
+ $ python3 -c "import drpai_compaction_tool; print(drpai_compaction_tool.__version__)" <DRP-AI Extension Pack version> [When using TensorFlow, ensure that the following commands do not generate any errors.] $ python3 -c "from drpai_compaction_tool.tensorflow import Pruner" 
+ 
+ 
+ export SOC=am68a
+ #export TIDL_TOOLS_TYPE=CPU    <Your Tools Type (CPU|GPU)>
+ #source ./setup.sh
+ source ./setup.sh --skip_cpp_deps
+ 
+ mkdir build && cd build
+cmake ../examples && make -j2 && cd ..
+source ./scripts/run_python_examples.sh -o
+python3 ./scripts/gen_test_report.py
+ 09_01_08_00
+09_02_06_00
+09_02_07_00
+09_02_09_00
+10_00_02_00
+10_00_03_00
+10_00_04_00
+10_00_05_00
+10_00_06_00
+10_00_07_00
+10_00_08_00
+10_01_00_02
+10_01_03_00
+10_01_04_00
+11_00_06_00
+11_00_07_00
+11_00_08_00
+11_01_05_00
+11_01_06_00
+
+--Rel
+pip3 install torch==1.13.1 torchvision==0.14.1 --extra-index-url https://download.pytorch.org/whl/cu118
+sudo apt install python3-pip
+pip3 install torch==1.13.1 torchvision==0.14.1 --extra-index-url https://download.pytorch.org/whl/cu118
+pip3 install tensorflow==2.18.0  tensorflow-model-optimization==0.8.0  tf_keras==2.18.0  tf2onnx==1.16.1  onnx==1.14.0
+
+
+export TRANSLATOR=/home/comm/work/sandboc/opt/DRP-AI_Translator_i8/translator/
+
+wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet18-v1-7.onnx
+python3 compile_onnx_model.py \
+    ./resnet18-v1-7.onnx \
+    -o resnet18_onnx \
+    -s 1,3,224,224 \
+    -i data
+   
+wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet50-v1-7.onnx
+
+python3 compile_onnx_model_quant.py \
+    ./resnet50-v1-7.onnx \
+    -o resnet50_v1_onnx \
+    -t $SDK \
+    -d $TRANSLATOR \
+    -c $QUANTIZER \
+    --images $TRANSLATOR/../GettingStarted/tutorials/calibrate_sample/ 
+
+# if ensurepip is available
+/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/bin/python3 -m ensurepip --upgrade
+/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/bin/python3 -m pip install --upgrade pip setuptools wheel
+/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/bin/python3 -m pip install pyyaml
+# then run
+/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/bin/python3 compile_onnx_model.py ./resnet18-v1-7/resnet18-v1-7.onnx -o resnet18_onnx -s 1,2,224,224 -i data
+
+
+OE_CMAKE_TOOLCHAIN_FILE=/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/share/cmake/OEToolchainConfig.cmake
+M4=m4
+OECORE_SDK_VERSION=3.1.31
+PKG_CONFIG_PATH=/opt/poky/3.1.31/sysroots/aarch64-poky-linux/usr/lib64/pkgconfig:/opt/poky/3.1.31/sysroots/aarch64-poky-linux/usr/share/pkgconfig
+HOSTNAME=eaba50ef4f8c
+GDB=aarch64-poky-linux-gdb
+SDKTARGETSYSROOT=/opt/poky/3.1.31/sysroots/aarch64-poky-linux
+TVM_ROOT=/drp-ai_tvm
+OECORE_BASELIB=lib64
+CPP=aarch64-poky-linux-gcc -E  -mtune=cortex-a55 -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/opt/poky/3.1.31/sysroots/aarch64-poky-linux
+TARGET_PREFIX=aarch64-poky-linux-
+OE_CMAKE_FIND_LIBRARY_CUSTOM_LIB_SUFFIX=64
+PWD=/drp-ai_tvm/tutorials
+OECORE_TARGET_OS=linux
+TVM_HOME=/drp-ai_tvm/tvm
+CXX=aarch64-poky-linux-g++  -mtune=cortex-a55 -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/opt/poky/3.1.31/sysroots/aarch64-poky-linux
+CXXFLAGS= -O2 -pipe -g -feliminate-unused-debug-types 
+OECORE_NATIVE_SYSROOT=/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux
+LDFLAGS=-Wl,-O1 -Wl,--hash-style=gnu -Wl,--as-needed -fstack-protector-strong -Wl,-z,relro,-z,now
+HOME=/root
+LS_COLORS=rs=0:di=01;34:ln=01;36:mh=00:pi=40;33:so=01;35:do=01;35:bd=40;33;01:cd=40;33;01:or=40;31;01:mi=00:su=37;41:sg=30;43:ca=30;41:tw=30;42:ow=34;42:st=37;44:ex=01;32:*.tar=01;31:*.tgz=01;31:*.arc=01;31:*.arj=01;31:*.taz=01;31:*.lha=01;31:*.lz4=01;31:*.lzh=01;31:*.lzma=01;31:*.tlz=01;31:*.txz=01;31:*.tzo=01;31:*.t7z=01;31:*.zip=01;31:*.z=01;31:*.dz=01;31:*.gz=01;31:*.lrz=01;31:*.lz=01;31:*.lzo=01;31:*.xz=01;31:*.zst=01;31:*.tzst=01;31:*.bz2=01;31:*.bz=01;31:*.tbz=01;31:*.tbz2=01;31:*.tz=01;31:*.deb=01;31:*.rpm=01;31:*.jar=01;31:*.war=01;31:*.ear=01;31:*.sar=01;31:*.rar=01;31:*.alz=01;31:*.ace=01;31:*.zoo=01;31:*.cpio=01;31:*.7z=01;31:*.rz=01;31:*.cab=01;31:*.wim=01;31:*.swm=01;31:*.dwm=01;31:*.esd=01;31:*.jpg=01;35:*.jpeg=01;35:*.mjpg=01;35:*.mjpeg=01;35:*.gif=01;35:*.bmp=01;35:*.pbm=01;35:*.pgm=01;35:*.ppm=01;35:*.tga=01;35:*.xbm=01;35:*.xpm=01;35:*.tif=01;35:*.tiff=01;35:*.png=01;35:*.svg=01;35:*.svgz=01;35:*.mng=01;35:*.pcx=01;35:*.mov=01;35:*.mpg=01;35:*.mpeg=01;35:*.m2v=01;35:*.mkv=01;35:*.webm=01;35:*.webp=01;35:*.ogm=01;35:*.mp4=01;35:*.m4v=01;35:*.mp4v=01;35:*.vob=01;35:*.qt=01;35:*.nuv=01;35:*.wmv=01;35:*.asf=01;35:*.rm=01;35:*.rmvb=01;35:*.flc=01;35:*.avi=01;35:*.fli=01;35:*.flv=01;35:*.gl=01;35:*.dl=01;35:*.xcf=01;35:*.xwd=01;35:*.yuv=01;35:*.cgm=01;35:*.emf=01;35:*.ogv=01;35:*.ogx=01;35:*.aac=00;36:*.au=00;36:*.flac=00;36:*.m4a=00;36:*.mid=00;36:*.midi=00;36:*.mka=00;36:*.mp3=00;36:*.mpc=00;36:*.ogg=00;36:*.ra=00;36:*.wav=00;36:*.oga=00;36:*.opus=00;36:*.spx=00;36:*.xspf=00;36:
+OPENSSL_CONF=/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/lib/ssl-1.1/openssl.cnf
+KCFLAGS=--sysroot=/opt/poky/3.1.31/sysroots/aarch64-poky-linux
+OECORE_TARGET_SYSROOT=/opt/poky/3.1.31/sysroots/aarch64-poky-linux
+CPPFLAGS=
+LD=aarch64-poky-linux-ld  --sysroot=/opt/poky/3.1.31/sysroots/aarch64-poky-linux
+READELF=aarch64-poky-linux-readelf
+LESSCLOSE=/usr/bin/lesspipe %s %s
+PYTHONPATH=/drp-ai_tvm/tvm/python
+TERM=xterm
+LESSOPEN=| /usr/bin/lesspipe %s
+PRODUCT=V2N
+QUANTIZER=/opt/DRP-AI_Translator_i8/drpAI_Quantizer/
+AR=aarch64-poky-linux-ar
+ARCH=arm64
+AS=aarch64-poky-linux-as 
+SHLVL=1
+NM=aarch64-poky-linux-nm
+OECORE_TARGET_ARCH=aarch64
+SDK=/opt/poky/3.1.31/sysroots/../
+OECORE_DISTRO_VERSION=3.1.31
+PKG_CONFIG_SYSROOT_DIR=/opt/poky/3.1.31/sysroots/aarch64-poky-linux
+OECORE_ACLOCAL_OPTS=-I /opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/share/aclocal
+OBJCOPY=aarch64-poky-linux-objcopy
+STRIP=aarch64-poky-linux-strip
+OBJDUMP=aarch64-poky-linux-objdump
+CONFIG_SITE=/opt/poky/3.1.31/site-config-aarch64-poky-linux
+PATH=/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/bin:/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/sbin:/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/bin:/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/sbin:/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/bin/../x86_64-pokysdk-linux/bin:/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux:/opt/poky/3.1.31/sysroots/x86_64-pokysdk-linux/usr/bin/aarch64-poky-linux-musl:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+CC=aarch64-poky-linux-gcc  -mtune=cortex-a55 -fstack-protector-strong  -D_FORTIFY_SOURCE=2 -Wformat -Wformat-security -Werror=format-security --sysroot=/opt/poky/3.1.31/sysroots/aarch64-poky-linux
+CFLAGS= -O2 -pipe -g -feliminate-unused-debug-types 
+CROSS_COMPILE=aarch64-poky-linux-
+CONFIGURE_FLAGS=--target=aarch64-poky-linux --host=aarch64-poky-linux --build=x86_64-linux --with-libtool-sysroot=/opt/poky/3.1.31/sysroots/aarch64-poky-linux
+TRANSLATOR=/opt/DRP-AI_Translator_i8/translator/
+RANLIB=aarch64-poky-linux-ranlib
+OLDPWD=/drp-ai_tvm
+_=/usr/bin/env
+
+---
+
+Running 3 Models - ['cl-ort-resnet18-v1', 'od-ort-ssd-lite_mobilenetv2_fpn', 'ss-ort-deeplabv3lite_mobilenetv2']
+
+dict_keys(
+ 'cl-ort-resnet18-v1'
+ 'cl-6360_onnxrt_imagenet1k_fbr-pycls_regnetx-200mf_onnx'
+ 'od-ort-ssd-lite_mobilenetv2_fpn'
+ 'od-8420_onnxrt_widerface_edgeai-mmdet_yolox_s_lite_640x640_20220307_model_onnx'
+ 'od-8020_onnxrt_coco_edgeai-mmdet_ssd_mobilenetv2_lite_512x512_20201214_model_onnx'
+ 'ss-ort-deeplabv3lite_mobilenetv2'
+ 'cl-tfl-mobilenet_v1_1.0_224'
+ 'od-tfl-ssd_mobilenet_v2_300_float'
+ 'od-tfl-ssdlite_mobiledet_dsp_320x320_coco'
+ 'od-2020_tflitert_coco_tf1-models_ssdlite_mobiledet_dsp_320x320_coco_20200519_tflite'
+ 'cl-0000_tflitert_imagenet1k_mlperf_mobilenet_v1_1.0_224_tflite'
+ 'ss-8610_onnxrt_ade20k32_edgeai-tv_deeplabv3plus_mobilenetv2_edgeailite_512x512_20210308_outby4_onnx'
+ 'ss-2580_tflitert_ade20k32_mlperf_deeplabv3_mnv2_ade20k32_float_tflite'
+ 'ss-tfl-deeplabv3_mnv2_ade20k_float'
+ 'cl-ort-caffe_mobilenet_v1'
+ 'cl-ort-caffe_mobilenet_v2'
+ 'cl-ort-caffe_squeezenet_v1_1'
+ 'cl-ort-caffe_resnet10'
+ 'cl-ort-caffe_mobilenetv1_ssd'
+ 'cl-ort-caffe_pelee_ssd'
+ 'cl-ort-caffe_erfnet'
+ 'od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx'
+ 'od-8220_onnxrt_coco_edgeai-mmdet_yolox_s_lite_640x640_20220221_model_onnx'
+ 'cl-ort-resnet18-v1_4batch'
+ 'cl-tfl-mobilenetv2_4batch'
+ 'cl-dlr-timm_mobilenetv3_large_100'
+ 'ss-tfl-deeplabv3_mnv2_ade20k_float_low_latency'
+ 'cl-ort-resnet18-v1_low_latency'
+
+
+resnet18_Opset17.onnx
+
+python3 - <<'PY'
+import onnx
+m = onnx.load("resnet18_Opset17.onnx")
+print("opset:", [o.version for o in m.opset_import])
+print("inputs:", [i.name + ':' + i.type.tensor_type.elem_type.__str__() for i in m.graph.input])
+onnx.checker.check_model(m)
+print("OK")
+PY
+
+sudo cp /home/comm/work/TI/modelstry/resnet101-v1-7.onnx ./
+sudo cp /home/comm/work/TI/modelstry/resnet101-v2-7.onnx ./
+sudo cp /home/comm/work/TI/modelstry/resnet18-v1-7.onnx ./
+sudo cp /home/comm/work/TI/modelstry/resnet18-v2-7.onnx ./
+sudo cp /home/comm/work/TI/modelstry/resnet50-caffe2-v1-8.onnx ./
+sudo cp /home/comm/work/TI/modelstry/resnet50-v1-7.onnx ./
+sudo cp /home/comm/work/TI/modelstry/resnet50-v2-7.onnx ./
+
+
+https://github.com/Ignitarium-Renesas/RZV2L_AiLibrary
+
+--
+How to use the DRP-AI Extension Pack
+https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/pruning/how-to/torchvision_resnet50/README.md
+Installing DRP-AI Extension Package (docker)
+https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/pruning/setup/README.md
+cd ${TVM_ROOT}/pruning/setup/docker
+# Or wget <URL to docker_torch.Dockerfile>
+
+# Copy the the DRP-AI Extension Pack to `docker` directory.
+cp <path/to/>drpai-extension-pack_ver*.tar.gz .
+ls
+# Ensure that the `torch.Dockefile` and `drpai-extension-pack_ver*tar.gz` are included in the current directory.
+# torch.Dockerfile
+# drpai-extension-pack_ver*tar.gz
+# ....
+
+# Build docker image.
+# It may take up to an hour to complete.
+docker build -t drpai_ext_pt_img -f torch.Dockerfile .
+
+# With output of `drpai_ext_pt_img` word, the setup processing is completed.
+docker images | grep drpai_ext_pt_img
+# drpai_ext_pt_img                  latest                              XXXXXXXXXXXXX        X seconds ago       12.4GB
+
+cd ${TVM_ROOT}/pruning/how-to/torchvision_resnet50/
+##docker run -it --rm --shm-size=32gb --gpus all -v $(pwd):/workspace -w /workspace drpai_ext_pt_img
+docker run -it --rm --shm-size=32gb -v $(pwd):/workspace -w /workspace drpai_ext_pt_img
+
+./setup.sh
+ls
+# Confirm the following folders and files.
+# vision/
+# patch/
+# setup.sh
+# README.md
+cd vision/references/classification
+ls
+# Confirm the following files.
+# retrain_with_pruning.py
+# onnx_inference.py
+# torch2onnx.py
+# ...
+
+python3 retrain_with_pruning.py --data-path data \
+                                --weights ResNet50_Weights.DEFAULT \
+                                --pruning_rate 0.7 \
+                                -b 256
+                                
+python3 retrain_with_pruning.py --data-path data \
+                                --pruning_rate 0.7 \
+                                -b 256
+
+python3 retrain_with_pruning.py --data-path data --pruning_rate 0.7 -b 256 --device cpu
+
+# reduce batch size and dataloader workers
+python3 retrain_with_pruning.py --data-path data --pruning_rate 0.7 -b 32 --workers 4 --device cpu
+# or even smaller if still killed
+python3 retrain_with_pruning.py --data-path data --pruning_rate 0.7 -b 8 --workers 2 --device cpu
+
+
+--
+
+=======REL
+Installing DRP-AI TVM1 with Docker (RZ/V2H and RZ/V2N)
+https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/setup/SetupV2H.md#installing-drp-ai-tvm1-with-docker-rzv2h-and-rzv2n
+Compile with Sample Scripts (RZ/V2H, RZ/V2N)
+https://github.com/renesas-rz/rzv_drp-ai_tvm/blob/main/tutorials/tutorial_RZV2H.md
+
+comm@comm-OptiPlex-7020:~/work/v2nCompileDocker$
+wget https://raw.githubusercontent.com/renesas-rz/rzv_drp-ai_tvm/main/DockerfileV2H -O DockerfileV2H
+#export PRODUCT=V2H
+export PRODUCT=V2N
+unzip RTK0EF018?F0??00SJ.zip
+mv `find ./ -name "*toolchain*sh"` .
+docker build -t drp-ai_tvm_${PRODUCT,,}_image_${USER} -f DockerfileV* --build-arg PRODUCT=${PRODUCT} .
+
+docker run -it --name drp-ai_tvm_${PRODUCT,,}_container_${USER} drp-ai_tvm_${PRODUCT,,}_image_${USER}
+
+docker run -it -v $(pwd):/workspace -w /workspace --name drp-ai_tvm_${PRODUCT,,}_container_${USER} drp-ai_tvm_${PRODUCT,,}_image_${USER}
+
+
+export TVM_ROOT=/home/comm/work/sandboc/rzv_drp-ai_tvm
+#export TVM_ROOT=$PWD                                        # or path to your own cloned repository.
+export TVM_HOME=${TVM_ROOT}/tvm
+export PYTHONPATH=$TVM_HOME/python:${PYTHONPATH}
+##export SDK=`find /opt -type d -name "sysroots"`/../         # or path to your own Linux SDK.
+export SDK=/home/comm/work/myoptrzv2n/sysroots/../
+##export TRANSLATOR=/opt/DRP-AI_Translator_i8/translator/     # or path to your own DRP-AI Translator.
+##export TRANSLATOR=/home/comm/work/myoptrzv2n/DRP-AI_Translator_i8/translator/
+export TRANSLATOR=/home/comm/work/myoptrzv2n/drp-ai_translator_release/DRP-AI_translator/
+
+export QUANTIZER=/home/comm/work/myoptrzv2n/DRP-AI_Translator_i8/drpAI_Quantizer/ # or path to your own DRP-AI Quantizer.
+export PRODUCT=V2N #or V2H
+
+4. Compile using CPU-only deploy mode
+# At <drp-ai_tvm>/tutorials
+# Download onnx model from official ONNX model zoo
+wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet18-v1-7.onnx
+python3 compile_cpu_only_onnx_model.py \
+        ./resnet18-v1-7.onnx \
+        -o resnet18_onnx_cpu \
+        -s 1,3,224,224 \
+        -i data
+        
+/home/comm/work/myoptrzv2n/sysroots/x86_64-pokysdk-linux/usr/bin/python3 -m pip --version
+/home/comm/work/myoptrzv2n/sysroots/x86_64-pokysdk-linux/usr/bin/python3 -m pip install --upgrade pyyaml
+
+Alternative (release tree): /home/comm/work/myoptrzv2n/drp-ai_translator_release/DRP-AI_translator/python_api
+
+export PYTHONPATH=/home/comm/work/myoptrzv2n/drp-ai_translator_release:$PYTHONPATH
+python3 drp-ai_tvm/tutorials/drpai_preprocess/op.py
+
+export PYTHONPATH=/home/comm/work/myoptrzv2n/DRP-AI_Translator_i8/translator:$PYTHONPATH
+
+--force py3.1
+# ensure python3.10 and venv are installed
+RUN apt-get update && DEBIAN_FRONTEND=noninteractive apt-get install -y \
+    python3.10 python3.10-venv python3.10-distutils curl build-essential
+
+# create a dedicated python3.10 venv and put it first in PATH
+RUN python3.10 -m venv /opt/py310 \
+ && /opt/py310/bin/python -m pip install --upgrade pip setuptools wheel
+
+ENV PATH="/opt/py310/bin:${PATH}"
+
+# now pip installs target python3.10 venv
+RUN pip install psutil numpy==1.26.4 cython==3.0.11 decorator attrs \
+    tensorflow==2.18.1 tflite tqdm
