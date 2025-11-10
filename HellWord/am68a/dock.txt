@@ -1,4 +1,29 @@
+QA:
+https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/custom_model_evaluation.md
 
+https://e2e.ti.com/support/processors-group/processors/f/processors-forum/1282511/sk-am68-how-to-rebuild-a-model-to-ti_soc-am68a
+https://e2e.ti.com/support/processors-group/processors/f/processors-forum/1509488/am68a-build-issue
+
+ VX_ZONE_INFO: Globally Disabled VX_ZONE_INFO
+ https://e2e.ti.com/support/processors-group/processors/f/processors-forum/1543018/sk-am62a-lp-support-for-edgeai-tidl-tools-11_00_06_00-vx_zone_error-ownobjectdeinit-error/5934874?tisearch=e2e-sitesearch&keymatch=AM68A%252520%252520VX_ZONE_ERROR#
+ 
+https://e2e.ti.com/support/processors-group/processors/f/processors-forum/1455079/faq-edge-ai-studio-is-sdk-version-important-for-edge-ai-and-ti-deep-learning-tidl-with-c7x-on-am6xa-socs-am62a-am67a-am68a-am68pa-am69a/5581927?tisearch=e2e-sitesearch&keymatch=AM68A%2520%2520VX_ZONE_ERROR#
+A1: This means the model artifacts files you have are not compatible with the SDK installed
+Q2: Is there any backwards compatibility for TIDL versions within an SDK?
+Q3: Which TI libraries in the Edge AI SDK are version-sensitive and relevant here?
+
+processor-sdk-linux-am68a:
+https://software-dl.ti.com/jacinto7/esd/processor-sdk-linux-am68a/10_01_00/exports/docs/linux/Overview.html
+
+https://www.ti.com/tool/download/PROCESSOR-SDK-LINUX-AM68A/11.00.00.08
+image down load for more versions.
+
+EdgeAI TIDL Tools Version for compatible SDK version
+https://github.com/TexasInstruments/edgeai-tidl-tools/blob/master/docs/version_compatibility_table.md
+
+
+
+-----------------
 
 pip3 install torch==1.13.1 torchvision==0.14.1 \
 --extra-index-url https://download.pytorch.org/whl/cu118 
