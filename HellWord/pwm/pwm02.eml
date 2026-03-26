@@ -1,0 +1,299 @@
+MIME-Version: 1.0
+Date: Fri, 27 Mar 2026 06:59:04 +0900
+Message-ID: <CADtJe7T3S08q4=Kgex78UnoLwvtO4_cS6pYkCbEdLbWFXtd3BA@mail.gmail.com>
+Subject: pwm02
+From: Tsutomu Tsukishita <sykazcr@gmail.com>
+To: sykazcr@hotmail.com
+Content-Type: multipart/alternative; boundary="00000000000036680d064df47e7f"
+
+--00000000000036680d064df47e7f
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Perfect =E2=80=94 if your goal is *=E2=80=9CI want to create a new PWM outp=
+ut to generate
+pulses for testing a sensor=E2=80=9D*, then you need two things:
+
+   1. *A PWM provider* (the GPT block)
+   2. *A PWM consumer* (your device node that *uses* the PWM)
+
+You already have the provider (&gpt0_2).
+Now I=E2=80=99ll show you exactly how to write the *consumer node* and how =
+Linux
+interprets it.
+
+Let=E2=80=99s build this step by step so it=E2=80=99s crystal clear.
+------------------------------
+=F0=9F=A7=A9 1. Understanding the PWM phandle format
+
+When you write:
+
+pwm =3D <&gpt0_2 0 20000000 0>;
+
+It means:
+Field Meaning
+&gpt0_2 PWM provider (GPT block)
+0 PWM channel index (A=3D0, B=3D1)
+20000000 PWM period in *nanoseconds* (20 ms)
+0 Flags (0 =3D normal polarity)
+
+This is defined by:
+
+#pwm-cells =3D <2>;
+
+So the consumer must provide *2 extra cells* after the phandle:
+
+<pwm-channel period flags>
+
+------------------------------
+=F0=9F=A7=A9 2. Creating a PWM consumer node (your test device)
+
+Let=E2=80=99s say you want a simple =E2=80=9Ctest PWM=E2=80=9D device that =
+exposes PWM to
+user=E2=80=91space.
+
+You can add something like this:
+
+test_pwm {
+    compatible =3D "pwm-test-device";
+    pwms =3D <&gpt0_2 0 20000000 0>;   /* channel 0, 20ms period, normal
+polarity */
+    pwm-names =3D "test";
+};
+
+This does *not* generate the waveform by itself =E2=80=94
+it simply binds a consumer driver that can control the PWM.
+
+If you don=E2=80=99t have a consumer driver, you can still use sysfs.
+------------------------------
+=F0=9F=A7=A9 3. Using sysfs to generate the pulse
+
+Once the DTS is active and GPT is enabled:
+
+/sys/class/pwm/pwmchipX/
+
+You can do:
+
+echo 0 > /sys/class/pwm/pwmchipX/export
+echo 20000000 > /sys/class/pwm/pwmchipX/pwm0/period
+echo 1000000  > /sys/class/pwm/pwmchipX/pwm0/duty_cycle
+echo 1 > /sys/class/pwm/pwmchipX/pwm0/enable
+
+This produces a *continuous PWM waveform*.
+------------------------------
+=F0=9F=A7=A9 4. How to generate a *single* pulse (one=E2=80=91shot)
+
+If your sensor needs a *single trigger pulse*, you can do:
+
+echo 0 > pwmchipX/export
+echo 1000000 > pwmchipX/pwm0/period
+echo 500000  > pwmchipX/pwm0/duty_cycle
+echo 1 > pwmchipX/pwm0/enable
+sleep 0.002
+echo 0 > pwmchipX/pwm0/enable
+
+This gives you *one 0.5 ms HIGH pulse*.
+
+If you want, I can show you how to make a *hardware one=E2=80=91shot* using=
+ GPT=E2=80=99s
+compare=E2=80=91match mode, which is even cleaner.
+------------------------------
+=F0=9F=A7=A9 5. Mapping GPT channel =E2=86=92 pwmchip number
+
+To find which pwmchip corresponds to gpt0_2:
+
+dmesg | grep pwm
+
+Or:
+
+ls -l /sys/class/pwm/
+
+You=E2=80=99ll see something like:
+
+pwmchip2 -> ../../devices/.../gpt0_2/pwm/pwmchip2
+
+Now you know:
+
+   - gpt0_2 =E2=86=92 pwmchip2
+   - Channel A =E2=86=92 pwm0
+   - Channel B =E2=86=92 pwm1
+
+------------------------------
+=F0=9F=A7=A0 Summary
+
+To create a new PWM for testing a sensor:
+1. Enable the GPT block
+
+&gpt0_2 { status =3D "okay"; };
+
+2. Add pinctrl
+
+pinctrl-0 =3D <&gpt0_2_pins>;
+
+3. Add a consumer node (optional but recommended)
+
+pwms =3D <&gpt0_2 0 20000000 0>;
+
+4. Use sysfs to generate pulses
+
+Continuous or single=E2=80=91shot.
+------------------------------
+
+If you want, I can also help you:
+
+   - Write a *minimal PWM consumer driver*
+   - Configure GPT for *one=E2=80=91shot pulse mode* (hardware=E2=80=91accu=
+rate)
+   - Debug why a PWM pin is not toggling
+   - Map GPT registers to understand timing behavior
+
+Just tell me what direction you want to go next.
+
+--00000000000036680d064df47e7f
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p>Perfect =E2=80=94 if your goal is <strong>=E2=80=9CI wa=
+nt to create a new PWM output to generate pulses for testing a sensor=E2=80=
+=9D</strong>, then you need two things:</p>
+<ol>
+<li><strong>A PWM provider</strong> (the GPT block)</li>
+<li><strong>A PWM consumer</strong> (your device node that <em>uses</em> th=
+e PWM)</li>
+</ol>
+<p>You already have the provider (<code>&amp;gpt0_2</code>).<br>
+Now I=E2=80=99ll show you exactly how to write the <strong>consumer node</s=
+trong> and how Linux interprets it.</p>
+<p>Let=E2=80=99s build this step by step so it=E2=80=99s crystal clear.</p>
+<hr>
+<h1>=F0=9F=A7=A9 1. Understanding the PWM phandle format</h1>
+<p>When you write:</p>
+<pre><code class=3D"gmail-language-dts">pwm =3D &lt;&amp;gpt0_2 0 20000000 =
+0&gt;;
+</code></pre>
+<p>It means:</p>
+<table>
+<thead>
+<tr>
+<th>Field</th>
+<th>Meaning</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&amp;gpt0_2</code></td>
+<td>PWM provider (GPT block)</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>PWM channel index (A=3D0, B=3D1)</td>
+</tr>
+<tr>
+<td><code>20000000</code></td>
+<td>PWM period in <strong>nanoseconds</strong> (20 ms)</td>
+</tr>
+<tr>
+<td><code>0</code></td>
+<td>Flags (0 =3D normal polarity)</td>
+</tr>
+</tbody>
+</table>
+<p>This is defined by:</p>
+<pre><code class=3D"gmail-language-dts">#pwm-cells =3D &lt;2&gt;;
+</code></pre>
+<p>So the consumer must provide <strong>2 extra cells</strong> after the ph=
+andle:</p>
+<pre><code>&lt;pwm-channel period flags&gt;
+</code></pre>
+<hr>
+<h1>=F0=9F=A7=A9 2. Creating a PWM consumer node (your test device)</h1>
+<p>Let=E2=80=99s say you want a simple =E2=80=9Ctest PWM=E2=80=9D device th=
+at exposes PWM to user=E2=80=91space.</p>
+<p>You can add something like this:</p>
+<pre><code class=3D"gmail-language-dts">test_pwm {
+    compatible =3D &quot;pwm-test-device&quot;;
+    pwms =3D &lt;&amp;gpt0_2 0 20000000 0&gt;;   /* channel 0, 20ms period,=
+ normal polarity */
+    pwm-names =3D &quot;test&quot;;
+};
+</code></pre>
+<p>This does <strong>not</strong> generate the waveform by itself =E2=80=94=
+<br>
+it simply binds a consumer driver that can control the PWM.</p>
+<p>If you don=E2=80=99t have a consumer driver, you can still use sysfs.</p=
+>
+<hr>
+<h1>=F0=9F=A7=A9 3. Using sysfs to generate the pulse</h1>
+<p>Once the DTS is active and GPT is enabled:</p>
+<pre><code>/sys/class/pwm/pwmchipX/
+</code></pre>
+<p>You can do:</p>
+<pre><code class=3D"gmail-language-bash">echo 0 &gt; /sys/class/pwm/pwmchip=
+X/export
+echo 20000000 &gt; /sys/class/pwm/pwmchipX/pwm0/period
+echo 1000000  &gt; /sys/class/pwm/pwmchipX/pwm0/duty_cycle
+echo 1 &gt; /sys/class/pwm/pwmchipX/pwm0/enable
+</code></pre>
+<p>This produces a <strong>continuous PWM waveform</strong>.</p>
+<hr>
+<h1>=F0=9F=A7=A9 4. How to generate a <em>single</em> pulse (one=E2=80=91sh=
+ot)</h1>
+<p>If your sensor needs a <strong>single trigger pulse</strong>, you can do=
+:</p>
+<pre><code class=3D"gmail-language-bash">echo 0 &gt; pwmchipX/export
+echo 1000000 &gt; pwmchipX/pwm0/period
+echo 500000  &gt; pwmchipX/pwm0/duty_cycle
+echo 1 &gt; pwmchipX/pwm0/enable
+sleep 0.002
+echo 0 &gt; pwmchipX/pwm0/enable
+</code></pre>
+<p>This gives you <strong>one 0.5 ms HIGH pulse</strong>.</p>
+<p>If you want, I can show you how to make a <em>hardware one=E2=80=91shot<=
+/em> using GPT=E2=80=99s compare=E2=80=91match mode, which is even cleaner.=
+</p>
+<hr>
+<h1>=F0=9F=A7=A9 5. Mapping GPT channel =E2=86=92 pwmchip number</h1>
+<p>To find which pwmchip corresponds to <code>gpt0_2</code>:</p>
+<pre><code class=3D"gmail-language-bash">dmesg | grep pwm
+</code></pre>
+<p>Or:</p>
+<pre><code class=3D"gmail-language-bash">ls -l /sys/class/pwm/
+</code></pre>
+<p>You=E2=80=99ll see something like:</p>
+<pre><code>pwmchip2 -&gt; ../../devices/.../gpt0_2/pwm/pwmchip2
+</code></pre>
+<p>Now you know:</p>
+<ul>
+<li><code>gpt0_2</code> =E2=86=92 <code>pwmchip2</code></li>
+<li>Channel A =E2=86=92 <code>pwm0</code></li>
+<li>Channel B =E2=86=92 <code>pwm1</code></li>
+</ul>
+<hr>
+<h1>=F0=9F=A7=A0 Summary</h1>
+<p>To create a new PWM for testing a sensor:</p>
+<h3>1. Enable the GPT block</h3>
+<pre><code class=3D"gmail-language-dts">&amp;gpt0_2 { status =3D &quot;okay=
+&quot;; };
+</code></pre>
+<h3>2. Add pinctrl</h3>
+<pre><code class=3D"gmail-language-dts">pinctrl-0 =3D &lt;&amp;gpt0_2_pins&=
+gt;;
+</code></pre>
+<h3>3. Add a consumer node (optional but recommended)</h3>
+<pre><code class=3D"gmail-language-dts">pwms =3D &lt;&amp;gpt0_2 0 20000000=
+ 0&gt;;
+</code></pre>
+<h3>4. Use sysfs to generate pulses</h3>
+<p>Continuous or single=E2=80=91shot.</p>
+<hr>
+<p>If you want, I can also help you:</p>
+<ul>
+<li>Write a <strong>minimal PWM consumer driver</strong></li>
+<li>Configure GPT for <strong>one=E2=80=91shot pulse mode</strong> (hardwar=
+e=E2=80=91accurate)</li>
+<li>Debug why a PWM pin is not toggling</li>
+<li>Map GPT registers to understand timing behavior</li>
+</ul>
+<p>Just tell me what direction you want to go next.</p></div>
+
+--00000000000036680d064df47e7f--

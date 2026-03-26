@@ -1,0 +1,437 @@
+MIME-Version: 1.0
+Date: Thu, 26 Mar 2026 23:34:51 +0900
+Message-ID: <CADtJe7R17WpKxLnee6z__HFDD7ieovHEjx5+w7kWQZ7kb0dCrA@mail.gmail.com>
+Subject: pwm
+From: Tsutomu Tsukishita <sykazcr@gmail.com>
+To: sykazcr@hotmail.com
+Content-Type: multipart/alternative; boundary="000000000000928ed4064dee4931"
+
+--000000000000928ed4064dee4931
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+CONFIG_PWM=3Dy
+CONFIG_PWM_SYSFS=3Dy
+# CONFIG_PWM_DEBUG is not set
+# CONFIG_PWM_ATMEL_TCB is not set
+# CONFIG_PWM_CLK is not set
+# CONFIG_PWM_DWC is not set
+# CONFIG_PWM_FSL_FTM is not set
+# CONFIG_PWM_PCA9685 is not set
+CONFIG_GPT_RZG2L=3Dy
+CONFIG_POEG_RZG2L=3Dy
+CONFIG_PWM_RCAR=3Dy
+CONFIG_PWM_RENESAS_TPU=3Dy
+CONFIG_PWM_RZ_MTU3=3Dy
+# CONFIG_PWM_XILINX is not set
+
+obj-$(CONFIG_PWM) +=3D core.o
+obj-$(CONFIG_PWM_SYSFS) +=3D sysfs.o
+obj-$(CONFIG_GPT_RZG2L) +=3D gpt-rzg2l.o
+
+  gpt0_4: gpt@13010400 {
+compatible =3D "renesas,gpt-r9a09g047";
+reg =3D <0 0x13010000 0 0xa4>;
+#pwm-cells =3D <2>;
+interrupts =3D <GIC_SPI 542 IRQ_TYPE_EDGE_RISING>,
+    <GIC_SPI 550 IRQ_TYPE_EDGE_RISING>,
+    <GIC_SPI 558 IRQ_TYPE_EDGE_RISING>,
+    <GIC_SPI 566 IRQ_TYPE_EDGE_RISING>,
+    <GIC_SPI 574 IRQ_TYPE_EDGE_RISING>,
+    <GIC_SPI 582 IRQ_TYPE_EDGE_RISING>,
+    <GIC_SPI 590 IRQ_TYPE_EDGE_RISING>,
+    <GIC_SPI 598 IRQ_TYPE_EDGE_RISING>;
+interrupt-names =3D "gtcia", "gtcib", "gtcic",
+ "gtcid", "gtcie", "gtcif",
+ "gtcih", "gtcil";
+clocks =3D <&cpg CPG_MOD 0x31>;
+power-domains =3D <&cpg>;
+resets =3D  <&cpg 0x59>,<&cpg 0x5A>;
+status =3D "disabled";
+};
+static const struct of_device_id rzg2l_gpt_of_table[] =3D {
+{ .compatible =3D "renesas,gpt-r9a07g044", .data =3D &rzg2l_cfg,},
+{ .compatible =3D "renesas,gpt-r9a08g045", .data =3D &rzg2l_cfg,},
+{ .compatible =3D "renesas,gpt-r9a09g057", .data =3D &rzv2h_cfg,},
+{ .compatible =3D "renesas,gpt-r9a09g047", .data =3D &rzv2h_cfg,},
+{ },
+};
+rzv2h-evk-common.dtsi(1247,1)  [SJIS]: &gpt0_2 {
+&gpt0_2 {
+pinctrl-0 =3D <&gpt0_2_pins>;
+pinctrl-names =3D "default";
+#if (GPT0_CHANNEL_SEL =3D=3D GPT_CHANNEL_A)
+channel =3D "channel_A";
+#elif (GPT0_CHANNEL_SEL =3D=3D GPT_CHANNEL_B)
+channel =3D "channel_B";
+#else
+channel =3D "both_AB";
+#endif
+#if (I2C7_POEG_SEL)
+poeg =3D <&poega0>;
+#endif
+status =3D "okay";
+};
+ gpt0_2_pins: gpt0_2 {
+pinmux =3D <RZV2H_PORT_PINMUX(7, 2, 9)>, /* Channel A */
+<RZV2H_PORT_PINMUX(7, 3, 9)>; /* Channel B */
+};
+
+You=E2=80=99re thinking in the right direction, but *you cannot create =E2=
+=80=9C&gpt0_2_1=E2=80=9D
+or multiple instances of the same GPT block*.
+GPT hardware blocks are *fixed* in the SoC.
+You can only enable the ones that physically exist.
+
+But you *can* absolutely use *multiple pins* =E2=80=94 as long as they corr=
+espond
+to *different GPT channels*.
+
+Let me explain this cleanly so you don=E2=80=99t waste time fighting the DT=
+S.
+------------------------------
+=F0=9F=A7=A0 *1. You cannot create new GPT instances*
+
+This is *wrong*:
+
+&gpt0_2_1 {
+    pinctrl-1 =3D <&gpt1_test_pins>;
+};
+
+Because:
+
+   - gpt0_2 is a *hardware block*
+   - It exists only once in the SoC
+   - You cannot duplicate it in DTS
+
+DTS overlays *configure hardware*, they do not create new hardware.
+------------------------------
+=F0=9F=A7=A0 *2. What you can do: enable multiple GPT channels*
+
+Each GPT block has *two PWM channels*:
+GPT instance Channel A Channel B
+gpt0_0 pwm0 pwm1
+gpt0_1 pwm0 pwm1
+gpt0_2 pwm0 pwm1
+gpt0_3 pwm0 pwm1
+=E2=80=A6 =E2=80=A6 =E2=80=A6
+
+If you need *6 PWM pins*, you must enable *3 GPT blocks*, each with 2
+channels.
+
+Example:
+
+gpt0_0 =E2=86=92 2 pins
+gpt0_1 =E2=86=92 2 pins
+gpt0_2 =E2=86=92 2 pins
+-----------------
+Total =3D 6 PWM pins
+
+------------------------------
+=F0=9F=A7=A0 *3. How to enable multiple GPT blocks*
+
+Example:
+
+&gpt0_0 {
+    pinctrl-0 =3D <&gpt0_0_pins>;
+    channel =3D "both_AB";
+    status =3D "okay";
+};
+
+&gpt0_1 {
+    pinctrl-0 =3D <&gpt0_1_pins>;
+    channel =3D "both_AB";
+    status =3D "okay";
+};
+
+&gpt0_2 {
+    pinctrl-0 =3D <&gpt0_2_pins>;
+    channel =3D "both_AB";
+    status =3D "okay";
+};
+
+This gives you *6 PWM outputs*.
+------------------------------
+=F0=9F=A7=A0 *4. You must create a pinctrl node for each GPT block*
+
+Example:
+
+gpt0_0_pins: gpt0_0_pins {
+    pinmux =3D <RZV2H_PORT_PINMUX(7, 0, 9)>, /* Channel A */
+             <RZV2H_PORT_PINMUX(7, 1, 9)>; /* Channel B */
+};
+
+gpt0_1_pins: gpt0_1_pins {
+    pinmux =3D <RZV2H_PORT_PINMUX(7, 2, 9)>,
+             <RZV2H_PORT_PINMUX(7, 3, 9)>;
+};
+
+gpt0_2_pins: gpt0_2_pins {
+    pinmux =3D <RZV2H_PORT_PINMUX(7, 4, 9)>,
+             <RZV2H_PORT_PINMUX(7, 5, 9)>;
+};
+
+You can name them anything:
+
+   - gpt0_test_pins
+   - sensor_pwm_pins
+   - my_pwm_pins
+
+The name is not important =E2=80=94 the *pinmux* is.
+------------------------------
+=F0=9F=A7=A0 *5. How Linux exposes them*
+
+After boot:
+
+/sys/class/pwm/pwmchip0 =E2=86=92 gpt0_0
+/sys/class/pwm/pwmchip1 =E2=86=92 gpt0_1
+/sys/class/pwm/pwmchip2 =E2=86=92 gpt0_2
+
+Each pwmchip has 2 channels:
+
+pwmchipX/pwm0 =E2=86=92 Channel A
+pwmchipX/pwm1 =E2=86=92 Channel B
+
+So with 3 GPT blocks:
+
+pwmchip0/pwm0
+pwmchip0/pwm1
+pwmchip1/pwm0
+pwmchip1/pwm1
+pwmchip2/pwm0
+pwmchip2/pwm1
+
+That=E2=80=99s your 6 PWM pins.
+------------------------------
+=F0=9F=A7=A0 *6. Summary =E2=80=94 what you should do* =E2=9C=94=EF=B8=8F Y=
+ou cannot create =E2=80=9Cgpt0_2_1=E2=80=9D
+
+GPT blocks are fixed hardware.
+=E2=9C=94=EF=B8=8F You *can* enable multiple GPT blocks
+
+Each gives you 2 PWM outputs.
+=E2=9C=94=EF=B8=8F You must create a pinctrl node for each block
+
+Each pinctrl node defines the pins for A/B channels.
+=E2=9C=94=EF=B8=8F You can generate PWM on all 6 pins via sysfs
+
+Or via a consumer driver.
+------------------------------
+
+If you want, I can help you:
+
+   - Pick the exact pins for your board
+   - Write the DTS for all 6 PWM outputs
+   - Verify which GPT blocks are free
+   - Generate single=E2=80=91shot pulses for your sensor
+
+Just tell me how many PWM pins you need and which physical pins you want to
+use.
+
+--000000000000928ed4064dee4931
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><div>CONFIG_PWM=3Dy<br>CONFIG_PWM_SYSFS=3Dy<br># CONFIG_PW=
+M_DEBUG is not set<br># CONFIG_PWM_ATMEL_TCB is not set<br># CONFIG_PWM_CLK=
+ is not set<br># CONFIG_PWM_DWC is not set<br># CONFIG_PWM_FSL_FTM is not s=
+et<br># CONFIG_PWM_PCA9685 is not set<br>CONFIG_GPT_RZG2L=3Dy<br>CONFIG_POE=
+G_RZG2L=3Dy<br>CONFIG_PWM_RCAR=3Dy<br>CONFIG_PWM_RENESAS_TPU=3Dy<br>CONFIG_=
+PWM_RZ_MTU3=3Dy<br># CONFIG_PWM_XILINX is not set<br></div><div><br></div><=
+div>obj-$(CONFIG_PWM)		+=3D core.o<br>obj-$(CONFIG_PWM_SYSFS)		+=3D sysfs.o=
+</div><div>obj-$(CONFIG_GPT_RZG2L)		+=3D gpt-rzg2l.o</div><div><br></div><d=
+iv>=C2=A0 gpt0_4: gpt@13010400 {<br>			compatible =3D &quot;renesas,gpt-r9a=
+09g047&quot;;<br>			reg =3D &lt;0 0x13010000 0 0xa4&gt;;<br>			#pwm-cells =
+=3D &lt;2&gt;;<br>			interrupts =3D &lt;GIC_SPI 542 IRQ_TYPE_EDGE_RISING&gt=
+;,<br>				 =C2=A0 =C2=A0 &lt;GIC_SPI 550 IRQ_TYPE_EDGE_RISING&gt;,<br>				 =
+=C2=A0 =C2=A0 &lt;GIC_SPI 558 IRQ_TYPE_EDGE_RISING&gt;,<br>				 =C2=A0 =C2=
+=A0 &lt;GIC_SPI 566 IRQ_TYPE_EDGE_RISING&gt;,<br>				 =C2=A0 =C2=A0 &lt;GIC=
+_SPI 574 IRQ_TYPE_EDGE_RISING&gt;,<br>				 =C2=A0 =C2=A0 &lt;GIC_SPI 582 IR=
+Q_TYPE_EDGE_RISING&gt;,<br>				 =C2=A0 =C2=A0 &lt;GIC_SPI 590 IRQ_TYPE_EDGE=
+_RISING&gt;,<br>				 =C2=A0 =C2=A0 &lt;GIC_SPI 598 IRQ_TYPE_EDGE_RISING&gt;=
+;<br>			interrupt-names =3D &quot;gtcia&quot;, &quot;gtcib&quot;, &quot;gtc=
+ic&quot;,<br>					 =C2=A0&quot;gtcid&quot;, &quot;gtcie&quot;, &quot;gtcif&=
+quot;,<br>					 =C2=A0&quot;gtcih&quot;, &quot;gtcil&quot;;<br>			clocks =
+=3D &lt;&amp;cpg CPG_MOD 0x31&gt;;<br>			power-domains =3D &lt;&amp;cpg&gt;=
+;<br>			resets =3D =C2=A0&lt;&amp;cpg 0x59&gt;,&lt;&amp;cpg 0x5A&gt;;<br>		=
+	status =3D &quot;disabled&quot;;<br>		};<br>static const struct of_device_=
+id rzg2l_gpt_of_table[] =3D {<br>	{ .compatible =3D &quot;renesas,gpt-r9a07=
+g044&quot;, .data =3D &amp;rzg2l_cfg,},<br>	{ .compatible =3D &quot;renesas=
+,gpt-r9a08g045&quot;, .data =3D &amp;rzg2l_cfg,},<br>	{ .compatible =3D &qu=
+ot;renesas,gpt-r9a09g057&quot;, .data =3D &amp;rzv2h_cfg,},<br>	{ .compatib=
+le =3D &quot;renesas,gpt-r9a09g047&quot;, .data =3D &amp;rzv2h_cfg,},<br>	{=
+ },<br>};<br></div><div>rzv2h-evk-common.dtsi(1247,1) =C2=A0[SJIS]: &amp;gp=
+t0_2 {<br>&amp;gpt0_2 {<br>	pinctrl-0 =3D &lt;&amp;gpt0_2_pins&gt;;<br>	pin=
+ctrl-names =3D &quot;default&quot;;<br>#if (GPT0_CHANNEL_SEL =3D=3D GPT_CHA=
+NNEL_A)<br>	channel =3D &quot;channel_A&quot;;<br>#elif (GPT0_CHANNEL_SEL =
+=3D=3D GPT_CHANNEL_B)<br>	channel =3D &quot;channel_B&quot;;<br>#else<br>	c=
+hannel =3D &quot;both_AB&quot;;<br>#endif<br>#if (I2C7_POEG_SEL)<br>	poeg =
+=3D &lt;&amp;poega0&gt;;<br>#endif<br>	status =3D &quot;okay&quot;;<br>};</=
+div><div>=C2=A0gpt0_2_pins: gpt0_2 {<br>			pinmux =3D &lt;RZV2H_PORT_PINMUX=
+(7, 2, 9)&gt;, /* Channel A */<br>				 &lt;RZV2H_PORT_PINMUX(7, 3, 9)&gt;; =
+/* Channel B */<br>	};<br></div><div><p>You=E2=80=99re thinking in the righ=
+t direction, but <strong>you cannot create =E2=80=9C&amp;gpt0_2_1=E2=80=9D =
+or multiple instances of the same GPT block</strong>.<br>
+GPT hardware blocks are <strong>fixed</strong> in the SoC.<br>
+You can only enable the ones that physically exist.</p>
+<p>But you <em>can</em> absolutely use <strong>multiple pins</strong> =E2=
+=80=94 as long as they correspond to <strong>different GPT channels</strong=
+>.</p>
+<p>Let me explain this cleanly so you don=E2=80=99t waste time fighting the=
+ DTS.</p>
+<hr>
+<h1>=F0=9F=A7=A0 <strong>1. You cannot create new GPT instances</strong></h=
+1>
+<p>This is <strong>wrong</strong>:</p>
+<pre><code>&amp;gpt0_2_1 {
+    pinctrl-1 =3D &lt;&amp;gpt1_test_pins&gt;;
+};
+</code></pre>
+<p>Because:</p>
+<ul>
+<li><code>gpt0_2</code> is a <strong>hardware block</strong></li>
+<li>It exists only once in the SoC</li>
+<li>You cannot duplicate it in DTS</li>
+</ul>
+<p>DTS overlays <strong>configure hardware</strong>, they do not create new=
+ hardware.</p>
+<hr>
+<h1>=F0=9F=A7=A0 <strong>2. What you <em>can</em> do: enable multiple GPT c=
+hannels</strong></h1>
+<p>Each GPT block has <strong>two PWM channels</strong>:</p>
+<table>
+<thead>
+<tr>
+<th>GPT instance</th>
+<th>Channel A</th>
+<th>Channel B</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>gpt0_0</td>
+<td>pwm0</td>
+<td>pwm1</td>
+</tr>
+<tr>
+<td>gpt0_1</td>
+<td>pwm0</td>
+<td>pwm1</td>
+</tr>
+<tr>
+<td>gpt0_2</td>
+<td>pwm0</td>
+<td>pwm1</td>
+</tr>
+<tr>
+<td>gpt0_3</td>
+<td>pwm0</td>
+<td>pwm1</td>
+</tr>
+<tr>
+<td>=E2=80=A6</td>
+<td>=E2=80=A6</td>
+<td>=E2=80=A6</td>
+</tr>
+</tbody>
+</table>
+<p>If you need <strong>6 PWM pins</strong>, you must enable <strong>3 GPT b=
+locks</strong>, each with 2 channels.</p>
+<p>Example:</p>
+<pre><code>gpt0_0 =E2=86=92 2 pins =20
+gpt0_1 =E2=86=92 2 pins =20
+gpt0_2 =E2=86=92 2 pins =20
+-----------------
+Total =3D 6 PWM pins
+</code></pre>
+<hr>
+<h1>=F0=9F=A7=A0 <strong>3. How to enable multiple GPT blocks</strong></h1>
+<p>Example:</p>
+<pre><code class=3D"gmail-language-dts">&amp;gpt0_0 {
+    pinctrl-0 =3D &lt;&amp;gpt0_0_pins&gt;;
+    channel =3D &quot;both_AB&quot;;
+    status =3D &quot;okay&quot;;
+};
+
+&amp;gpt0_1 {
+    pinctrl-0 =3D &lt;&amp;gpt0_1_pins&gt;;
+    channel =3D &quot;both_AB&quot;;
+    status =3D &quot;okay&quot;;
+};
+
+&amp;gpt0_2 {
+    pinctrl-0 =3D &lt;&amp;gpt0_2_pins&gt;;
+    channel =3D &quot;both_AB&quot;;
+    status =3D &quot;okay&quot;;
+};
+</code></pre>
+<p>This gives you <strong>6 PWM outputs</strong>.</p>
+<hr>
+<h1>=F0=9F=A7=A0 <strong>4. You must create a pinctrl node for each GPT blo=
+ck</strong></h1>
+<p>Example:</p>
+<pre><code class=3D"gmail-language-dts">gpt0_0_pins: gpt0_0_pins {
+    pinmux =3D &lt;RZV2H_PORT_PINMUX(7, 0, 9)&gt;, /* Channel A */
+             &lt;RZV2H_PORT_PINMUX(7, 1, 9)&gt;; /* Channel B */
+};
+
+gpt0_1_pins: gpt0_1_pins {
+    pinmux =3D &lt;RZV2H_PORT_PINMUX(7, 2, 9)&gt;,
+             &lt;RZV2H_PORT_PINMUX(7, 3, 9)&gt;;
+};
+
+gpt0_2_pins: gpt0_2_pins {
+    pinmux =3D &lt;RZV2H_PORT_PINMUX(7, 4, 9)&gt;,
+             &lt;RZV2H_PORT_PINMUX(7, 5, 9)&gt;;
+};
+</code></pre>
+<p>You can name them anything:</p>
+<ul>
+<li><code>gpt0_test_pins</code></li>
+<li><code>sensor_pwm_pins</code></li>
+<li><code>my_pwm_pins</code></li>
+</ul>
+<p>The name is not important =E2=80=94 the <strong>pinmux</strong> is.</p>
+<hr>
+<h1>=F0=9F=A7=A0 <strong>5. How Linux exposes them</strong></h1>
+<p>After boot:</p>
+<pre><code>/sys/class/pwm/pwmchip0 =E2=86=92 gpt0_0
+/sys/class/pwm/pwmchip1 =E2=86=92 gpt0_1
+/sys/class/pwm/pwmchip2 =E2=86=92 gpt0_2
+</code></pre>
+<p>Each pwmchip has 2 channels:</p>
+<pre><code>pwmchipX/pwm0 =E2=86=92 Channel A
+pwmchipX/pwm1 =E2=86=92 Channel B
+</code></pre>
+<p>So with 3 GPT blocks:</p>
+<pre><code>pwmchip0/pwm0
+pwmchip0/pwm1
+pwmchip1/pwm0
+pwmchip1/pwm1
+pwmchip2/pwm0
+pwmchip2/pwm1
+</code></pre>
+<p>That=E2=80=99s your 6 PWM pins.</p>
+<hr>
+<h1>=F0=9F=A7=A0 <strong>6. Summary =E2=80=94 what you should do</strong></=
+h1>
+<h3>=E2=9C=94=EF=B8=8F You cannot create =E2=80=9Cgpt0_2_1=E2=80=9D</h3>
+<p>GPT blocks are fixed hardware.</p>
+<h3>=E2=9C=94=EF=B8=8F You <em>can</em> enable multiple GPT blocks</h3>
+<p>Each gives you 2 PWM outputs.</p>
+<h3>=E2=9C=94=EF=B8=8F You must create a pinctrl node for each block</h3>
+<p>Each pinctrl node defines the pins for A/B channels.</p>
+<h3>=E2=9C=94=EF=B8=8F You can generate PWM on all 6 pins via sysfs</h3>
+<p>Or via a consumer driver.</p>
+<hr>
+<p>If you want, I can help you:</p>
+<ul>
+<li>Pick the exact pins for your board</li>
+<li>Write the DTS for all 6 PWM outputs</li>
+<li>Verify which GPT blocks are free</li>
+<li>Generate single=E2=80=91shot pulses for your sensor</li>
+</ul>
+<p>Just tell me how many PWM pins you need and which physical pins you want=
+ to use.</p></div><div><br></div></div>
+
+--000000000000928ed4064dee4931--

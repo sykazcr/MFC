@@ -1,0 +1,240 @@
+MIME-Version: 1.0
+Date: Fri, 27 Mar 2026 07:00:20 +0900
+Message-ID: <CADtJe7Q1oGC8HHyBdDcrgqAaiT+=HwHgpjNXjnJVa9YTP9uAEw@mail.gmail.com>
+Subject: pwm03
+From: Tsutomu Tsukishita <sykazcr@gmail.com>
+To: sykazcr@hotmail.com
+Content-Type: multipart/alternative; boundary="000000000000bc7ea4064df48280"
+
+--000000000000bc7ea4064df48280
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Yes =E2=80=94 what you posted is *exactly the PWM consumer=E2=80=91side DTS=
+* for a Renesas
+GPT (General PWM Timer) channel.
+Let me walk you through it clearly so you see how everything fits together.
+------------------------------
+=F0=9F=A7=A0 What this DTS fragment represents
+
+You have *two parts*:
+1. The GPT controller node (provider)
+
+This was earlier:
+
+gpt1_4: gpt@13020400 {
+    compatible =3D "renesas,gpt-r9a09g047";
+    #pwm-cells =3D <2>;
+    ...
+};
+
+This registers a *PWM provider* (pwmchipX) in Linux.
+------------------------------
+2. Your new snippet is the *PWM consumer configuration*
+
+&gpt0_2 {
+    pinctrl-0 =3D <&gpt0_2_pins>;
+    pinctrl-names =3D "default";
+
+#if (GPT0_CHANNEL_SEL =3D=3D GPT_CHANNEL_A)
+    channel =3D "channel_A";
+#elif (GPT0_CHANNEL_SEL =3D=3D GPT_CHANNEL_B)
+    channel =3D "channel_B";
+#else
+    channel =3D "both_AB";
+#endif
+
+#if (I2C7_POEG_SEL)
+    poeg =3D <&poega0>;
+#endif
+
+    status =3D "okay";
+};
+
+This DTS overlay *enables* the GPT instance and configures:
+
+   - Which *pin* is used (via pinctrl)
+   - Which *channel* (A or B)
+   - Optional POEG (output enable gating)
+   - Marks the device as "okay" so Linux loads the driver
+
+This is not the PWM output itself =E2=80=94 it is the *GPT hardware block* =
+being
+configured so it can *provide* PWM channels.
+------------------------------
+=F0=9F=93=8C The pinctrl block maps GPT pins to actual SoC pins
+
+gpt0_2_pins: gpt0_2 {
+    pinmux =3D <RZV2H_PORT_PINMUX(7, 2, 9)>, /* Channel A */
+             <RZV2H_PORT_PINMUX(7, 3, 9)>; /* Channel B */
+};
+
+This tells Linux:
+
+   - GPT0_2 Channel A =E2=86=92 Port 7, Pin 2, Function 9
+   - GPT0_2 Channel B =E2=86=92 Port 7, Pin 3, Function 9
+
+So the GPT hardware output is routed to the physical pins.
+------------------------------
+=F0=9F=A7=A9 How Linux interprets this
+
+Once enabled:
+
+   - The GPT driver registers a *pwmchip* (e.g., /sys/class/pwm/pwmchip2)
+   - Each GPT channel becomes a *PWM channel* (pwm0, pwm1, etc.)
+   - User=E2=80=91space can control PWM via sysfs
+   - Kernel drivers can call pwm_get() to use it
+
+------------------------------
+=F0=9F=94=A7 How a PWM consumer would reference this GPT
+
+If another device wants to *use* this PWM, it would write:
+
+pwm =3D <&gpt0_2 0 20000000 0>;
+
+Meaning:
+
+   - &gpt0_2 =E2=86=92 PWM provider
+   - 0 =E2=86=92 channel index
+   - 20000000 =E2=86=92 period (ns)
+   - 0 =E2=86=92 flags (polarity)
+
+------------------------------
+=F0=9F=A7=A0 Summary
+
+Your DTS snippet:
+
+   - *Enables* the GPT block
+   - *Selects* channel A or B
+   - *Configures* the pinmux
+   - *Makes the GPT available as a PWM provider*
+
+It is *not* the PWM waveform itself =E2=80=94 it is the hardware setup so L=
+inux can
+expose PWM channels.
+------------------------------
+
+If you want, I can also show you:
+
+   - How to map GPT channels to /sys/class/pwm/pwmchipX
+   - How to write a PWM consumer node (LED, buzzer, motor, backlight)
+   - How to generate a single pulse instead of continuous PWM
+   - How GPT channels map to hardware registers on RZ/V2H
+
+Just tell me where you want to go next.
+
+--000000000000bc7ea4064df48280
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p>Yes =E2=80=94 what you posted is <strong>exactly the PW=
+M consumer=E2=80=91side DTS</strong> for a Renesas GPT (General PWM Timer) =
+channel.<br>
+Let me walk you through it clearly so you see how everything fits together.=
+</p>
+<hr>
+<h1>=F0=9F=A7=A0 What this DTS fragment represents</h1>
+<p>You have <strong>two parts</strong>:</p>
+<h2>1. The GPT controller node (provider)</h2>
+<p>This was earlier:</p>
+<pre><code class=3D"gmail-language-dts">gpt1_4: gpt@13020400 {
+    compatible =3D &quot;renesas,gpt-r9a09g047&quot;;
+    #pwm-cells =3D &lt;2&gt;;
+    ...
+};
+</code></pre>
+<p>This registers a <strong>PWM provider</strong> (<code>pwmchipX</code>) i=
+n Linux.</p>
+<hr>
+<h2>2. Your new snippet is the <strong>PWM consumer configuration</strong><=
+/h2>
+<pre><code class=3D"gmail-language-dts">&amp;gpt0_2 {
+    pinctrl-0 =3D &lt;&amp;gpt0_2_pins&gt;;
+    pinctrl-names =3D &quot;default&quot;;
+
+#if (GPT0_CHANNEL_SEL =3D=3D GPT_CHANNEL_A)
+    channel =3D &quot;channel_A&quot;;
+#elif (GPT0_CHANNEL_SEL =3D=3D GPT_CHANNEL_B)
+    channel =3D &quot;channel_B&quot;;
+#else
+    channel =3D &quot;both_AB&quot;;
+#endif
+
+#if (I2C7_POEG_SEL)
+    poeg =3D &lt;&amp;poega0&gt;;
+#endif
+
+    status =3D &quot;okay&quot;;
+};
+</code></pre>
+<p>This DTS overlay <strong>enables</strong> the GPT instance and configure=
+s:</p>
+<ul>
+<li>Which <strong>pin</strong> is used (via pinctrl)</li>
+<li>Which <strong>channel</strong> (A or B)</li>
+<li>Optional POEG (output enable gating)</li>
+<li>Marks the device as <code>&quot;okay&quot;</code> so Linux loads the dr=
+iver</li>
+</ul>
+<p>This is not the PWM output itself =E2=80=94 it is the <strong>GPT hardwa=
+re block</strong> being configured so it can <em>provide</em> PWM channels.=
+</p>
+<hr>
+<h1>=F0=9F=93=8C The pinctrl block maps GPT pins to actual SoC pins</h1>
+<pre><code class=3D"gmail-language-dts">gpt0_2_pins: gpt0_2 {
+    pinmux =3D &lt;RZV2H_PORT_PINMUX(7, 2, 9)&gt;, /* Channel A */
+             &lt;RZV2H_PORT_PINMUX(7, 3, 9)&gt;; /* Channel B */
+};
+</code></pre>
+<p>This tells Linux:</p>
+<ul>
+<li>GPT0_2 Channel A =E2=86=92 Port 7, Pin 2, Function 9</li>
+<li>GPT0_2 Channel B =E2=86=92 Port 7, Pin 3, Function 9</li>
+</ul>
+<p>So the GPT hardware output is routed to the physical pins.</p>
+<hr>
+<h1>=F0=9F=A7=A9 How Linux interprets this</h1>
+<p>Once enabled:</p>
+<ul>
+<li>The GPT driver registers a <strong>pwmchip</strong> (e.g., <code>/sys/c=
+lass/pwm/pwmchip2</code>)</li>
+<li>Each GPT channel becomes a <strong>PWM channel</strong> (pwm0, pwm1, et=
+c.)</li>
+<li>User=E2=80=91space can control PWM via sysfs</li>
+<li>Kernel drivers can call <code>pwm_get()</code> to use it</li>
+</ul>
+<hr>
+<h1>=F0=9F=94=A7 How a PWM consumer would reference this GPT</h1>
+<p>If another device wants to <em>use</em> this PWM, it would write:</p>
+<pre><code class=3D"gmail-language-dts">pwm =3D &lt;&amp;gpt0_2 0 20000000 =
+0&gt;;
+</code></pre>
+<p>Meaning:</p>
+<ul>
+<li><code>&amp;gpt0_2</code> =E2=86=92 PWM provider</li>
+<li><code>0</code> =E2=86=92 channel index</li>
+<li><code>20000000</code> =E2=86=92 period (ns)</li>
+<li><code>0</code> =E2=86=92 flags (polarity)</li>
+</ul>
+<hr>
+<h1>=F0=9F=A7=A0 Summary</h1>
+<p>Your DTS snippet:</p>
+<ul>
+<li><strong>Enables</strong> the GPT block</li>
+<li><strong>Selects</strong> channel A or B</li>
+<li><strong>Configures</strong> the pinmux</li>
+<li><strong>Makes the GPT available as a PWM provider</strong></li>
+</ul>
+<p>It is <strong>not</strong> the PWM waveform itself =E2=80=94 it is the h=
+ardware setup so Linux can expose PWM channels.</p>
+<hr>
+<p>If you want, I can also show you:</p>
+<ul>
+<li>How to map GPT channels to <code>/sys/class/pwm/pwmchipX</code></li>
+<li>How to write a PWM consumer node (LED, buzzer, motor, backlight)</li>
+<li>How to generate a single pulse instead of continuous PWM</li>
+<li>How GPT channels map to hardware registers on RZ/V2H</li>
+</ul>
+<p>Just tell me where you want to go next.</p></div>
+
+--000000000000bc7ea4064df48280--

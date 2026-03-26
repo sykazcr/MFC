@@ -1,0 +1,224 @@
+MIME-Version: 1.0
+Date: Fri, 27 Mar 2026 07:01:25 +0900
+Message-ID: <CADtJe7R2PbdLxXbceQ6+rpKZcOCEyZS2nyzsq_+OeB5Z-23e3Q@mail.gmail.com>
+Subject: pwm04
+From: Tsutomu Tsukishita <sykazcr@gmail.com>
+To: sykazcr@hotmail.com
+Content-Type: multipart/alternative; boundary="0000000000008f5c11064df48627"
+
+--0000000000008f5c11064df48627
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Yes =E2=80=94 that *is* the PWM=E2=80=91related DTS node, but more precisel=
+y:
+
+=F0=9F=91=89 *It is the device=E2=80=91tree node for the Renesas GPT (Gener=
+al PWM Timer)
+block*,
+which *provides* PWM channels to the Linux PWM subsystem.
+
+Let me break it down so you can see exactly what each part means.
+------------------------------
+=F0=9F=A7=A0 What this DTS node represents
+
+gpt1_4: gpt@13020400 {
+    compatible =3D "renesas,gpt-r9a09g047";
+    reg =3D <0 0x13020400 0 0xa4>;
+    #pwm-cells =3D <2>;
+    interrupts =3D <...>;
+    clocks =3D <&cpg CPG_MOD 0x32>;
+    power-domains =3D <&cpg>;
+    resets =3D  <&cpg 0x5B>,<&cpg 0x5C>;
+    status =3D "disabled";
+};
+
+This is *one GPT hardware block* inside the SoC.
+
+Renesas GPT =3D *General PWM Timer*
+=E2=86=92 It can generate PWM signals
+=E2=86=92 It can also be used as a timer/counter
+
+Linux exposes it through the *PWM subsystem*.
+------------------------------
+=F0=9F=94=A7 Key fields explained =E2=9C=94=EF=B8=8F compatible =3D "renesa=
+s,gpt-r9a09g047";
+
+This tells Linux which driver to bind.
+This is the GPT driver for RZ/G3S (R9A09G047).
+------------------------------
+=E2=9C=94=EF=B8=8F reg =3D <...>
+
+The MMIO register range for this GPT instance.
+------------------------------
+=E2=9C=94=EF=B8=8F #pwm-cells =3D <2>;
+
+This is the important part for PWM.
+
+It means:
+
+<pwm-channel period-ns flags>
+
+So a PWM consumer node can reference this GPT like:
+
+pwm =3D <&gpt1_4 0 20000000 0>;
+
+------------------------------
+=E2=9C=94=EF=B8=8F interrupts =3D <...>
+
+GPT has multiple channels (A, B, C, D, E, F, H, I).
+Each channel has its own interrupt.
+------------------------------
+=E2=9C=94=EF=B8=8F clocks, power-domains, resets
+
+Standard Renesas SoC integration.
+------------------------------
+=E2=9C=94=EF=B8=8F status =3D "disabled";
+
+This node is disabled by default.
+A board DTS must enable it:
+
+&gpt1_4 {
+    status =3D "okay";
+};
+
+------------------------------
+=F0=9F=A7=A9 So is this the PWM DTS? =E2=9C=94=EF=B8=8F Yes =E2=80=94 this =
+is the *PWM controller* node
+
+It registers a PWM provider (pwmchipN) in Linux.
+=E2=9D=8C It is NOT a PWM consumer
+
+It does not define the PWM output pin or how it is used.
+
+A consumer node (like LED, backlight, buzzer, motor) would reference this
+GPT using:
+
+pwm =3D <&gpt1_4 0 20000000 0>;
+
+------------------------------
+=F0=9F=A7=A0 How this maps to sysfs
+
+Once enabled, Linux will create:
+
+/sys/class/pwm/pwmchipX/
+
+Where pwmchipX corresponds to this GPT block.
+
+Then you can:
+
+echo 0 > pwmchipX/export
+echo 20000000 > pwmchipX/pwm0/period
+echo 1000000  > pwmchipX/pwm0/duty_cycle
+echo 1 > pwmchipX/pwm0/enable
+
+This produces a *continuous PWM waveform*.
+------------------------------
+If you want, I can also show you:
+
+   - How to write a PWM consumer node in DTS
+   - How to map GPT pins using pinctrl
+   - How to verify which pwmchip corresponds to which GPT
+   - How to generate a single pulse instead of continuous PWM
+
+Just tell me where you want to go next.
+
+--0000000000008f5c11064df48627
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p>Yes =E2=80=94 that <strong>is</strong> the PWM=E2=80=91=
+related DTS node, but more precisely:</p>
+<p>=F0=9F=91=89 <strong>It is the device=E2=80=91tree node for the Renesas =
+GPT (General PWM Timer) block</strong>,<br>
+which <em>provides</em> PWM channels to the Linux PWM subsystem.</p>
+<p>Let me break it down so you can see exactly what each part means.</p>
+<hr>
+<h1>=F0=9F=A7=A0 What this DTS node represents</h1>
+<pre><code class=3D"gmail-language-dts">gpt1_4: gpt@13020400 {
+    compatible =3D &quot;renesas,gpt-r9a09g047&quot;;
+    reg =3D &lt;0 0x13020400 0 0xa4&gt;;
+    #pwm-cells =3D &lt;2&gt;;
+    interrupts =3D &lt;...&gt;;
+    clocks =3D &lt;&amp;cpg CPG_MOD 0x32&gt;;
+    power-domains =3D &lt;&amp;cpg&gt;;
+    resets =3D  &lt;&amp;cpg 0x5B&gt;,&lt;&amp;cpg 0x5C&gt;;
+    status =3D &quot;disabled&quot;;
+};
+</code></pre>
+<p>This is <strong>one GPT hardware block</strong> inside the SoC.</p>
+<p>Renesas GPT =3D <em>General PWM Timer</em><br>
+=E2=86=92 It can generate PWM signals<br>
+=E2=86=92 It can also be used as a timer/counter</p>
+<p>Linux exposes it through the <strong>PWM subsystem</strong>.</p>
+<hr>
+<h1>=F0=9F=94=A7 Key fields explained</h1>
+<h3>=E2=9C=94=EF=B8=8F <code>compatible =3D &quot;renesas,gpt-r9a09g047&quo=
+t;;</code></h3>
+<p>This tells Linux which driver to bind.<br>
+This is the GPT driver for RZ/G3S (R9A09G047).</p>
+<hr>
+<h3>=E2=9C=94=EF=B8=8F <code>reg =3D &lt;...&gt;</code></h3>
+<p>The MMIO register range for this GPT instance.</p>
+<hr>
+<h3>=E2=9C=94=EF=B8=8F <code>#pwm-cells =3D &lt;2&gt;;</code></h3>
+<p>This is the important part for PWM.</p>
+<p>It means:</p>
+<pre><code>&lt;pwm-channel period-ns flags&gt;
+</code></pre>
+<p>So a PWM consumer node can reference this GPT like:</p>
+<pre><code class=3D"gmail-language-dts">pwm =3D &lt;&amp;gpt1_4 0 20000000 =
+0&gt;;
+</code></pre>
+<hr>
+<h3>=E2=9C=94=EF=B8=8F <code>interrupts =3D &lt;...&gt;</code></h3>
+<p>GPT has multiple channels (A, B, C, D, E, F, H, I).<br>
+Each channel has its own interrupt.</p>
+<hr>
+<h3>=E2=9C=94=EF=B8=8F <code>clocks</code>, <code>power-domains</code>, <co=
+de>resets</code></h3>
+<p>Standard Renesas SoC integration.</p>
+<hr>
+<h3>=E2=9C=94=EF=B8=8F <code>status =3D &quot;disabled&quot;;</code></h3>
+<p>This node is disabled by default.<br>
+A board DTS must enable it:</p>
+<pre><code class=3D"gmail-language-dts">&amp;gpt1_4 {
+    status =3D &quot;okay&quot;;
+};
+</code></pre>
+<hr>
+<h1>=F0=9F=A7=A9 So is this the PWM DTS?</h1>
+<h3>=E2=9C=94=EF=B8=8F Yes =E2=80=94 this is the <strong>PWM controller</st=
+rong> node</h3>
+<p>It registers a PWM provider (<code>pwmchipN</code>) in Linux.</p>
+<h3>=E2=9D=8C It is NOT a PWM consumer</h3>
+<p>It does not define the PWM output pin or how it is used.</p>
+<p>A consumer node (like LED, backlight, buzzer, motor) would reference thi=
+s GPT using:</p>
+<pre><code class=3D"gmail-language-dts">pwm =3D &lt;&amp;gpt1_4 0 20000000 =
+0&gt;;
+</code></pre>
+<hr>
+<h1>=F0=9F=A7=A0 How this maps to sysfs</h1>
+<p>Once enabled, Linux will create:</p>
+<pre><code>/sys/class/pwm/pwmchipX/
+</code></pre>
+<p>Where <code>pwmchipX</code> corresponds to this GPT block.</p>
+<p>Then you can:</p>
+<pre><code>echo 0 &gt; pwmchipX/export
+echo 20000000 &gt; pwmchipX/pwm0/period
+echo 1000000  &gt; pwmchipX/pwm0/duty_cycle
+echo 1 &gt; pwmchipX/pwm0/enable
+</code></pre>
+<p>This produces a <strong>continuous PWM waveform</strong>.</p>
+<hr>
+<h1>If you want, I can also show you:</h1>
+<ul>
+<li>How to write a PWM consumer node in DTS</li>
+<li>How to map GPT pins using pinctrl</li>
+<li>How to verify which pwmchip corresponds to which GPT</li>
+<li>How to generate a single pulse instead of continuous PWM</li>
+</ul>
+<p>Just tell me where you want to go next.</p></div>
+
+--0000000000008f5c11064df48627--

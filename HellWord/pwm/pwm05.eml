@@ -1,0 +1,150 @@
+MIME-Version: 1.0
+Date: Fri, 27 Mar 2026 07:02:09 +0900
+Message-ID: <CADtJe7Sv7wrgWB2-LNKxofxsP=O1=9BDQFpQY-cnjJXueV2T2A@mail.gmail.com>
+Subject: pwm05
+From: Tsutomu Tsukishita <sykazcr@gmail.com>
+To: sykazcr@hotmail.com
+Content-Type: multipart/alternative; boundary="00000000000036abdf064df48902"
+
+--00000000000036abdf064df48902
+Content-Type: text/plain; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+Yes =E2=80=94 *those sysfs commands create a continuous repeating PWM wavef=
+orm*,
+not a one=E2=80=91shot pulse.
+
+Let me break it down in a clean, intuitive way so you can visualize exactly
+what happens electrically.
+------------------------------
+=F0=9F=94=81 *Does this produce a continuous wave?*
+
+echo 0 > /sys/class/pwm/pwmchip2/export
+echo 20000000 > /sys/class/pwm/pwmchip2/pwm0/period
+echo 1000000  > /sys/class/pwm/pwmchip2/pwm0/duty_cycle
+echo 1 > /sys/class/pwm/pwmchip2/pwm0/enable
+
+=E2=9C=94=EF=B8=8F *Yes =E2=80=94 this produces a continuous PWM waveform*
+
+It repeats forever until you:
+
+   - disable it
+   - unexport it
+   - or reboot
+
+So the output looks like:
+
+HIGH for 1 ms
+LOW  for 19 ms
+HIGH for 1 ms
+LOW  for 19 ms
+HIGH for 1 ms
+LOW  for 19 ms
+... repeating forever
+
+This is a *20 ms period* (50 Hz) with *1 ms duty* (5%).
+------------------------------
+=F0=9F=A7=A0 *Why it repeats continuously*
+
+PWM hardware is designed to generate a periodic signal:
+
+   - The hardware timer reloads the period automatically
+   - The duty cycle is applied every cycle
+   - No CPU involvement after enabling
+
+So once you write:
+
+echo 1 > enable
+
+the PWM controller starts running in hardware and keeps going.
+------------------------------
+=F0=9F=A7=A9 *Your question: =E2=80=9C7_7_7_7_7_7 or just one 7_?=E2=80=9D*=
+ =E2=9C=94=EF=B8=8F It is
+*7_7_7_7_7_7_7_7_7...*
+
+A repeating pattern.
+=E2=9D=8C It is *not* a single pulse.
+
+PWM =3D *continuous periodic waveform*.
+
+If you wanted a *single pulse*, that requires a different mechanism (like a
+one=E2=80=91shot timer or manually enabling/disabling PWM at precise times)=
+.
+------------------------------
+=F0=9F=94=A7 If you want, I can also explain:
+
+   - How to generate a *single pulse* using PWM
+   - How to change duty/period dynamically
+   - How to use PWM from a kernel driver instead of sysfs
+   - How PWM interacts with pinctrl and clock frameworks
+
+Just tell me where you want to go next.
+
+--00000000000036abdf064df48902
+Content-Type: text/html; charset="UTF-8"
+Content-Transfer-Encoding: quoted-printable
+
+<div dir=3D"ltr"><p>Yes =E2=80=94 <strong>those sysfs commands create a <em=
+>continuous</em> repeating PWM waveform</strong>, not a one=E2=80=91shot pu=
+lse.</p>
+<p>Let me break it down in a clean, intuitive way so you can visualize exac=
+tly what happens electrically.</p>
+<hr>
+<h1>=F0=9F=94=81 <strong>Does this produce a continuous wave?</strong></h1>
+<pre><code>echo 0 &gt; /sys/class/pwm/pwmchip2/export
+echo 20000000 &gt; /sys/class/pwm/pwmchip2/pwm0/period
+echo 1000000  &gt; /sys/class/pwm/pwmchip2/pwm0/duty_cycle
+echo 1 &gt; /sys/class/pwm/pwmchip2/pwm0/enable
+</code></pre>
+<h3>=E2=9C=94=EF=B8=8F <strong>Yes =E2=80=94 this produces a continuous PWM=
+ waveform</strong></h3>
+<p>It repeats forever until you:</p>
+<ul>
+<li>disable it</li>
+<li>unexport it</li>
+<li>or reboot</li>
+</ul>
+<p>So the output looks like:</p>
+<pre><code>HIGH for 1 ms
+LOW  for 19 ms
+HIGH for 1 ms
+LOW  for 19 ms
+HIGH for 1 ms
+LOW  for 19 ms
+... repeating forever
+</code></pre>
+<p>This is a <strong>20 ms period</strong> (50 Hz) with <strong>1 ms duty</=
+strong> (5%).</p>
+<hr>
+<h1>=F0=9F=A7=A0 <strong>Why it repeats continuously</strong></h1>
+<p>PWM hardware is designed to generate a periodic signal:</p>
+<ul>
+<li>The hardware timer reloads the period automatically</li>
+<li>The duty cycle is applied every cycle</li>
+<li>No CPU involvement after enabling</li>
+</ul>
+<p>So once you write:</p>
+<pre><code>echo 1 &gt; enable
+</code></pre>
+<p>the PWM controller starts running in hardware and keeps going.</p>
+<hr>
+<h1>=F0=9F=A7=A9 <strong>Your question: =E2=80=9C7_7_7_7_7_7 or just one 7_=
+?=E2=80=9D</strong></h1>
+<h3>=E2=9C=94=EF=B8=8F It is <strong>7_7_7_7_7_7_7_7_7...</strong></h3>
+<p>A repeating pattern.</p>
+<h3>=E2=9D=8C It is <strong>not</strong> a single pulse.</h3>
+<p>PWM =3D <em>continuous periodic waveform</em>.</p>
+<p>If you wanted a <strong>single pulse</strong>, that requires a different=
+ mechanism (like a one=E2=80=91shot timer or manually enabling/disabling PW=
+M at precise times).</p>
+<hr>
+<h1>=F0=9F=94=A7 If you want, I can also explain:</h1>
+<ul>
+<li>How to generate a <strong>single pulse</strong> using PWM</li>
+<li>How to change duty/period dynamically</li>
+<li>How to use PWM from a kernel driver instead of sysfs</li>
+<li>How PWM interacts with pinctrl and clock frameworks</li>
+</ul>
+<p>Just tell me where you want to go next.</p></div>
+
+--00000000000036abdf064df48902--
