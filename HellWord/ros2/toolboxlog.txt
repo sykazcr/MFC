@@ -1,0 +1,38 @@
+Build the packages for linking Gazebo and ROS2
+RUN git clone https://github.com/ros-simulation/gazebo_ros_pkgs.git -b ros2 $HOME/ws_gazebo_ros/src/gazebo_ros_pkgs && 
+git clone https://github.com/ros-controls/gazebo_ros2_control.git -b humble $HOME/ws_gazebo_ros/src/gazebo_ros2_control WORKDIR $HOME/ws_gazebo_ros RUN /bin/bash -c "source /opt/ros/humble/setup.sh && MAKEFLAGS=-j4 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --parallel-workers 1"
+this is my dockerfile (actually Dockerfile_for_rzv2h from renesas site), and the err is:
+5867.4 Finished <<< gazebo_plugins [56min 57s]
+5867.4 Starting >>> gazebo_ros2_control
+5884.1 --- stderr: gazebo_ros2_control
+5884.1 CMake Error at CMakeLists.txt:7 (find_package):
+5884.1   By not providing "Findcontrol_toolbox.cmake" in CMAKE_MODULE_PATH this
+5884.1   project has asked CMake to find a package configuration file provided by
+5884.1   "control_toolbox", but CMake did not find one.
+5884.1
+5884.1   Could not find a package configuration file provided by "control_toolbox"
+5884.1   with any of the following names:
+5884.1
+5884.1     control_toolboxConfig.cmake
+5884.1     control_toolbox-config.cmake
+5884.1
+5884.1   Add the installation prefix of "control_toolbox" to CMAKE_PREFIX_PATH or
+5884.1   set "control_toolbox_DIR" to a directory containing one of the above files.
+5884.1   If "control_toolbox" provides a separate development package or SDK, be
+5884.1   sure it has been installed.
+5884.1
+5884.1
+5884.1 ---
+5884.1 Failed   <<< gazebo_ros2_control [16.8s, exited with code 1]
+5884.3
+5884.3 Summary: 4 packages finished [1h 37min 57s]
+5884.3   1 package failed: gazebo_ros2_control
+5884.3   2 packages had stderr output: gazebo_ros gazebo_ros2_control
+5884.3   2 packages not processed
+Dockerfile_for_rzv2h:116
+114 |         git clone https://github.com/ros-controls/gazebo_ros2_control.git -b humble $HOME/ws_gazebo_ros/src/gazebo_ros2_control
+115 |     WORKDIR $HOME/ws_gazebo_ros
+116 | >>> RUN /bin/bash -c "source /opt/ros/humble/setup.sh && MAKEFLAGS=-j4 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --parallel-workers 1"
+117 |
+118 |     # Install TurtleBot3 packages
+ERROR: failed to solve: process "/bin/sh -c /bin/bash -c "source /opt/ros/humble/setup.sh && MAKEFLAGS=-j4 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --parallel-workers 1"" did not complete successfully: exit code: 1
