@@ -1,0 +1,4513 @@
+    1  v4l2-ctl -d /dev/video2 --all
+    2  strace -e ioctl v4l2-ctl -d /dev/video2 --all
+    3  v4l2-ctl -d /dev/video2 --all
+    4  v4l2-ctl -d /dev/video0 --all
+    5  v4l2-ctl -d /dev/video2 --stream-mmap --stream-count=10
+    6  ll /var/log
+    7  ll
+    8  du -sm trace_pipe00.txt
+    9  ll
+   10  du -sm trace_pipe00.txt
+   11  v4l2-ctl -d /dev/video2 --stream-mmap --stream-count=10
+   12  cat /sys/kernel/debug/tracing/tracing_on
+   13  sudo cat /sys/kernel/debug/tracing/tracing_on
+   14  v4l2-ctl -d /dev/video0 --all
+   15  v4l2-ctl -d /dev/video2 --all
+   16  ll
+   17  rm trace_pipe00.txt
+   18  sudo su -
+   19  history  | grep strace
+   20  history 
+   21  strace -e ioctl v4l2-ctl -d /dev/video0 --all
+   22  media-ctl -d /dev/media0 -r
+   23  weston
+   24  sudo apt install weston
+   25  weston
+   26  weston-launch
+   27  sudo weston-launch
+   28  w
+   29  top
+   30  exit
+   31  dmesg -w | grep v4l2
+   32  ls
+   33  ll
+   34  ls /dev
+   35  ls /dev/v4l/
+   36  history 
+   37  ls /dev
+   38  v4l2-ctl -d /dev/video0 --all
+   39  sudo v4l2-ctl -d /dev/video0 --all
+   40  sudo v4l2-ctl -d /dev/video1 --all
+   41  arecord -l
+   42  ls /dev/snd/
+   43  pactl list sources | grep "Name:"
+   44  media-ctl -d /dev/media0 --print-topology
+   45  sudo v4l2-ctl -d /dev/media0 --all
+   46  sudo media-ctl -d /dev/media0 --print-topology
+   47  media-ctl -d /dev/media0 --print-topology | awk '/entity/{printf "%s -> ", $0} /pad/{print ""}'
+   48  sudo media-ctl -d /dev/media0 --print-topology | awk '/entity/{printf "%s -> ", $0} /pad/{print ""}'
+   49  which dot
+   50  sudo apt install dot
+   51  sudo apt install Graphviz
+   52  sudo media-ctl -d /dev/media0 --print-topology | awk '/entity/{entity=$0} /pad/{print entity " -> " $0}'
+   53  sudo apt install graphviz
+   54  which dot
+   55  sudo media-ctl -d /dev/media0 --print-topology > topology.dot
+   56  dot -Tpng topology.dot -o topology.png
+   57  sudo media-ctl -d /dev/media0 --print-topology | awk '/entity/{entity=$0} /pad/{print entity " -> " $0}' | sed 's/-> - entity/\n- entity/g'
+   58  sudo media-ctl -d /dev/media0 --print-topology | awk '
+   59  /entity/ {entity=$0}
+   60  /pad/ {print entity " --> " $0}'
+   61  sudo media-ctl -d /dev/media0 --print-topology > topology.dot
+   62  dot -Tpng topology.dot -o topology.png
+   63  cat topology.dot
+   64  echo 'digraph MediaPipeline {' > topology.dot
+   65  sudo media-ctl -d /dev/media0 --print-topology | awk '
+   66  /entity/ {gsub(":",""); entity=$3; print "  \"" entity "\" [shape=box];"}
+   67  /pad/ {gsub(":",""); pad=$2; print "  \"" entity "\" -> \"" pad "\";"}' >> topology.dot
+   68  echo '}' >> topology.dot
+   69  dot -Tpng topology.dot -o topology.png
+   70  cat topology.dot
+   71  ls
+   72  cd work/
+   73  ll
+   74  cd rzv2n/
+   75  ll
+   76  cd meta-renesas/
+   77  ll
+   78  ll meta-rzv2n/
+   79  which git
+   80  cd ../../
+   81  df -h
+   82  mkdir rz306
+   83  cd rz306/
+   84  ll
+   85  git clone --recursive -b dunfell/rz_306 https://github.com/renesas-rz/rz-bsp.git
+   86  ll
+   87  ll rz-bsp/
+   88  cd rz-bsp/
+   89  ls
+   90  ls -l
+   91  chmod +x bsp_setup.sh
+   92  ./bsp_setup.sh
+   93  ./bsp_setup.sh -v BSP-3.0.7 -b rzg2m
+   94  bash ./bsp_setup.sh -b BSP-3.0.7 -v BSP-3.0.7
+   95  bash ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+   96  git up
+   97  git pull
+   98  git checkout BSP-3.0.7
+   99  git branch
+  100  git branch -r
+  101  bash ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  102  git checkout 3f6a44d8
+  103  bash ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  104  vi bsp_setup.sh 
+  105  bash ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  106  ll /home/comm/work/rz306/rz-bsp/meta-renesas/meta-/docs/template/conf/
+  107  ll /home/comm/work/rz306/rz-bsp/meta-renesas/meta-/docs/template/
+  108  ll /home/comm/work/rz306/rz-bsp/meta-renesas/meta-/docs/
+  109  ll /home/comm/work/rz306/rz-bsp/meta-renesas/meta-/
+  110  ll /home/comm/work/rz306/rz-bsp/meta-renesas/
+  111  vi bsp_setup.sh 
+  112  bash ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  113  vi bsp_setup.sh 
+  114  bash ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  115  vi bsp_setup.sh 
+  116  bash ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  117  vi bsp_setup.sh 
+  118  bash ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  119  vi bsp_setup.sh 
+  120  ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  121  vi bsp_setup.sh 
+  122  set -x
+  123  ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  124  echo $0
+  125  vi bsp_setup.sh 
+  126  ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  127  vi bsp_setup.sh 
+  128  ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  129  vi bsp_setup.sh 
+  130  ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  131  vi bsp_setup.sh 
+  132  ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  133  vi bsp_setup.sh 
+  134  ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  135  vi bsp_setup.sh 
+  136  ./bsp_setup.sh -b rzv2l -v BSP-3.0.7
+  137  vi bsp_setup.sh 
+  138  cp bsp_setup.sh test_bsp_setup.sh
+  139  vi test_bsp_setup.sh
+  140  vi test_bsp_setup.sh 
+  141  ./test_bsp_setup.sh 
+  142  TEMPLATECONF=/home/comm/work/rz306/rz-bsp/meta-renesas/meta-rzv2l/docs/template/conf/ source poky/oe-init-build-env build
+  143  TEMPLATECONF=/home/comm/work/rz306/rz-bsp/meta-renesas/meta-rzv2l/docs/template/conf/ source poky/oe-init-build-env
+  144  set +x
+  145  ls /sys/
+  146  ls /sys/fs/
+  147  ls /sys/fs/cgroup/
+  148  ll /sys/fs/cgroup/
+  149  ls /proc
+  150  cat /proc/softirqs
+  151  cd /sys/
+  152  ls
+  153  cd class/
+  154  ls
+  155  cd input/
+  156  ls
+  157  ls event0
+  158  ls -al
+  159  cd ..
+  160  ll
+  161  ls -al ./i2c-dev/
+  162  ls -al ./spi_master/
+  163  ls -al ./spi_slave/
+  164  ls -al ./mem
+  165  cat /proc/loadavg 
+  166  cat /proc/pid
+  167  cat /proc/
+  168  ll /proc/
+  169  ls
+  170  ls /proc
+  171  cat /proc/1/exe
+  172  sudo cat /proc/1/exe
+  173  ll  /proc/1/
+  174  sudo cat /proc/1/status 
+  175  sudo cat /proc/2/status 
+  176  sudo cat /proc/3/status 
+  177  ls
+  178  cd /proc/
+  179  ls
+  180  cd 42
+  181  ls
+  182  readelf -d exe
+  183  sudo readelf -d exe
+  184  cd ..
+  185  ls devices 
+  186  cat devices
+  187  ls
+  188  pstree
+  189  which ag
+  190  sudo apt install ag
+  191  exit
+  192  sudo apt update
+  193  sudo apt install v4l2loopback-dkms
+  194  wget https://files.dev47apps.net/linux/droidcam_latest.zip
+  195  ll
+  196  unzip droidcam_latest.zip 
+  197  ls
+  198  ll
+  199  mkdir droidcam
+  200  mkdir droidcam_unzip
+  201  cd droidcam_unzip
+  202  unzip ../droidcam_latest.zip 
+  203  ll
+  204  sudo install
+  205  less README
+  206  less README.md 
+  207  sudo ./install-client
+  208  sudo modprobe v4l2loopback
+  209  sudo moprobe v4l2loopback exclusive_caps=1
+  210  sudo modrobe v4l2loopback exclusive_caps=1
+  211  sudo modprobe v4l2loopback exclusive_caps=1
+  212  which droidcam-cli
+  213  droidcam-cli
+  214  droidcam-cli -v -dev=/dev/video2
+  215  sudo apt install adb
+  216  adb devices
+  217  droidcam-cli adb
+  218  droidcam-cli localhost 5037
+  219  ifconfig
+  220  droidcam-cli 192.168.122.1 5037
+  221  droidcam-cli 192.168.1.6 4747
+  222  adb shell input keyevent 27
+  223  ping 192.168.1.6
+  224  ifconfig
+  225  ll
+  226  cd work/
+  227  ls
+  228  cd rzv2n/
+  229  la
+  230  cd build/tmp/work-shared/rzv2n-evk/kernel-source/
+  231  ls
+  232  cd drivers/media/platform/
+  233  ls
+  234  cd rzg2l-cru
+  235  ls
+  236  less rzg2l-cru.h
+  237  v4l2-ctl -d /dev/video0 --list-ctrls
+  238  ls /dev
+  239  history | grep loop
+  240  sudo modprobe v4l2loopback exclusive_caps=1
+  241  v4l2-ctl -d /dev/video0 --list-ctrls
+  242  ls /dev
+  243  cd ~
+  244  cd work/
+  245  ls
+  246  which dtc
+  247  sudo apt-get install device-tree-compiler
+  248  which dtc
+  249  ls
+  250  dtc -I dtb -O dts -o r9a09g056n44-evk.dts r9a09g056n44-evk.dtb
+  251  ls
+  252  which oe-pkgdata-util
+  253  ll
+  254  cd work/
+  255  ll
+  256  cd rzv2n/
+  257  ll
+  258  history 
+  259  history | grep TEMP
+  260  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2n/docs/template/conf/ source poky/oe-init-build-env 
+  261  which oe-pkgdata-util
+  262  history | grep rzv2n | grep bitbake
+  263  ll tmp/deploy/images/rzv2n-evk/
+  264  bitbake -g core-image-weston && cat task-depends.dot | grep virtualization
+  265  MACHINE=rzv2n bitbake -g core-image-weston && cat task-depends.dot | grep virtualization
+  266  oe-pkgdata-util list-pkg core-image-weston | grep docker
+  267  oe-pkgdata-util list-pkgs core-image-weston | grep docker
+  268  MACHINE=rzv2n bitbake core-image-weston
+  269  history |  grep bitbake
+  270  MACHINE=rzv2n bitbake core-image-bsp
+  271  vi /home/comm/work/rzv2n/meta-rz-features/meta-rz-codecs/recipes-multimedia/gstreamer/gstreamer1.0-plugin-vspmfilter.bb
+  272  MACHINE=rzv2n-evk bitbake core-image-weston
+  273  ll ../
+  274  ll ../meta-rz-features/
+  275  oe-pkgdata-util list-pkgs core-image-weston | grep docker
+  276  ll /home/comm/work/rzv2n/build/tmp/pkgdata/rzv2n
+  277  ll /home/comm/work/rzv2n/build/tmp/pkgdata/
+  278  ll /home/comm/work/rzv2n/build/tmp/pkgdata/rzv2n-evk/
+  279  MACHINE=rzv2n-evk oe-pkgdata-util list-pkgs core-image-weston | grep docker
+  280  MACHINE=rzv2n-evk bitbake core-image-weston cleanall
+  281  MACHINE=rzv2n-evk bitbake -c cleansstate gstreamer1.0-plugin-vspmfilter
+  282  MACHINE=rzv2n-evk bitbake -c clean core-image-weston
+  283  vi conf/local.conf 
+  284  MACHINE=rzv2n-evk bitbake core-image-weston
+  285  MACHINE=rzv2n-evk bitbake -c clean core-image-weston
+  286  MACHINE=rzv2n-evk bitbake core-image-weston
+  287  ll ../
+  288  ll /home/comm/work/rzv2n/build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/acl-2.2.53
+  289  find ../ -name 0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  290  cat ../build/tmp/work/aarch64-poky-linux/acl/2.2.53-r0/acl-2.2.53/patches/0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  291  vi ../build/tmp/work/aarch64-poky-linux/acl/2.2.53-r0/acl-2.2.53/patches/0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  292  find ../ -name 0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch | xargs -I{} ls -l {}
+  293  git format-patch -1 HEAD
+  294  cd ../build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/
+  295  git format-patch -1 HEAD
+  296  ll
+  297  ll ..
+  298  cd acl-2.2.53/
+  299  ll
+  300  git format-patch -1 HEAD
+  301  git init
+  302  git add .
+  303  git commit -m "Initial import"
+  304  git format-patch -1 HEAD
+  305  cd ~/work/rzv2n/build
+  306  MACHINE=rzv2n-evk bitbake -c clean core-image-weston
+  307  cd -
+  308  which quilt
+  309  which quilt-native
+  310  cd -
+  311  find ./ -name quilt*
+  312  ll ./tmp/sysroots-components/x86_64/quilt-native/usr/bin/quilt
+  313  MACHINE=rzv2n-evk oe-pkgdata-util list-pkgs core-image-weston | grep docker
+  314  MACHINE=rzv2n-evk bitbake -g core-image-weston && cat task-depends.dot | grep virtualization
+  315  bitbake-layers show-layers
+  316  bitbake-layers show-recipes
+  317  bitbake-layers show-appends
+  318  MACHINE=rzv2n-evk  bitbake-layers show-appends
+  319  MACHINE=rzv2n-evk  bitbake-layers -h
+  320  MACHINE=rzv2n-evk  bitbake-layers show-cross-depends
+  321  ll
+  322  vi conf/local.conf 
+  323  ll tmp/deploy/images/rzv2n-evk/
+  324  df -H
+  325  cp -rp tmp/deploy/images/rzv2n-evk/ ../../tmp/deploy/images/rzv2n-evk_image_default/
+  326  cp -rp tmp/deploy/images/rzv2n-evk/ ../../tmp/deploy/images/rzv2n-evk_image_default
+  327  cp -rp tmp/deploy/images/rzv2n-evk/ ../../rzv2n-evk_default
+  328  du -sm ../../rzv2n-evk_default
+  329  history | grep bitbake 
+  330  MACHINE=rzv2n-evk bitbake core-image-weston
+  331  cd /home/comm/work/rzv2n/build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/acl-2.2.53/
+  332  git diff -1 default
+  333  git diff
+  334  git format-patch -1 HEAD
+  335  cat 0001-Initial-import.patch 
+  336  cd -
+  337  MACHINE=rzv2n-evk bitbake core-image-weston
+  338  MACHINE=rzv2n-evk bitbake -f core-image-weston
+  339  cd -
+  340  ll ../
+  341  ls
+  342  ll ../../
+  343  ll ../../../
+  344  ll ../../
+  345  ll ../
+  346  ll ../build/
+  347  ll ../temp/
+  348  ls
+  349  ll
+  350  git format-patch -1 HEAD > ../0001-test-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  351  ll ../
+  352  rm ../0001-test-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  353  cp 0001-Initial-import.patch ../0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  354  ll ../
+  355  cd -
+  356  MACHINE=rzv2n-evk bitbake -f core-image-weston
+  357  cat ../0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  358  cd -
+  359  cat ../0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  360  ls
+  361  MACHINE=rzv2n-evk bitbake core-image-weston
+  362  ll ../
+  363  rm 0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  364  cd -
+  365  MACHINE=rzv2n-evk bitbake core-image-weston
+  366  vi /home/comm/work/rzv2n/build/../poky/meta/recipes-support/attr/acl_2.2.53.bb:do_patch
+  367  vi /home/comm/work/rzv2n/build/../poky/meta/recipes-support/attr/acl_2.2.53.bb 
+  368  ll ../
+  369  cd -
+  370  ll ../
+  371  rm ../0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch 
+  372  cd -
+  373  MACHINE=rzv2n-evk bitbake core-image-weston
+  374  cd -
+  375  ll ../
+  376  ll
+  377  git diff
+  378  git commit --amend
+  379  git format-patch -1 HEAD
+  380  ll
+  381  git log
+  382  ll ../
+  383  git revert c04fb76b677dd8637e6551aa833565203a2b2225
+  384  git commit --amend
+  385  git format-patch -1 HEAD
+  386  ll
+  387  rm 0001-Initial-import.patch
+  388  mv 0001-tests-do-not-hardcode-the-build-path-into-a-helper.patch ../
+  389  cd -
+  390  MACHINE=rzv2n-evk bitbake core-image-weston
+  391  cd -
+  392  ll ../
+  393  head -n 5 ../0001-tests-do-not-hardcode-the-build-path-into-a-helper.patch
+  394  cd ..
+  395  patch -p1 < 0001-tests-do-not-hardcode-the-build-path-into-a-helper.patch
+  396  cd -
+  397  cd ~/work/rzv2n/build/
+  398  MACHINE=rzv2n-evk bitbake core-image-weston
+  399  exit
+  400  cd work/rzv2n
+  401  history | grep TEMP
+  402  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2n/docs/template/conf/ source poky/oe-init-build-env 
+  403  MACHINE=rzv2n-evk bitbake core-image-weston
+  404  cd /home/comm/work/rzv2n/build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/acl-2.2.53
+  405  ll ../
+  406  mv ../0001-tests-do-not-hardcode-the-build-path-into-a-helper.patch ../0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  407  cd -
+  408  MACHINE=rzv2n-evk bitbake core-image-weston
+  409  ll /home/comm/work/rzv2n/build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/
+  410  ll /home/comm/work/rzv2n/build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch
+  411  cd ../poky/meta/recipes-support/attr/acl/
+  412  ll
+  413  cp cp /home/comm/work/rzv2n/build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch ./
+  414  cp /home/comm/work/rzv2n/build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/0001-tests-do-not-hardcode-the-build-path-into-a-helper-l.patch ./
+  415  ll
+  416  cd -
+  417  MACHINE=rzv2n-evk bitbake core-image-weston
+  418  MACHINE=rzv2n-evk bitbake -c clean acl-native
+  419  MACHINE=rzv2n-evk bitbake acl-native
+  420  ll /home/comm/work/rzv2n/build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/recipe-sysroot-native/
+  421  MACHINE=rzv2n-evk bitbake -c clean acl-native
+  422  MACHINE=rzv2n-evk bitbake core-image-weston
+  423  MACHINE=rzv2n-evk bitbake -c clean acl-native
+  424  MACHINE=rzv2n-evk bitbake core-image-weston
+  425  MACHINE=rzv2n-evk bitbake -c clean poky
+  426  MACHINE=rzv2n-evk bitbake -c clean
+  427  MACHINE=rzv2n-evk bitbake -c clean recipe-sysroot-native
+  428  MACHINE=rzv2n-evk bitbake -c clean sysroot-native
+  429  MACHINE=rzv2n-evk bitbake -c cleanall acl-native gnu-config-native
+  430  MACHINE=rzv2n-evk rm -rf tmp sstate-cache
+  431  MACHINE=rzv2n-evk bitbake acl-native
+  432  vi conf/local.conf 
+  433  MACHINE=rzv2n-evk bitbake acl-native
+  434  MACHINE=rzv2n-evk bitbake -c cleanall acl-native gnu-config-native
+  435  MACHINE=rzv2n-evk rm -rf tmp sstate-cache
+  436  MACHINE=rzv2n-evk bitbake acl-native
+  437  cd /home/comm/work/rzv2n/build/downloads/git2/
+  438  ll
+  439  git clone --bare https://git.savannah.gnu.org/git/config.git git.savannah.gnu.org.git.config.git
+  440  cd -
+  441  MACHINE=rzv2n-evk bitbake acl-native
+  442  /usr/bin/env wget -t 2 -T 30 --passive-ftp --no-check-certificate -O /home/comm/work/rzv2n/build/downloads/acl-2.2.53.tar.gz.tmp -P /home/comm/work/rzv2n/build/downloads 'https://download.savannah.gnu.org/releases/acl/acl-2.2.53.tar.gz'
+  443  MACHINE=rzv2n-evk bitbake acl-native
+  444  ll /home/comm/work/rzv2n/build/downloads/acl*
+  445  MACHINE=rzv2n-evk bitbake core-image-weston
+  446  ll /home/comm/work/rzv2n/build/downloads/acl*
+  447  MACHINE=rzv2n-evk bitbake -c cleanall acl-native gnu-config-native
+  448  MACHINE=rzv2n-evk rm -rf tmp sstate-cache
+  449  MACHINE=rzv2n-evk bitbake acl-native
+  450  BB_GIT_PROTOCOL="git" MACHINE=rzv2n-evk bitbake acl-native 
+  451  cd /home/comm/work/rzv2n/build/downloads/git2/
+  452  ll
+  453  mv git.savannah.gnu.org.git.config.git{,.bak}
+  454  ll *savannah*
+  455  git clone --bare https://git.savannah.gnu.org/git/config.git git.savannah.gnu.org.git.config.git
+  456  cd -
+  457  MACHINE=rzv2n-evk bitbake -c cleanall acl-native gnu-config-native
+  458  MACHINE=rzv2n-evk rm -rf tmp sstate-cache
+  459  MACHINE=rzv2n-evk bitbake acl-native
+  460  cd /home/comm/work/rzv2n/build/downloads/git2/
+  461  ll *savannah*
+  462  git clone --bare https://git.savannah.gnu.org/git/config.git git.savannah.gnu.org.git.config.git
+  463  ll *savannah*
+  464  ll git.savannah.gnu.org.git.config.git
+  465  MACHINE=rzv2n-evk bitbake acl-native
+  466  ll git.savannah.gnu.org.git.config.git
+  467  MACHINE=rzv2n-evk bitbake -f acl-native
+  468  ll git.savannah.gnu.org.git.config.git
+  469  MACHINE=rzv2n-evk bitbake -c cleanall gnu-config-native
+  470  ll git.savannah.gnu.org.git.config.git
+  471  git clone --bare https://git.savannah.gnu.org/git/config.git git.savannah.gnu.org.git.config.git
+  472  cd -
+  473  MACHINE=rzv2n-evk bitbake gnu-config-native
+  474  MACHINE=rzv2n-evk bitbake -g gnu-config-native
+  475  MACHINE=rzv2n-evk bitbake core-image-weston
+  476  cd /home/comm/work/rzv2n/build/downloads
+  477  ll git.savannah.gnu.org.git.config.git
+  478  git clone --bare https://git.savannah.gnu.org/git/config.git git.savannah.gnu.org.git.config.git
+  479  cd -
+  480  MACHINE=rzv2n-evk bitbake core-image-weston
+  481  MACHINE=rzv2n-evk bitbake acl-native
+  482  cd /home/comm/work/rzv2n/build/downloads
+  483  ll git.savannah.gnu.org.git.config.git
+  484  MACHINE=rzv2n-evk bitbake -f acl-native
+  485  exit
+  486  ll
+  487  cd work/
+  488  ll
+  489  mkdir gittest
+  490  cd gittest/
+  491  git clone --bare https://git.savannah.gnu.org/git/config.git git.savannah.gnu.org.git.config.git
+  492  git clone --bare git://git.savannah.gnu.org/git/config.git git.savannah.gnu.org.git.config.git
+  493  ll
+  494  rm -rf git.savannah.gnu.org.git.config.git/
+  495  git clone --bare git://git.savannah.gnu.org/git/config.git git.savannah.gnu.org.git.config.git
+  496  wget -t 2 -T 30 --passive-ftp --no-check-certificate -O /home/comm/work/rzv2n/build/downloads/acl-2.2.53.tar.gz.tmp
+  497  wget https://download.savannah.gnu.org/releases/acl/acl-2.2.53.tar.gz
+  498  wget http://download.savannah.gnu.org/releases/acl/acl-2.2.53.tar.gz
+  499  cd work/rzv2n
+  500  ll
+  501  history | grep TEMP
+  502  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2n/docs/template/conf/ source poky/oe-init-build-env 
+  503  MACHINE=rzv2n-evk bitbake -f acl-native
+  504  ll /home/comm/work/rzv2n/build/downloads/git.savannah.gnu.org.git.config.git/
+  505  wget -t 2 -T 30 --passive-ftp --no-check-certificate -O /home/comm/work/rzv2n/build/downloads/acl-2.2.53.tar.gz.tmp -P /home/comm/work/rzv2n/build/downloads 'https://download.savannah.gnu.org/releases/acl/acl-2.2.53.tar.gz'
+  506  MACHINE=rzv2n-evk bitbake -f acl-native
+  507  less /home/comm/work/rzv2n/build/tmp/work/x86_64-linux/acl-native/2.2.53-r0/temp/log.do_fetch.540325
+  508  cp /home/comm/work/rzv2n/build/downloads/acl-2.2.53.tar.gz.tmp /home/comm/work/rzv2n/build/downloads/acl-2.2.53.tar.gz
+  509  MACHINE=rzv2n-evk bitbake -f acl-native
+  510  history | grep recip
+  511  vi /home/comm/work/rzv2n/build/../poky/meta/recipes-support/attr/acl_2.2.53.bb
+  512  MACHINE=rzv2n-evk bitbake -f acl-native
+  513  MACHINE=rzv2n-evk bitbake core-image-weston
+  514  cat /home/comm/work/rzv2n/build/tmp/work/aarch64-poky-linux/base-passwd/3.5.29-r0/base-passwd-3.5.29/add_shutdown.patch
+  515  cat /home/comm/work/rzv2n/build/tmp/work/aarch64-poky-linux/base-passwd/3.5.29-r0/add_shutdown.patch
+  516  cd work/
+  517  ll
+  518  df -H
+  519  ll rz306/
+  520  mkdir rzv2h
+  521  ll
+  522  ps aux
+  523  watch -d 'ps aux | grep make'
+  524  watch -d 'ps aux | grep git'
+  525  ls
+  526  cd work/rv2h
+  527  cd work/rzv2h/build/tmp/work-shared/
+  528  ls
+  529  cd rzv2h-evk-ver1/
+  530  ll
+  531  cd kernel-
+  532  cd kernel-build-artifacts/
+  533  ll
+  534  cd ../kernel-source/
+  535  ll
+  536  cd ../../
+  537  ls
+  538  cd ../
+  539  ll
+  540  cd work
+  541  ll
+  542  tree -h
+  543  man tree
+  544  tree -d -L 2
+  545  tree -d -L 3
+  546  tree -L 5 | more
+  547  ll
+  548  cd aarch64-poky-linux/libpng/1.6.37-r0/
+  549  tree
+  550  tree | wc -l
+  551  tree -d 
+  552  tree -d -L 2
+  553  tree -d -L 1
+  554  tree | wc -l
+  555  df -H
+  556  cd work/
+  557  ll
+  558  cd rzv2h
+  559  ll
+  560  cd ..
+  561  ll
+  562  cd pac2h520MultiOs/
+  563  ll
+  564  unzip RTK0EF0180F04000SJ.zip 
+  565  ll
+  566  unzip r01an7254ej0311_rzv-multi-os-pkg.zip 
+  567  ll
+  568  cd ../rzv2h
+  569  tar zxvf ../pac2h520MultiOs/rzv2h_ai-sdk_yocto_recipe_v5.20.tar.gz
+  570  ll
+  571  ll ../pac2h520MultiOs/
+  572  tar zxvf ../pac2h520MultiOs/meta-rz-features_multi-os_v3.1.1.tar.gz 
+  573  ll
+  574  patch -p1 < 0001-system-setting-for-RZV2H-AI_SDK-v5.20.patch
+  575  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2h/docs/template/conf/ source poky/oe-init-build-env
+  576  bitbake-layers add-layer ../meta-rz-features/meta-rz-graphics
+  577  bitbake-layers add-layer ../meta-rz-features/meta-rz-drpai
+  578  bitbake-layers add-layer ../meta-rz-features/meta-rz-opencva
+  579  bitbake-layers add-layer ../meta-rz-features/meta-rz-codecs
+  580  patch -p1 < ../0001-tesseract.patch
+  581  patch -p1 < ../0002-sd-image-size-16gb.patch
+  582  patch -p1 < ../0003-openmp.patch
+  583  ll ../../
+  584  7z x ../../pac2h520MultiOs/oss_pkg_rzv_v5.20.7z 
+  585  MACHINE=rzv2h-evk-ver1 bitbake core-image-weston
+  586  ls
+  587  ll
+  588  cd work/rzv2h/build/tmp/deploy/images/rzv2h-evk-ver1/
+  589  ll
+  590  ls
+  591  exit
+  592  ps aux | grep -i cc
+  593  ps aux | grep -i gcc
+  594  top
+  595  ps aux | grep -i bash
+  596  watch -d 'ps aux | grep -i bash'
+  597  top
+  598  ps aux
+  599  watch -d 'ps aux'
+  600  watch -d 'ps aux grep -i bitbake'
+  601  watch -d 'ps aux | grep -i bitbake'
+  602  cd work/rzv2h/build/tmp/work
+  603  ll
+  604  cd aarch64-poky-linux/weston/
+  605  ll
+  606  cd 8.0.0-r0/
+  607  ll
+  608  find ./ -name weston -type f 
+  609  find ./ -name weston -type f | xargs -I{} ls -l {}
+  610  cd ~
+  611  cd -
+  612  find ./ -name weston -type f | xargs -I{} ls -l {}
+  613  cd -
+  614  ll ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0
+  615  cd -
+  616  find ./ -name weston -type f | xargs -I{} ls -l {}
+  617  cd -
+  618  find ./ -name weston -type f | xargs -I{} ls -l {}
+  619  cd -
+  620  find ./ -name weston -type f | xargs -I{} ls -l {}
+  621  cd -
+  622  ll
+  623  mkdir sandbox
+  624  cd sandbox/
+  625  ll
+  626  tar zxvf core-image-weston-rzv2h-evk-ver1.tar.gz 
+  627  ll
+  628  cd usr/bin/
+  629  ls
+  630  ll west*
+  631  cd ~
+  632  cd sandbox2/
+  633  mkdir sandbox2
+  634  cd sandbox2
+  635  ll
+  636  mkdir deploy
+  637  tar zxvf core-image-weston-rzv2h-evk-ver1.tar.gz  -C deploy/
+  638  ll
+  639  cd deploy/
+  640  ll
+  641  cd usr/bin/
+  642  ll west*
+  643  cd -
+  644  cd ..
+  645  ll
+  646  mkdir check-rf
+  647  cd check-rf/
+  648  tar zxvf /home/comm/work/rzv2h/build/tmp/deploy/images/rzv2h-evk-ver1/core-image-weston-rzv2h-evk-ver1-20250826133439.rootfs.tar.gz 
+  649  ll
+  650  ll /usr/bin/weston
+  651  ll ../
+  652  ll /home/comm/work/rzv2h/build/tmp/deploy/images/rzv2h-evk-ver1/core-image-weston-rzv2h-evk-ver1-20250826133439.rootfs.tar.gz 
+  653  ll ../deploy/usr/bin/weston
+  654  cd ..
+  655  ll
+  656  mkdir deploy2
+  657  cd deploy2
+  658  tar zxvf ../core-image-weston-rzv2h-evk-ver1.tar.gz 
+  659  ll ./usr/bin/weston
+  660  sync
+  661  ll
+  662  cd ..
+  663  ll
+  664  tar zxvf core-image-weston-rzv2h-evk-ver1.tar.gz -C deploy3
+  665  tar zxvf core-image-weston-rzv2h-evk-ver1.tar.gz -C deploy
+  666  ll ./deploy/usr/bin/weston
+  667  mkdir deploy4
+  668  ll
+  669  tar zxvf /home/comm/work/rzv2h/build/tmp/deploy/images/rzv2h-evk-ver1/core-image-weston-rzv2h-evk-ver1.tar.gz -C deploy4/
+  670  ll ./deploy4/usr/bin/weston
+  671  exit
+  672  ll
+  673  mkdir sandbox4
+  674  cd sandbox4
+  675  top
+  676  tar zxvf /home/comm/work/rzv2h/build/tmp/deploy/images/rzv2h-evk-ver1/core-image-weston-rzv2h-evk-ver1-20250826145905.rootfs.tar.gz 
+  677  ll usr/bin/weston
+  678  top
+  679  ll
+  680  cd ..
+  681  mkdir sandbox5
+  682  cd sandbox5
+  683  tar zxvf /home/comm/work/rzv2h/build/tmp/deploy/images/rzv2h-evk-ver1/core-image-weston-rzv2h-evk-ver1-20250826154745.rootfs.tar.gz 
+  684  ll usr/bin/weston
+  685  md5sum ~/sandbox5/usr/bin/weston
+  686  ll
+  687  rm -rdf sandbox
+  688  mkdir sandbox3
+  689  cd sandbox3
+  690  ll
+  691  tar zxvf /home/comm/work/rzv2h/build/tmp/deploy/images/rzv2h-evk-ver1/core-image-weston-rzv2h-evk-ver1.tar.gz
+  692  ll usr/bin/west*
+  693  tar zxvf /home/comm/work/rzv2h/build/tmp/deploy/images/rzv2h-evk-ver1/core-image-weston-rzv2h-evk-ver1-20250826133439.rootfs.tar.gz
+  694  ll usr/bin/west*
+  695  ll
+  696  rm -rdf usr/
+  697  sync
+  698  tar zxvf /home/comm/work/rzv2h/build/tmp/deploy/images/rzv2h-evk-ver1/core-image-weston-rzv2h-evk-ver1-20250826133439.rootfs.tar.gz
+  699  ll usr/bin/weston
+  700  cd ..
+  701  ll
+  702  cd sandbox2
+  703  kk
+  704  ll
+  705  ll deploy/usr/bin/weston
+  706  ll deploy2/usr/bin/weston
+  707  ll deploy4/usr/bin/weston
+  708  ll check-rf/usr/bin/weston
+  709  ldd deploy/usr/bin/weston
+  710  readelf -d ./image/usr/bin/weston
+  711  readelf -d deploy/usr/bin/weston | grep NEEDED
+  712  cd ../
+  713  cd work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/
+  714  ll
+  715  find ./ -name weston -type f 
+  716  find ./ -name weston -type f | xargs -I{} ls -l {}
+  717  date
+  718  find ./ -name weston -type f | xargs -I{} ls -l {}
+  719  history 
+  720  find ./ -name weston -type f | xargs -I{} ls -l {}
+  721  ll
+  722  cd ~
+  723  ll ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0
+  724  find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0-name weston -type f | xargs -I{} ls -l {}-name weston -type f | xargs -I{} ls -l {}
+  725  find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 -name weston -type f | xargs -I{} ls -l {}-name weston -type f | xargs -I{} ls -l {}
+  726  find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 -name weston -type f | xargs -I{} ls -l {}
+  727  tree ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0
+  728  find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 -name weston -type f | xargs -I{} ls -l {}
+  729  tree ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0
+  730  tree ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 | grep weston
+  731  ll ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0
+  732  ll ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/weston-8.0.0/
+  733  ll -a ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/weston-8.0.0/
+  734  ll -a ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/weston-8.0.0/..
+  735  date
+  736  ll -a ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/weston-8.0.0/
+  737  find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 -name weston -type f | xargs -I{} ls -l {}
+  738  ll -a ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/
+  739  ll -a ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/
+  740  ll -a ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/
+  741  ll -a ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/bin/
+  742  find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 -name weston -type f | xargs -I{} ls -l {}
+  743  watch -d 'find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 -name weston -type f | xargs -I{} ls -l {}'
+  744  ll
+  745  ll -a ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/bin/
+  746  find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 -name weston -type f | xargs -I{} ls -l {}
+  747  watch -d -n 5 'find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 -name weston -type f | xargs -I{} ls -l {}'
+  748  find ~/work/rzv2h/build/ -name weston -type f | xargs -I{} ls -l {}
+  749  find ~/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0 -name weston -type f | xargs -I{} ls -l {}
+  750  md5sum /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston
+  751  string /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston
+  752  strings /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston
+  753  strings /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston > sandbox5/str1olddate.txt
+  754  strings /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/build/compositor/weston > sandbox5/str2newddate.txt
+  755  diff sandbox5/str1olddate.txt sandbox5/str2newddate.txt
+  756  readelf -d /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston
+  757  readelf /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/build/compositor/weston
+  758  readelf -d /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/build/compositor/weston
+  759  readelf -d /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston
+  760  readelf -a /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/build/compositor/weston | grep debuglink
+  761  readelf -a /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/build/compositor/weston | grep debug
+  762  readelf -a /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston | grep debug
+  763  readelf -d /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston
+  764  readelf -a /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston | grep weston
+  765  readelf -a /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/build/compositor/weston | grep weston
+  766  readelf -a /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/build/compositor/weston
+  767  readelf -a /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston
+  768  readelf -a /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/packages-split/weston/usr/bin/weston >1.txt
+  769  readelf -a /home/comm/work/rzv2h/build/tmp/work/aarch64-poky-linux/weston/8.0.0-r0/build/compositor/weston > 2b.txt
+  770  diff 1.txt 2b.txt 
+  771  cd work/
+  772  ll
+  773  cd rzv2h/
+  774  history | grep TEMP
+  775  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2h/docs/template/conf/ source poky/oe-init-build-env
+  776  history | grep bitbake 
+  777  MACHINE=rzv2h-evk-ver1 bitbake -c listtasks weston
+  778  MACHINE=rzv2h-evk-ver1 bitbake -c cleanall weston && bitbake weston
+  779  history | grep bitbake | grep 2h
+  780  MACHINE=rzv2h-evk-ver1 bitbake -c cleanall weston 
+  781  MACHINE=rzv2h-evk-ver1 bitbake  weston
+  782  MACHINE=rzv2h-evk-ver1 bitbake -c cleanall weston 
+  783  MACHINE=rzv2h-evk-ver1 bitbake  weston
+  784  cd ..
+  785  ll
+  786  cd meta-rz-features/
+  787  find ./ -name weston*
+  788  cd ../meta-renesas/
+  789  find ./ -name weston*
+  790  cd ./meta-rz-common/recipes-graphics/wayland/weston
+  791  ll
+  792  cd ..
+  793  ll
+  794  ll ../
+  795  cd ../../../
+  796  ll
+  797  cd ..
+  798  ll
+  799  cd poky/
+  800  ll
+  801  find ./ -name weston*
+  802  find ./ -name weston_8*
+  803  echo "# Rebuild trigger" >> ./meta/recipes-graphics/wayland/weston_8.0.0.bb
+  804  cd ../build/
+  805  MACHINE=rzv2h-evk-ver1 bitbake -c cleanall weston 
+  806  MACHINE=rzv2h-evk-ver1 bitbake  weston
+  807  cd -
+  808  cat ./meta/recipes-graphics/wayland/weston_8.0.0.bb
+  809  ll ./meta/recipes-graphics/wayland/weston_8.0.0.bb
+  810  cd ../build/
+  811  MACHINE=rzv2h-evk-ver1 bitbake -c cleanall weston 
+  812  MACHINE=rzv2h-evk-ver1 bitbake -c cleansstate weston 
+  813  MACHINE=rzv2h-evk-ver1 bitbake -v weston 
+  814  ll tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/
+  815  ll tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/bin/weston
+  816  ls -l tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/bin/
+  817  cd tmp/deploy/images/rzv2h-evk-ver1/
+  818  ll
+  819  ls
+  820  cp core-image-weston-rzv2h-evk-ver1.tar.gz ~/sandbox/
+  821  ll -rt
+  822  history | grep bitbake
+  823  MACHINE=rzv2h-evk-ver1 bitbake core-image-weston
+  824  MACHINE=rzv2h-evk-ver1 bitbake -c clean core-image-weston
+  825  MACHINE=rzv2h-evk-ver1 bitbake -c cleansstate core-image-weston
+  826  MACHINE=rzv2h-evk-ver1 bitbake core-image-weston
+  827  cd -
+  828  ll
+  829  cp core-image-weston-rzv2h-evk-ver1.tar.gz ~/sandbox2/
+  830  ll core-image-weston-rzv2h-evk-ver1.tar.gz
+  831  pwd
+  832  sync
+  833  cp core-image-weston-rzv2h-evk-ver1.tar.gz ~/sandbox/b_core-image-weston-rzv2h-evk-ver1.tar.gz
+  834  pwd
+  835  cd ../../../
+  836  cd work/aarch64-poky-linux/weston/8.0.0-r0/
+  837  ll
+  838  find ./ -name weston -type f
+  839  ldd ./pkgdata-pdata-input/weston
+  840  ldd ./image/usr/bin/weston
+  841  strings ./image/usr/bin/weston 
+  842  strings ./image/usr/bin/weston | grep so
+  843  readelf -d ./image/usr/bin/weston | grep NEEDED
+  844  cd -
+  845  cd ..
+  846  MACHINE=rzv2h-evk-ver1 bitbake  core-image-weston -f
+  847  MACHINE=rzv2h-evk-ver1 bitbake -f  core-image-weston
+  848  MACHINE=rzv2h-evk-ver1 bitbake  core-image-weston
+  849  ls -l tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/bin/
+  850  ls -l tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/
+  851  ls -l tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/share/
+  852  ls -l tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/share/weston/
+  853  tree tmp/work/aarch64-poky-linux/weston/8.0.0-r0/image/usr/
+  854  cd tmp/
+  855  ll
+  856  cd work/aarch64-poky-linux/
+  857  ll
+  858  cd weston/
+  859  ll
+  860  cd 8.0.0-r0/
+  861  ll
+  862  find ./ name weston -type f
+  863  find ./ -name weston -type f
+  864  find ./ -name weston -type f | xargs -I{} ll {}
+  865  find ./ -name weston -type f | xargs -I{} ls -l {}
+  866  find ./ -name weston -type f | xargs -I{} rm {}
+  867  find ./ -name weston -type f | xargs -I{} ls -l {}
+  868  MACHINE=rzv2h-evk-ver1 bitbake -c cleansstate core-image-weston
+  869  ll
+  870  find ./ -name weston -type f | xargs -I{} ls -l {}
+  871  history | grep bitbake
+  872  MACHINE=rzv2h-evk-ver1 bitbake -c cleansstate weston
+  873  MACHINE=rzv2h-evk-ver1 bitbake weston
+  874  MACHINE=rzv2h-evk-ver1 bitbake  core-image-weston
+  875  cd ~/work/rzv2h/build
+  876  MACHINE=rzv2h-evk-ver1 bitbake -c cleanall core-image-weston
+  877  MACHINE=rzv2h-evk-ver1 bitbake  core-image-weston
+  878  MACHINE=rzv2h-evk-ver1 bitbake -c cleanall weston
+  879  MACHINE=rzv2h-evk-ver1 bitbake -c cleansstate weston
+  880  MACHINE=rzv2h-evk-ver1 bitbake -c cleanall core-image-weston
+  881  MACHINE=rzv2h-evk-ver1 bitbake -c cleansstate core-image-weston
+  882  ll
+  883  find ./ -name weston -type f | xargs -I{} ls -l {}
+  884  MACHINE=rzv2h-evk-ver1 bitbake -c fetch weston
+  885  MACHINE=rzv2h-evk-ver1 bitbake -c unpack weston
+  886  MACHINE=rzv2h-evk-ver1 bitbake weston -c compile
+  887  MACHINE=rzv2h-evk-ver1 bitbake weston -c install
+  888  vi conf/local.conf 
+  889  find ./ -name weston -type f | xargs -I{} ls -l {}
+  890  find ./ -name weston -type f | xargs -I{} ls -l {} | grep -v gstream
+  891  MACHINE=rzv2h-evk-ver1 bitbake -e weston | grep ^PACKAGECONFIG
+  892  find ./ -name weston -type f | xargs -I{} ls -l {} | grep -v gstream
+  893  MACHINE=rzv2h-evk-ver1 bitbake core-image-weston
+  894  cd /lib/systemd/system
+  895  ls
+  896  ps | grep weston
+  897  ps -a| grep weston
+  898  exit
+  899  echo $0
+  900  systemctl status weston
+  901  systemctl status weston@1000
+  902  ps  grep weston
+  903  ps | grep weston
+  904  ps -aux | grep weston
+  905  modtest
+  906  kill 297408
+  907  cd work/rzv2n
+  908  cd build/
+  909  ll
+  910  grep weston bitbake-cookerdaemon.log | grep -v -weston
+  911  grep weston bitbake-cookerdaemon.log | grep 8.0
+  912  tree | grep weston
+  913  tree | grep -5 weston
+  914  tree | grep -15 weston
+  915  sudo apt update
+  916  sudo apt install weston
+  917  sudo apt install weston-tools
+  918  weston --version
+  919  sudo weston-launch
+  920  dpkg -L weston | grep bin
+  921  ls /etc/xdg/
+  922  ls /etc/xdg/systemd/
+  923  ls /etc/xdg/systemd/user
+  924  ls /etc/systemd/
+  925  ls /etc/systemd/system
+  926  ll
+  927  cd sandbox5/
+  928  ll
+  929  cd lib/systemd/system
+  930  ls
+  931  cat watchdog.service
+  932  cat weston@.service 
+  933  cat /usr/bin/weston-start
+  934  cat ../../..//usr/bin/weston-start
+  935  which openvt
+  936  man openvt
+  937  ls -a
+  938  cd .config/
+  939  ll
+  940  vi weston.ini
+  941  cd ~
+  942  vi cmd.txt
+  943  sudo openvt -c 1 -s -- weston-launch --tty=/dev/tty1 --user=root
+  944  XDG_RUNTIME_DIR=/run/user/$(id -u) weston-launch --tty=/dev/tty1 --user=$(whoami)
+  945  XDG_RUNTIME_DIR=/run/user/$(id -u) weston-launch --tty=/dev/tty1 --user=root
+  946  XDG_RUNTIME_DIR=/run/user/0 weston-launch --tty=/dev/tty1 --user=root
+  947  XDG_RUNTIME_DIR=/run/user/$(id -u) sudo openvt -c 1 -s -- weston-launch --tty=/dev/tty1 --user=root
+  948  XDG_RUNTIME_DIR=/run/user/$(i -f d -u) sudo openvt -c 1 -s -- weston-launch --tty=/dev/tty1 --user=root
+  949  XDG_RUNTIME_DIR=/run/user/$(id -u) sudo openvt -f -c 1 -s -- weston-launch --tty=/dev/tty1 --user=root
+  950  sudo XDG_RUNTIME_DIR=/run/user/$(id -u) openvt -f -c 1 -s -- wes
+  951  ton-launch --tty=/dev/tty1 --user=root
+  952  sudo  XDG_RUNTIME_DIR=/run/user/$(id -u) openvt -c 1 -s -- weston-launch --tty=/dev/tty1 --user=root
+  953  sudo  XDG_RUNTIME_DIR=/run/user/$(id -u) openvt -c 1 -s -- weston-launch --tty=/dev/tty3 --user=root
+  954  sudo  XDG_RUNTIME_DIR=/run/user/$(id -u) openvt -c 3 -s -- weston-launch --tty=/dev/tty3 --user=root
+  955  sudo nano /etc/systemd/system/weston-sim.service
+  956  sudo systemctl daemon-reexec
+  957  sudo systemctl enable weston-sim.service
+  958  sudo systemctl start weston-sim.service
+  959  sudo systemctl status weston-sim.service
+  960  journalctl -u weston-sim.service -b
+  961  ls /run/user/0/wayland-0
+  962  sudo ls /run/user/0/wayland-0
+  963  sudo ls /run/user/0/
+  964  WAYLAND_DISPLAY=wayland-0 weston-info
+  965  sudo WAYLAND_DISPLAY=wayland-0 weston-info
+  966  XDG_RUNTIME_DIR=/run/user/0 weston-info
+  967  XDG_RUNTIME_DIR=/run/user/0 sudo weston-info
+  968  sudo XDG_RUNTIME_DIR=/run/user/0  weston-info
+  969  sudo XDG_RUNTIME_DIR=/run/user/0  weston-terminal
+  970  sudo XDG_RUNTIME_DIR=/run/user/0  weston-terminal &
+  971  which weston
+  972  which weston-start
+  973  sudo systemctl disable gdm
+  974  sudo systemctl stop gdm
+  975  sudo systemctl enable weston-sim.service
+  976  sudo nano /etc/systemd/system/weston-sim.service
+  977  sudo reboot
+  978  ls /run/user/
+  979  ls /run/user/1000/
+  980  env | grep XDG
+  981  which weston-launch
+  982  weston-launch
+  983  sudo apt install libdrm-test
+  984  sudo system stop gdm
+  985  sudo systemctl stop gdm
+  986  pwd
+  987  cat cmd.txt 
+  988  weston-launch --tty=/dev/tty1 --user=$(whoami)
+  989  weston-launch --tty=/dev/tty1 --user=root
+  990  sudo weston-launch --tty=/dev/tty1 --user=$(whoami)
+  991  sudo systemctl status weston-sim.service
+  992  sudo nano /etc/systemd/system/weston-sim.service
+  993  sudo reboot
+  994  history 
+  995  sudo systemctl status weston-sim.service
+  996  sudo nano /etc/systemd/system/weston-sim.service
+  997  weston-launch --help
+  998  sudo nano /etc/systemd/system/weston-sim.service
+  999  history --help
+ 1000  history -w
+ 1001  history 
+ 1002  sudo systemctl status weston-sim.service
+ 1003  sudo nano /etc/systemd/system/weston-sim.service
+ 1004  weston-launch --help
+ 1005  sudo nano /etc/systemd/system/weston-sim.service
+ 1006  history --help
+ 1007  history -w
+ 1008  sudo reboot
+ 1009  sudo nano /usr/local/bin/weston-start
+ 1010  sudo chmod +x /usr/local/bin/weston-start
+ 1011  sudo nano /etc/systemd/system/weston-sim.service
+ 1012  sudo systemctl daemon-reexec
+ 1013  sudo systemctl restart weston-sim.service
+ 1014  sudo systemctl status weston-sim.service
+ 1015  sudo systemctl restart weston-sim.service
+ 1016  reboot
+ 1017  sudo reboot
+ 1018  sudo systemctl status weston-sim.service
+ 1019  fgconsole
+ 1020  ps -ef | grep tty1
+ 1021  systemctl status getty@tty1.service
+ 1022  ps -ef | grep tty7
+ 1023  systemctl status getty@tty7.service
+ 1024  cd /etc/systemd/system/
+ 1025  ls
+ 1026  ll *.conf
+ 1027  cd ..
+ 1028  ll
+ 1029  cat logind.conf
+ 1030  cat journald.conf
+ 1031  systemd-analyze critical-chain
+ 1032  journalctl -u weston-sim.service -b
+ 1033  sudo systemctl start weston-sim.service
+ 1034  sudo systemctl status weston-sim.service
+ 1035  sudo nano /etc/systemd/system/weston-sim.service
+ 1036  history 
+ 1037  history  | grep nano
+ 1038  sudo nano /usr/local/bin/weston-start
+ 1039  reboot
+ 1040  sudo systemctl start weston-sim.service
+ 1041  sudo systemctl status weston-sim.service
+ 1042  sudo nano /usr/local/bin/weston-start
+ 1043  sudo systemctl start weston-sim.service
+ 1044  sudo systemctl status weston-sim.service
+ 1045  journalctl -u weston-sim.service -b
+ 1046  ps -aux | grep weston
+ 1047  echo XDG_RUNTIME_DIR
+ 1048  sudo echo XDG_RUNTIME_DIR
+ 1049  sudo XDG_RUNTIME_DIR=/run/user/0 systemctl start weston-sim.service
+ 1050  sudo ls /run/user/0
+ 1051  sudo ls /run/user/
+ 1052  sudo ls /run/user/1000/
+ 1053  sudo systemctl status weston-sim.service
+ 1054  ps -aux | grep weston
+ 1055  reboot
+ 1056  sudo reboot
+ 1057  man openvt
+ 1058  cd sandbox5
+ 1059  ll
+ 1060  cd usr/bin/
+ 1061  vi weston-start 
+ 1062  exit
+ 1063  sudo systemctl status weston-sim.service
+ 1064  sudo nano /usr/local/bin/weston-start
+ 1065  sudo ps aux | grep weston
+ 1066  sudo nano /usr/local/bin/weston-start
+ 1067  sudo systemctl status weston-sim.service
+ 1068  sudo systemctl stop weston-sim.service
+ 1069  sudo systemctl status weston-sim.service
+ 1070  sudo systemctl start weston-sim.service
+ 1071  sudo systemctl status weston-sim.service
+ 1072  sudo ps aux | grep weston
+ 1073  journalctl -u weston-sim.service -b
+ 1074  tail /var/log/syslog
+ 1075  sudo kill 1801
+ 1076  sudo systemctl status weston-sim.service
+ 1077  sudo nano /usr/local/bin/weston-start
+ 1078  sudo systemctl start weston-sim.service
+ 1079  cat /tmp/weston-start.log 
+ 1080  reboot
+ 1081  sudo reboot
+ 1082  cat /tmp/weston-start.log 
+ 1083  sudo systemctl status weston-sim.service
+ 1084  journalctl -u weston-sim.service -b
+ 1085  sudo ps aux | grep weston
+ 1086  sudo kill -HUP 847
+ 1087  sudo ps aux | grep weston
+ 1088  kill -all
+ 1089  kill
+ 1090  kill -l
+ 1091  sudo kill -SIGHUP 847
+ 1092  sudo ps aux | grep weston
+ 1093  sudo kill 847
+ 1094  sudo ps aux | grep weston
+ 1095  sudo ps aux | grep 855
+ 1096  sudo ps aux | grep weston
+ 1097  sudo kill 855
+ 1098  sudo ps aux | grep weston
+ 1099  sudo systemctl status weston-sim.service
+ 1100  sudo nano /usr/local/bin/weston-start
+ 1101  sudo systemctl start weston-sim.service
+ 1102  journalctl -u weston-sim.service -b
+ 1103  cat /tmp/weston-start.log 
+ 1104  sudo reboot
+ 1105  w
+ 1106  cat  /tmp/weston-start.log 
+ 1107  fuser /dev/tty2
+ 1108  ps -aux | grep 16
+ 1109  fuser /dev/tty1
+ 1110  fuser /dev/tty3
+ 1111  fuser /dev/tty4
+ 1112  ps aux | grep weston
+ 1113  systemdctl status weston
+ 1114  systemctl status weston
+ 1115  systemdctl status weston-sim
+ 1116  systemctl status weston-sim
+ 1117  sudo nano /usr/local/bin/weston-start
+ 1118  sudo systemctl start weston-sim.service
+ 1119  sudo systemctl status weston-sim.service
+ 1120  sudo ps aux | grep weston
+ 1121  cat /tmp/weston-start.log 
+ 1122  sudo nano /usr/local/bin/weston-start
+ 1123  sudo systemctl status weston-sim.service
+ 1124  sudo systemctl start weston-sim.service
+ 1125  cat /tmp/weston-start.log 
+ 1126  date
+ 1127  sudo ps aux | grep weston
+ 1128  sudo reboot
+ 1129  cat /tmp/weston-start.log 
+ 1130  sudo nano /usr/local/bin/weston-start
+ 1131  sudo systemctl status weston-sim.service
+ 1132  sudo reboot
+ 1133  cat /usr/local/bin/weston-start
+ 1134  cat /tmp/weston-start.log 
+ 1135  sudo ps aux | grep weston
+ 1136  sudo systemctl status weston-sim.service
+ 1137  sudo ps aux | grep weston
+ 1138  sudo kill -SIGHUP 852 1027 1098 1099 
+ 1139  sudo ps aux | grep weston
+ 1140  sudo kill -SIGTREM 852 1027 1098 1099 
+ 1141  sudo kill -SIGTERM 852 1027 1098 1099 
+ 1142  sudo ps aux | grep weston
+ 1143  sudo nano /usr/local/bin/weston-start
+ 1144  sudo systemctl status weston-sim.service
+ 1145  sudo systemctl start weston-sim.service
+ 1146  ps aux | grep weston
+ 1147  sudo kill -SIGHUP 1842
+ 1148  ps aux | grep weston
+ 1149  sudo systemctl status weston-sim.service
+ 1150  sudo systemctl start weston-sim.service
+ 1151  ps aux | grep weston
+ 1152  sudo kill -SIGUSR1 1842
+ 1153  sudo kill -SIGUSR1 1887
+ 1154  ps aux | grep weston
+ 1155  sudo systemctl status weston-sim.service
+ 1156  sudo reboot
+ 1157  systemd-analyze critical-chain
+ 1158  sudo nano /usr/local/bin/weston-start
+ 1159  sudo reboot
+ 1160  logout
+ 1161  tty
+ 1162  ps aux | grep pts
+ 1163  ps aux | grep login
+ 1164  systemctl list-unit-files -t service | grep getty
+ 1165  ps -aux | grep weston
+ 1166  kill 28445
+ 1167  sudo kill 28445
+ 1168  systemctl status weston-sim@service
+ 1169  systemctl status weston-sim@root.service
+ 1170  systemctl status weston-sim.service
+ 1171  sudo systemctl start weston-sim.service
+ 1172  sudo systemctl stop weston-sim.service
+ 1173  sudo systemctl start weston-sim.service
+ 1174  sudo systemctl stop weston-sim.service
+ 1175  sudo systemctl start weston-sim.service
+ 1176  sudo systemctl stop weston-sim.service
+ 1177  sudo systemctl start weston-sim.service
+ 1178  ps -aux | grep tty
+ 1179  tty
+ 1180  fuser tty8
+ 1181  fuser /dev/tty8
+ 1182  fuser /dev/tty5
+ 1183  fuser /dev/tty4
+ 1184  fuser /dev/tty3
+ 1185  fuser /dev/tty2
+ 1186  fuser /dev/tty1
+ 1187  sudo fuser /dev/tty5
+ 1188  sudo fuser /dev/tty4
+ 1189  sudo fuser /dev/tty3
+ 1190  sudo fuser /dev/tty2
+ 1191  sudo fuser /dev/tty1
+ 1192  sudo fuser /dev/tty8
+ 1193  ps -aux | grep 766
+ 1194  sudo systemctl stop weston-sim.service
+ 1195  man dmesg
+ 1196  dmesg -k
+ 1197  dmesg -k | grep tty
+ 1198  sudo systemctl start weston-sim.service
+ 1199  tty
+ 1200  ps -aux | grep tty
+ 1201  kill 48918
+ 1202  sudo kill 48918
+ 1203  sudo kill 48835
+ 1204  systemctl list-unit-files -t service | grep getty
+ 1205  systemctl list-units --type=service | grep getty
+ 1206  systemctl status getty@tty5.service
+ 1207  ps -aux | grep tty
+ 1208  cat /lib/systemd/system/getty@.service
+ 1209  ls /dev
+ 1210  cat /lib/systemd/system/getty@.service 
+ 1211  ps -aux | grep tty
+ 1212  cd /etc/systemd/system/
+ 1213  ls
+ 1214  ls getty.target.wants
+ 1215  cat  getty.target.wants/getty@tty1.service 
+ 1216  ls
+ 1217  cat weston-sim.service
+ 1218  sudo vi weston-sim.service
+ 1219  systemctl stop weston-sim.service 
+ 1220  sudo systemctl stop weston-sim.service 
+ 1221  sudo systemctl daemon-reload
+ 1222  sudo systemctl start weston-sim.service 
+ 1223  ls
+ 1224  ls -l getty.target.wants
+ 1225  ls -l /lib/systemd/system/getty@.service
+ 1226  vi /lib/systemd/system/getty@.service
+ 1227  sudo vi /lib/systemd/system/getty@.service
+ 1228  sudo systemctl daemon-reload
+ 1229  ps -aux | grep tty
+ 1230  reboot
+ 1231  sudo reboot
+ 1232  ll
+ 1233  systemd-analyze critical-chain
+ 1234  systemd-analyze blame
+ 1235  systemd-analyze blame | grep weston
+ 1236  which gstreamer
+ 1237  gst-launch-1.0 videotestsrc ! videorate ! video/x-raw,framerate=30/1 ! waylandsink
+ 1238  gst-launch-1.0 videotestsrc ! videorate ! video/x-raw,framerate=30/1 ! fakesink
+ 1239  gst-launch-1.0 videotestsrc pattern=bar ! video/x-raw,framerate=30/1 ! waylandsink
+ 1240  gst-launch-1.0 videotestsrc pattern=bar ! video/x-raw,framerate=30/1 
+ 1241  sudo apt install gstreamer1.0-plugins-bad
+ 1242  gst-launch-1.0 videotestsrc pattern=bar ! video/x-raw,framerate=30/1 ! waylandsink
+ 1243  ls /lib/systemd/system/
+ 1244  ls /etc/systemd/system/
+ 1245  gst-launch-1.0 videotestsrc pattern=bar ! video/x-raw,framerate=30/1 ! waylandsink
+ 1246  pwd
+ 1247  ls
+ 1248  vi cmd.txt 
+ 1249  sudo gst-launch-1.0 videotestsrc pattern=bar ! video/x-raw,framerate=30/1 ! waylandsink
+ 1250  tty
+ 1251  su -
+ 1252  sudo passwd
+ 1253  sudo vi /etc/ssh/sshd_config
+ 1254  sudo systemctl restart ssh
+ 1255  su -
+ 1256  ll
+ 1257  cd work/
+ 1258  ll
+ 1259  cd rzv2n/build/tmp/work-shared/rzv2n-evk/kernel-source/
+ 1260  cd ..
+ 1261  ll
+ 1262  grep -rnw ./linux-source/ -e 'send_sig.*SIGHUP'
+ 1263  grep -rnw ./kernel-source/ -e 'send_sig.*SIGHUP'
+ 1264  grep -rnw ./kernel-source/ -e 'SIGHUP'
+ 1265  grep -rnw ./kernel-source/ -e 'send_sig'
+ 1266  grep -rnw ./kernel-source/ -e 'send_sig' | grep HUP
+ 1267  grep -rnw ./kernel-source/ -e 'kill_pid_info'
+ 1268  grep -rnw ./kernel-source/ -e 'group_send_sig_info'
+ 1269  trace-cmd report | grep SIGHUP
+ 1270  history 
+ 1271  su -
+ 1272  journalctl -xe | grep weston
+ 1273  ps -aux | grep weston
+ 1274  systemctl status getty@tty1.service 
+ 1275  ps -aux | grep tty
+ 1276  sudo /sbin/agetty -o  -p -- \u   --noclear tty1 linux
+ 1277  ps -aux | grep tty
+ 1278  sudo /sbin/agetty -o  -p -- \u   --noclear tty1 linux
+ 1279  sudo vi /lib/systemd/system/getty@.service
+ 1280  sudo /bin/sh -c /sbin/agetty -o -p -- \u --noclear tty1 linux && /usr/bin/weston-launch --tty=/dev/tty1 --user=root
+ 1281  sudo /bin/sh -c '/sbin/agetty -o -p -- \u --noclear tty1 linux && /usr/bin/weston-launch --tty=/dev/tty1 --user=root'
+ 1282  echo $_
+ 1283  echo $!
+ 1284  ps -aux | grep tty
+ 1285  sudo /bin/sh -c '/sbin/agetty -o -p -- \u --noclear tty1 linux'
+ 1286  ps -aux | grep tty
+ 1287  sudo vi /lib/systemd/system/getty@.service
+ 1288  history | grep reload
+ 1289  sudo systemctl status getty@tty1.service 
+ 1290  sudo systemctl stop getty@tty1.service 
+ 1291  sudo systemctl start getty@tty1.service 
+ 1292  sudo systemctl restart getty@tty1.service 
+ 1293  sudo systemctl status getty@tty1.service 
+ 1294  sudo /bin/sh -c '/sbin/agetty -o -p -- \u --noclear tty1 linux'
+ 1295  ps -aux | grep tty
+ 1296  sudo /bin/sh -c '/sbin/agetty -o -p -- \u --noclear tty0 linux'
+ 1297  ps -aux | grep tty
+ 1298  sudo vi /lib/systemd/system/getty@.service
+ 1299  history | grep reload
+ 1300  sudo systemctl daemon-reload
+ 1301  sudo systemctl status getty@tty1.service 
+ 1302  sudo reboot
+ 1303  tail -F /var/log/syslog
+ 1304  sudo vi /lib/systemd/system/getty@.service
+ 1305  sudo systemctl status getty@tty1.service 
+ 1306  sudo vi /lib/systemd/system/getty@.service
+ 1307  man history 
+ 1308  sudo systemctl daemon-reload
+ 1309  sudo systemctl status getty@tty1.service 
+ 1310  sudo systemctl restart getty@tty1.service 
+ 1311  sudo systemctl status getty@tty1.service 
+ 1312  ps -aux | grep tty
+ 1313  sudo vi /lib/systemd/system/getty@.service
+ 1314  sudo systemctl daemon-reload
+ 1315  sudo systemctl status getty@tty1.service 
+ 1316  sudo systemctl restart getty@tty1.service 
+ 1317  sudo systemctl status getty@tty1.service 
+ 1318  journalctl -xe | grep tty
+ 1319  sudo vi /lib/systemd/system/getty@.service
+ 1320  sudo systemctl status getty@tty1.service 
+ 1321  sudo systemctl restart getty@tty1.service 
+ 1322  sudo systemctl daemon-reload
+ 1323  sudo systemctl restart getty@tty1.service 
+ 1324  journalctl -xe | grep tty
+ 1325  journalctl -xe | grep tty | grep weston
+ 1326  journalctl -xe | grep weston
+ 1327  ps -aux | grep tty
+ 1328  /usr/bin/weston-launch --tty=/dev/tty1 --user=root
+ 1329  sudo /usr/bin/weston-launch --tty=/dev/tty1 --user=root
+ 1330  su -
+ 1331  sudo vi /lib/systemd/system/getty@.service
+ 1332  sudo vi /etc/systemd/system/weston-sim.service 
+ 1333  exit
+ 1334  sudo vi /etc/systemd/system/weston-sim.service 
+ 1335  sudo systemctl daemon-reload
+ 1336  ps -aux | grep tty
+ 1337  sudo systemctl stop weston-sim.service 
+ 1338  sudo vi /etc/systemd/system/weston-sim.service 
+ 1339  sudo systemctl daemon-reload
+ 1340  ps -aux | grep tty
+ 1341  tail -F /var/log/syslog
+ 1342  sudo systemctl restart getty@tty1.service 
+ 1343  su -
+ 1344  sudo vi /etc/systemd/system/weston-sim.service 
+ 1345  sudo vi /lib/systemd/system/getty@.service
+ 1346  sudo systemctl daemon-reload
+ 1347  sudo systemctl restart weston-sim.service 
+ 1348  pstree
+ 1349  ps -aux | grep tty
+ 1350  cd sandbox5
+ 1351  ll
+ 1352  ls etc/systemd/system/
+ 1353  ls etc/systemd/system/hostname.service 
+ 1354  ls -l etc/systemd/system/hostname.service 
+ 1355  ls -l lib/systemd/system/hostname.service 
+ 1356  ls -l lib/systemd/system/hostname*
+ 1357  ls -l lib/systemd/system/
+ 1358  grep Network lib/systemd/system/*
+ 1359  less lib/systemd/system/systemd-networkd.service
+ 1360  grep Network lib/systemd/system/*networkd*
+ 1361  grep ExecStart lib/systemd/system/*networkd*
+ 1362  journalctl -b
+ 1363  journalctl -b | grep service
+ 1364  ps
+ 1365  ps a
+ 1366  ps aux
+ 1367  pstree
+ 1368  exit
+ 1369  gst-launch-1.0 videotestsrc is-live=true pattern=smpte ! video/x-raw,framerate=60/1 ! fpsdisplaysink video-sink=waylandsink text-overlay=false sync=false -v
+ 1370  history | grep export
+ 1371  ls /ect/systemd/system/weston-*
+ 1372  ls /ect/systemd/system/weston*
+ 1373  ls /ect/systemd/system/
+ 1374  cat /etc/systemd/system/weston-sim.service 
+ 1375  echo $DISPLAY
+ 1376  su -
+ 1377  exit
+ 1378  cd work/
+ 1379  ll
+ 1380  cd rzv2n
+ 1381  ll
+ 1382  history grep | TEMP
+ 1383  history | grep TEMP
+ 1384  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2n/docs/template/conf/ source poky/oe-init-build-env
+ 1385  history |more
+ 1386  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1387  MACHINE=rzv2n-evk bitbake -c clean base-passwd
+ 1388  MACHINE=rzv2n-evk bitbake base-passwd
+ 1389  MACHINE=rzv2n-evk bitbake base-passwd -f
+ 1390  MACHINE=rzv2n-evk bitbake -c clean base-passwd
+ 1391  MACHINE=rzv2n-evk bitbake base-passwd
+ 1392  cd /home/comm/work/rzv2n/build/tmp/work/aarch64-poky-linux/base-passwd/3.5.29-r0/base-passwd-3.5.29
+ 1393  ll
+ 1394  ll patches/
+ 1395  ll ../
+ 1396  ll ../../
+ 1397  ll ../../../
+ 1398  su -
+ 1399  modetest -c
+ 1400  sudo apt install libdrm-tests
+ 1401  modetest -c
+ 1402  cat /proc/interrupts | grep -i du
+ 1403  cat /proc/interrupts
+ 1404  watch -d 'cat /proc/interrupts'
+ 1405  watch --help
+ 1406  watch -d -n 10 'cat /proc/interrupts'
+ 1407  ls /var/log/
+ 1408  systemctl status weston-sim
+ 1409  modtest
+ 1410  modetest
+ 1411  cat /sys/kernel/debug/dri/0/vblank_info
+ 1412  sudo cat /sys/kernel/debug/dri/0/vblank_info
+ 1413  sudo ls /sys/kernel/debug/dri/0/
+ 1414  sudo ls /sys/kernel/debug/dri/0/
+ 1415  sudo cat /sys/kernel/debug/dri/0/i915_vbt
+ 1416  cat /sys/kernel/debug/dri/0/crtc-0
+ 1417  sudo cat /sys/kernel/debug/dri/0/crtc-0
+ 1418  sudo ls /sys/kernel/debug/dri/0/crtc-0/
+ 1419  sudo cat /sys/kernel/debug/dri/0/crtc-0/crc
+ 1420  sudo ls -l /sys/kernel/debug/dri/0/crtc-0/crc/
+ 1421  cat /sys/kernel/debug/dri/0/i915_display_info
+ 1422  sudo cat /sys/kernel/debug/dri/0/i915_display_info
+ 1423  watch -d -n 10 'cat /proc/interrupts'
+ 1424  echo 0x1f > /sys/module/drm/parameters/debug
+ 1425  sudo echo 0x1f > /sys/module/drm/parameters/debug
+ 1426  sudo bach -c  "echo 0x1f > /sys/module/drm/parameters/debug"
+ 1427  sudo bash -c  "echo 0x1f > /sys/module/drm/parameters/debug"
+ 1428  dmesg -w
+ 1429  dmesg -w | grep vblank
+ 1430  dmesg -w | grep drm_vblank_enable
+ 1431  dmesg -w | grep vblank | grep event
+ 1432  ls
+ 1433  cat tmp.log
+ 1434  history 
+ 1435  su -
+ 1436  cat tmp.log
+ 1437  dmesg -w | grep vblank | grep event
+ 1438  cat /proc/interrupts 
+ 1439  watch -d -n 10 'cat /proc/interrupts'
+ 1440  modetest --test-vsync -d /dev/dri/card0
+ 1441  modetest
+ 1442  history 
+ 1443  sudo cat /sys/kernel/debug/dri/0/vblank_info
+ 1444  sudo ls /sys/kernel/debug/
+ 1445  sudo ls /sys/kernel/debug/dri/
+ 1446  sudo ls /sys/kernel/debug/dri/0/
+ 1447  sudo cat /sys/kernel/debug/dri/0/i915_display_info
+ 1448  modetest -v -s 79@45:1920x1080-60
+ 1449  sudo modetest -v -s 79@45:1920x1080-60
+ 1450  ls -l /dev/dri/card0
+ 1451  modetest -D /dev/dri/card0 -v -s 79@45:1920x1080-60
+ 1452  su -
+ 1453  sudo usermod -aG video $USER
+ 1454  sudo modetest -v -s 79@45:1920x1080-60
+ 1455  modetest -v -s 79@45:1920x1080-60
+ 1456  groups
+ 1457  group
+ 1458  sudo groups
+ 1459  exit
+ 1460  groups
+ 1461  modetest -D /dev/dri/card0 -v -s 79@45:1920x1080-60
+ 1462  history 
+ 1463  sudo cat /sys/kernel/debug/dri/0/i915_display_info
+ 1464  modetest -D /dev/dri/card0 -v -s 79@45:1920x1080-30
+ 1465  modetest -D /dev/dri/card0 -v -s 79@45:1920x1080-15
+ 1466  modetest -D /dev/dri/card0 -v -s 79@45:1920x1080-60
+ 1467  sudo cat /sys/kernel/debug/dri/0/i915_display_info
+ 1468  modetest -D /dev/dri/card0 -v -s 79@45:800x600-60
+ 1469  modetest -D /dev/dri/card0 -v -s 79@45:1920x1080-75
+ 1470  modetest -D /dev/dri/card0 -c
+ 1471  modetest -D /dev/dri/card0 -v -s 79@45:#1
+ 1472  sudo systemctl start weston-sim
+ 1473  history  | grep cat
+ 1474  history  | grep echo
+ 1475  sudo bash -c  "echo 0x0 > /sys/module/drm/parameters/debug"
+ 1476  sudo cat /sys/kernel/debug/dri/0/i915_display_info
+ 1477  ls -a
+ 1478  vi /etc/systemd/system/weston-sim.service 
+ 1479  vi /usr/local/bin/weston-start
+ 1480  less /tmp/weston-start.log
+ 1481  ls -a .config/
+ 1482  vi .config/weston.ini 
+ 1483  sudo systemctl restart weston-sim
+ 1484  less /tmp/weston-start.log
+ 1485  vi .config/weston.ini 
+ 1486  sudo systemctl restart weston-sim
+ 1487  sudo systemctl stop weston-sim
+ 1488  modetest -D /dev/dri/card0 -v -s 79@45:#1
+ 1489  sudo systemctl restart weston-sim
+ 1490  vi .config/weston.ini 
+ 1491  modetest -D /dev/dri/card0 -v -s 79@45:#1
+ 1492  sudo systemctl stop weston-sim
+ 1493  modetest -D /dev/dri/card0 -v -s 79@45:#1
+ 1494  sudo systemctl restart weston-sim
+ 1495  vi .config/weston.ini 
+ 1496  modetest -D /dev/dri/card0 -v -s 79@45:#1
+ 1497  sudo systemctl stop weston-sim
+ 1498  modetest -D /dev/dri/card0 -v -s 79@45:#1
+ 1499  sudo systemctl restart weston-sim
+ 1500  sudo systemctl stop weston-sim
+ 1501  modetest -D /dev/dri/card0 -v -s 79@45:#11
+ 1502  sudo systemctl restart weston-sim
+ 1503  less /tmp/weston-start.log
+ 1504  vi .config/weston.ini 
+ 1505  vi /usr/local/bin/weston-start
+ 1506  sudo vi /usr/local/bin/weston-start
+ 1507  modetest -D /dev/dri/card0 -v -s 79@45:#1
+ 1508  sudo systemctl stop weston-sim
+ 1509  modetest -D /dev/dri/card0 -v -s 79@45:#1
+ 1510  sudo systemctl restart weston-sim
+ 1511  sudo systemctl status  weston-sim
+ 1512  less /tmp/weston-start.log
+ 1513  su -
+ 1514  weston-launch --user=root >> /tmp/weston-start.log 2>&1
+ 1515  weston-launch --user=root 
+ 1516  weston 
+ 1517  vi /etc/systemd/system/weston-sim.service 
+ 1518  vi /usr/local/bin/weston-start
+ 1519  whoami
+ 1520  su -
+ 1521  exit
+ 1522  dmesg -w
+ 1523  su -
+ 1524  ll
+ 1525  df -H
+ 1526  ls
+ 1527  pwd
+ 1528  ll
+ 1529  cd work/
+ 1530  ll
+ 1531  cd rzv2n/
+ 1532  ll
+ 1533  ll meta-rz-features/
+ 1534  cd build/
+ 1535  ll
+ 1536  rm -rdf tmp/ task-depends.dot sstate-cache/ cache/
+ 1537  ll
+ 1538  cd ..
+ 1539  history | grep TEMP |grep v2n
+ 1540  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2n/docs/template/conf/ source poky/oe-init-build-env
+ 1541  history | grep bitbake |grep v2n
+ 1542  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1543  cd ../../
+ 1544  ll
+ 1545  cd pacRZV2N/
+ 1546  ll
+ 1547  cd -
+ 1548  ls
+ 1549  cd rzv2n
+ 1550  ll
+ 1551  cd build/
+ 1552  ls
+ 1553  vi conf/bblayers.conf 
+ 1554  vi conf/local.conf 
+ 1555  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1556  ll
+ 1557  rm -rdf cache/ downloads/ sstate-cache/ tmp/
+ 1558  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1559  ping www.google.com
+ 1560  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1561  ll
+ 1562  rm -rdf downloads/
+ 1563  7z x ../../pacRZV2N/oss_pkg_rzv_v5.00.7z 
+ 1564  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1565  ls /home/comm/work/rzv2n/build/tmp/work/aarch64-poky-linux/base-passwd/3.5.29-r0/recipe-sysroot-native/etc/
+ 1566  ls /home/comm/work/rzv2n/build/tmp/work/aarch64-poky-linux/base-passwd/3.5.29-r0/recipe-sysroot-native/etc/bash_completion.d
+ 1567  ls /home/comm/work/rzv2n/build/tmp/work/aarch64-poky-linux/base-passwd/3.5.29-r0/recipe-sysroot-native/etc/bash_completion.d/quilt 
+ 1568  ls /home/comm/work/rzv2n/build/tmp/work/aarch64-poky-linux/base-passwd/3.5.29-r0/recipe-sysroot-native/etc/bash_completion.d/quilt
+ 1569  cd /home/comm/work/rzv2n/build/tmp/work/aarch64-poky-linux/base-passwd/3.5.29-r0/base-passwd-3.5.29
+ 1570  ls
+ 1571  ll patches/
+ 1572  cd /home/comm/work/rzv2n/build/../poky/meta/recipes-core/base-passwd/base-passwd/
+ 1573  ll
+ 1574  cat nobash.patch
+ 1575  cat  kvm.patch
+ 1576  cat noshadow.patch
+ 1577  ll
+ 1578  ll ../
+ 1579  cat ../base-passwd_3.5.29.bb
+ 1580  ll
+ 1581  file nobash.patch
+ 1582  cd ..
+ 1583  ll
+ 1584  vi base-passwd_3.5.29.bb
+ 1585  cd -
+ 1586  cd ~/work/rzv2n/
+ 1587  cd build/
+ 1588  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1589  cd ..
+ 1590  ll
+ 1591  ll ../pacRZV2N/
+ 1592  tar zxvf ../pacRZV2N/rzv2n_ai-sdk_yocto_recipe_v5.00.tar.gz
+ 1593  ll
+ 1594  tar zxvf ../pacRZV2N/rzv2n_ai-sdk_yocto_recipe_v5.00.tar.gz
+ 1595  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1596  ll /home/comm/work/rzv2n/build/downloads/stra*
+ 1597  cd  /home/comm/work/rzv2n/build/downloads/
+ 1598  wget https://strace.io/files/5.8/strace-5.8.tar.xz
+ 1599  cd -
+ 1600  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1601  vi build/conf/local.conf 
+ 1602  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1603  cd build/
+ 1604  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1605  vi /home/comm/work/rzv2n/build/conf/local.conf
+ 1606  MACHINE=rzv2n-evk bitbake core-image-weston
+ 1607  weston --
+ 1608  sudo apt update
+ 1609  sudo apt install -y   build-essential meson ninja-build pkg-config   libwayland-dev libdrm-dev libgbm-dev   libegl1-mesa-dev libgles2-mesa-dev   libinput-dev libxkbcommon-dev   wayland-protocols libwayland-cursor-dev   libpixman-1-dev libcairo2-dev   libjpeg-dev libwebp-dev   libsystemd-dev libdbus-1-dev libseat-dev   libgl1-mesa-dri
+ 1610  cd ..
+ 1611  mkdir weston8
+ 1612  cd weston8/
+ 1613  git clone https://gitlab.freedesktop.org/wayland/weston.git
+ 1614  ll
+ 1615  cd weston/
+ 1616  ll
+ 1617  ls
+ 1618  git fetch --tags
+ 1619  git checkout 8.0.0
+ 1620  meson setup build   --prefix=/usr/local   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1621  sudo apt install -y   build-essential meson ninja-build pkg-config   libwayland-dev libdrm-dev libgbm-dev   libegl1-mesa-dev libgles2-mesa-dev   libinput-dev libxkbcommon-dev   wayland-protocols   libpixman-1-dev libcairo2-dev   libjpeg-dev libwebp-dev   libsystemd-dev libdbus-1-dev   libgl1-mesa-dri
+ 1622  meson setup build   --prefix=/usr/local   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1623  sudo apt update
+ 1624  sudo apt install -y   libpango1.0-dev   libpam0g-dev
+ 1625  meson setup build   --prefix=/usr/local   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1626  sudo apt update
+ 1627  sudo apt install -y libx11-xcb-dev
+ 1628  pkg-config --modversion x11-xcb
+ 1629  meson setup build   --prefix=/usr/local   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1630  meson setup build   --prefix=/usr/local   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1631  sudo apt update
+ 1632  sudo apt install -y liblcms2-dev
+ 1633  meson setup build   --prefix=/usr/local   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1634  sudo apt install -y liblcms2-dev
+ 1635  rm -rf build
+ 1636  meson setup build   --prefix=/usr/local   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1637  sudo apt install -y liblcms2-dev
+ 1638  sudo apt update
+ 1639  sudo apt install -y libcolord-dev
+ 1640  meson setup build   --prefix=/usr/local   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1641  rm -rf build
+ 1642  meson setup build   --prefix=/usr/local   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1643  meson setup build   --prefix=/usr/local   -Dcolor-management-lcms=false   -Dcolord=false   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1644  rm -rf build
+ 1645  meson setup build   --prefix=/usr/local   -Dcolor-management-lcms=false   -Dcolord=false   -Dseat=false   -Dsystemd=false   -Ddocumentation=false   -Dtests=false   -Dcolor-management-lcms=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1646  sudo apt update
+ 1647  sudo apt install -y libcolord-dev
+ 1648  rm -rf build
+ 1649  meson setup build   --prefix=/usr/local   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1650  ninja -C build
+ 1651  sudo ninja -C build
+ 1652  ll 
+ 1653  ll build/
+ 1654  ll build/clients/
+ 1655  ll build/compositor/
+ 1656  cd ../../
+ 1657  gst-launch-1.0 --version
+ 1658  mkdir GStreamer1163
+ 1659  cd GStreamer1163/
+ 1660  sudo apt update
+ 1661  sudo apt install -y   build-essential meson ninja-build pkg-config   libglib2.0-dev libgstreamer1.0-dev   libgstreamer-plugins-base1.0-dev   libx11-dev libasound2-dev libv4l-dev   libjpeg-dev libpng-dev libpulse-dev   libssl-dev libavcodec-dev libavformat-dev   libavutil-dev libswscale-dev
+ 1662  for comp in gstreamer gst-plugins-base gst-plugins-good             gst-plugins-bad gst-plugins-ugly gst-libav; do   wget https://gstreamer.freedesktop.org/src/${comp}/${comp}-1.16.3.tar.xz;   tar xf ${comp}-1.16.3.tar.xz; done
+ 1663  ll
+ 1664  cd gstreamer-1.16.3/
+ 1665  ls
+ 1666  meson setup build --prefix=/usr/local
+ 1667  sudo apt update
+ 1668  sudo apt install -y flex bison
+ 1669  meson setup build --prefix=/usr/local
+ 1670  ninja -C build
+ 1671  ls
+ 1672  ll
+ 1673  ll build/
+ 1674  ll build/gst/
+ 1675  ll build/tools/
+ 1676  cd ..
+ 1677  ll
+ 1678  cd gst-plugins-base-1.16.3/
+ 1679  meson setup build --prefix=/usr/local
+ 1680  ninja -C build
+ 1681  ls
+ 1682  ls build/
+ 1683  ls build/gst
+ 1684  ls build/tools/
+ 1685  cd ../
+ 1686  ll
+ 1687  cd gst-plugins-bad-1.16.3/
+ 1688  ninja -C build
+ 1689  meson setup build --prefix=/usr/local
+ 1690  ninja -C build
+ 1691  cd ..
+ 1692  ll
+ 1693  cd cd gst-plugins-good-1.16.3/
+ 1694  cd  gst-plugins-good-1.16.3/
+ 1695  meson setup build --prefix=/usr/local
+ 1696  ninja -C build
+ 1697  cd ..
+ 1698  ll
+ 1699  cd gst-plugins-ugly-1.16.3/
+ 1700  meson setup build --prefix=/usr/local
+ 1701  ninja -C build
+ 1702  ls
+ 1703  cd ../
+ 1704  ll
+ 1705  cd gst-libav-1.16.3/
+ 1706  ls
+ 1707  meson setup build --prefix=/usr/local
+ 1708  cd ..
+ 1709  ll
+ 1710  cd ..
+ 1711  mkdir GStreanAutobuild
+ 1712  cd GStreanAutobuild/
+ 1713  git clone https://gitlab.freedesktop.org/gstreamer/gst-build.git
+ 1714  ll
+ 1715  ll gst-build/
+ 1716  cd gst-build/
+ 1717  meson setup build --prefix=/usr/local
+ 1718  cd -
+ 1719  cd ..
+ 1720  cd GStreamer1163/
+ 1721  ll
+ 1722  sudo apt update
+ 1723  sudo apt install -y   libavcodec-dev   libavformat-dev   libavfilter-dev   libavutil-dev   libswscale-dev   libswresample-dev
+ 1724  pkg-config --modversion libavfilter
+ 1725  ls
+ 1726  cd gst-libav-1.16.3
+ 1727  ninja -C build
+ 1728  meson setup build --prefix=/usr/local
+ 1729  ninja -C build
+ 1730  ls
+ 1731  ls build/ext/
+ 1732  ls build/ext/libav/
+ 1733  cd ..
+ 1734  ls
+ 1735  ll
+ 1736  ls /sys/class/
+ 1737  which ftrace
+ 1738  ls /sys/kernel/
+ 1739  ls /sys/kernel/tracing/
+ 1740  sudo ls /sys/kernel/tracing/
+ 1741  sudo ls /sys/kernel/debug/
+ 1742  grep -E 'CONFIG_FUNCTION_TRACER|CONFIG_FUNCTION_GRAPH_TRACER|CONFIG_DYNAMIC_FTRACE'   /boot/config-$(uname -r)
+ 1743  mount | grep trace
+ 1744  ls
+ 1745  cat /sys/kernel/tracing/available_tracers
+ 1746  sudo cat /sys/kernel/tracing/available_tracers
+ 1747  cat /sys/kernel/tracing/trace_pipe
+ 1748  sudo cat /sys/kernel/tracing/trace_pipe |more
+ 1749  sudo cat /sys/kernel/tracing/trace_pipe 
+ 1750  which trace-cmd
+ 1751  sudo apt update
+ 1752  sudo apt install trace-cmd kernelshark
+ 1753  ls /sys/kernel/tracing/events/drm
+ 1754  sudo ls /sys/kernel/tracing/events/drm
+ 1755  df -h
+ 1756  su -
+ 1757  exit
+ 1758  ls proc
+ 1759  ls /proc
+ 1760  ls /proc/vmstat
+ 1761  cat /proc/vmstat
+ 1762  cat /proc/vmstat | grep stsck
+ 1763  cat /proc/vmstat | grep stack
+ 1764  cat /proc/*/status | grep Threads
+ 1765  cat /proc/*/status | grep Threads | awk '{c+=$2}END{print c}'
+ 1766  gst-launch-1.0 
+ 1767  gst-launch-1.0 -h
+ 1768  history | grep smpte
+ 1769  history >hist0928.txt
+ 1770  exit
+ 1771  w
+ 1772  exit
+ 1773  ls
+ 1774  cd work/rzv2h/build/tmp/work-shared/rzv2h-evk-ver1/
+ 1775  ll
+ 1776  which cloc
+ 1777  sudo apt update
+ 1778  sudo apt install cloc
+ 1779  ll
+ 1780  cloc --help
+ 1781  ls
+ 1782  cloc kernel-build-artifacts
+ 1783  cloc kernel-source/
+ 1784  cd ~
+ 1785  sudo systemctl status weston@root
+ 1786  sudo systemctl status weston@root.service
+ 1787  sudo systemctl status weston-sim@root.service
+ 1788  sudo systemctl status weston-sim@root
+ 1789  sudo systemctl status weston-sim
+ 1790  vi /etc/systemd/system/weston-sim.service
+ 1791  vi /usr/local/bin/weston-start
+ 1792  sudo vi /usr/local/bin/weston-start
+ 1793  sudo systemctl restart weston-sim
+ 1794  tail -F /tmp/weston-start.log
+ 1795  ls /tmp
+ 1796  ls /tmp/weston-start.log 
+ 1797  less /tmp/weston-start.log 
+ 1798  sudo vi /usr/local/bin/weston-start
+ 1799  dmesg -w
+ 1800  tail  /tmp/weston-start.log
+ 1801  sudo systemctl restart weston-sim
+ 1802  less  /tmp/weston-start.log
+ 1803  sudo vi /usr/local/bin/weston-start
+ 1804  sudo rm /tmp/weston-start.log 
+ 1805  sudo systemctl restart weston-sim
+ 1806  tail -F /tmp/weston-start.log 
+ 1807  tail  /tmp/weston-start.log 
+ 1808  ls /tmp/
+ 1809  ls -l /tmp/
+ 1810  sudo systemctl restart weston-sim
+ 1811  ls -l /tmp/
+ 1812  tail -F /tmp/weston-start.log 
+ 1813  sudo vi /usr/local/bin/weston-start
+ 1814  sudo systemctl restart weston-sim
+ 1815  tail -F /tmp/weston-start.log 
+ 1816  sudo vi /usr/local/bin/weston-start
+ 1817  which stdbuf
+ 1818  sudo systemctl restart weston-sim
+ 1819  sudo systemctl stop weston-sim
+ 1820  sudo systemctl stsrt weston-sim
+ 1821  sudo systemctl start weston-sim
+ 1822  sudo vi /usr/local/bin/weston-start
+ 1823  restart
+ 1824  reboot
+ 1825  sudo reboot
+ 1826  su -
+ 1827  tail -F /tmp/weston-start.log
+ 1828  cp /tmp/weston-start.log  ./
+ 1829  ll
+ 1830  tail -F /tmp/weston-start.log
+ 1831  rm /tmp/weston-start.log
+ 1832  rm -f /tmp/weston-start.log
+ 1833  sudo rm -f /tmp/weston-start.log
+ 1834  tail -F /tmp/weston-start.log
+ 1835  grep [drm] /tmp/weston-start.log
+ 1836  grep \[drm\] /tmp/weston-start.log
+ 1837  grep "[drm]" /tmp/weston-start.log
+ 1838  grep '[drm]' /tmp/weston-start.log
+ 1839  grep -F '[drm]' /tmp/weston-start.log
+ 1840  tail -F /tmp/weston-start.log
+ 1841  pwd
+ 1842  cp /tmp/weston-start.log  ./weston-start_drm.log
+ 1843  exit
+ 1844  tail -F /tmp/weston-start.log 
+ 1845  sudo vi /usr/local/bin/weston-start
+ 1846  sudo systemctl restart weston-sim
+ 1847  tail -F /tmp/weston-start.log 
+ 1848  sudo systemctl status weston-sim
+ 1849  ll
+ 1850  ls .config/
+ 1851  cat .config/weston.ini 
+ 1852  sudo vi /usr/local/bin/weston-start
+ 1853  less /tmp/weston-start.log
+ 1854  sudo systemctl status weston-sim
+ 1855  sudo vi /etc/systemd/system/weston-sim.service
+ 1856  sudo vi /usr/local/bin/weston-start
+ 1857  sudo systemctl status weston-sim
+ 1858  sudo systemctl restart weston-sim
+ 1859  less /tmp/weston-start.log
+ 1860  ls -l /usr/bin/weston
+ 1861  ls /usr/bin/weston-start
+ 1862  history | grep weston-start
+ 1863  mkdir bk_weston
+ 1864  cd bk_weston/
+ 1865  cp /usr/local/bin/weston-start ./
+ 1866  cp /etc/systemd/system/weston-sim.service ./
+ 1867  ll
+ 1868  ls -l /usr/bin/weston-launch
+ 1869  cd ..
+ 1870  ll
+ 1871  sudo systemctl restart weston-sim
+ 1872  sudo systemctl status weston-sim
+ 1873  ls -l /usr/bin/weston
+ 1874  less /tmp/weston-start.log 
+ 1875  sudo systemctl restart weston-sim
+ 1876  tail -F /tmp/weston-start.log 
+ 1877  sudo systemctl restart weston-sim
+ 1878  tail -F /tmp/weston-start.log 
+ 1879  sudo systemctl restart weston-sim
+ 1880  tail -F /tmp/weston-start.log 
+ 1881  sudo systemctl restart weston-sim
+ 1882  tail -F /tmp/weston-start.log 
+ 1883  sudo systemctl restart weston-sim
+ 1884  sudo systemctl stop weston-sim
+ 1885  sudo systemctl restart weston-sim
+ 1886  sudo systemctl stop weston-sim
+ 1887  sudo rm /tmp/weston-start.log
+ 1888  sudo systemctl restart weston-sim
+ 1889  sudo systemctl stop weston-sim
+ 1890  cp /tmp/weston-start.log ./weston-start_fb_kms.log
+ 1891  exit
+ 1892  exit
+ 1893  which weston
+ 1894  cd ll
+ 1895  cd work/
+ 1896  ll
+ 1897  cd weston8/
+ 1898  ll
+ 1899  cd weston/
+ 1900  ll
+ 1901  history | grep weston.ini.in 
+ 1902  history | grep weston
+ 1903  vi ~/.bashrc 
+ 1904  source ~/.bashrc
+ 1905  weston --v
+ 1906  history | grep ninj
+ 1907  ls
+ 1908  rm -rdf build/
+ 1909  history | grep meson
+ 1910  meson setup build   --prefix=/usr   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 1911  sudo ninja -C build install
+ 1912  sudo chmod +s /usr/bin/weston-launch
+ 1913  sudo ninja -C build install
+ 1914  sudo chmod +s /usr/bin/weston-launch
+ 1915  sudo ninja -C build install
+ 1916  sudo chmod +s /usr/bin/weston-launch
+ 1917  sudo ninja -C build
+ 1918  sudo ninja -C build install
+ 1919  sudo chmod +s /usr/bin/weston-launch
+ 1920  sudo ninja -C build
+ 1921  sudo ninja -C build install
+ 1922  sudo chmod +s /usr/bin/weston-launch
+ 1923  sudo ninja -C build
+ 1924  sudo ninja -C build install
+ 1925  sudo chmod +s /usr/bin/weston-launch
+ 1926  sudo ninja -C build
+ 1927  sudo ninja -C build install
+ 1928  sudo chmod +s /usr/bin/weston-launch
+ 1929  which gcc
+ 1930  pwd
+ 1931  ll
+ 1932  exit
+ 1933  cd work/
+ 1934  ls
+ 1935  mkdir getoptsam
+ 1936  cd getoptsam/
+ 1937  vi myapp.c
+ 1938  gcc -std=c11 -Wall -Wextra -o myapp myapp.c
+ 1939  ll
+ 1940  ./myapp --verbose --timer_s 3 --timer_ms 10
+ 1941  ./myapp --timer_s 1
+ 1942  - ./myapp --timer_ms 250
+ 1943  ./myapp --timer_ms 250
+ 1944  ./myapp --timer_ms -1
+ 1945  gcc  -Wall -Wextra -o myapp myapp.c
+ 1946  vi dump2filesam.c
+ 1947  gcc -std=c11 -Wall -Wextra -o dump2filesam dump2filesam.c 
+ 1948  ./dump2filesam
+ 1949  ll
+ 1950  cat 20251008_030705_557.txt
+ 1951  vi dump2filesam2.c
+ 1952  gcc -std=c11 -Wall -Wextra -o dump2filesam2 dump2filesam2.c 
+ 1953  ./dump2filesam2
+ 1954  ls
+ 1955  cat 20251008_031136_340.txt
+ 1956  vi dump2filesam3.c
+ 1957  gcc -std=c11 -Wall -Wextra -o dump2filesam3 dump2filesam3.c 
+ 1958  ./dump2filesam3
+ 1959  ll
+ 1960  cat 20251008_031525_652.txt
+ 1961  cat 20251008_031525_652.txt | wc -l
+ 1962  $(2304/128)
+ 1963  echo ${2304/128}
+ 1964  echo ${{2304/128}}
+ 1965  print ${2304/128}
+ 1966  printf ${2304/128}
+ 1967  printf %d ${2304/128}
+ 1968  vi dump2filesam3.c
+ 1969  ll ../
+ 1970  cd ../myoptrzv2n/
+ 1971  ll
+ 1972  source environment-setup-aarch64-poky-linux
+ 1973  cd -
+ 1974  ll
+ 1975  $CC -std=c11 -Wall -Wextra -o dump2filesam3a dump2filesam3.c 
+ 1976  vi dump2filesam3.c
+ 1977  $CC -std=c11 -Wall -Wextra -o dump2filesam3a dump2filesam3.c 
+ 1978  ./dump2filesam3a
+ 1979  gcc -std=c11 -Wall -Wextra -o dump2filesam3 dump2filesam3.c 
+ 1980  ./dump2filesam3
+ 1981  exit
+ 1982  cd work/ll
+ 1983  cd work
+ 1984  ll
+ 1985  cd myoptrzv2n/
+ 1986  ll
+ 1987  source environment-setup-aarch64-poky-linux
+ 1988  which meson
+ 1989  cd ..
+ 1990  ll
+ 1991  ll weston8/
+ 1992  cd weston8/
+ 1993  ll
+ 1994  ll weston/
+ 1995  ll
+ 1996  cp -rp weston/ weston_arm
+ 1997  cd weston_arm/
+ 1998  ll
+ 1999  rm -rdf build
+ 2000  meson setup build   --prefix=/usr   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 2001  ls
+ 2002  meson setup build   --prefix=/usr   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 2003  ll
+ 2004  ninja -C build
+ 2005  meson setup build   --prefix=/usr   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false clean
+ 2006  meson setup build
+ 2007  cat meson.build
+ 2008  ls
+ 2009  mv meson.build meson.build_
+ 2010  meson setup build   --prefix=/usr   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false clean
+ 2011  meson setup build   --prefix=/usr   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false 
+ 2012  lss
+ 2013  ls
+ 2014  mv meson.build_ meson.build
+ 2015  which ninjia
+ 2016  meson setup build   --prefix=/usr   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 2017  meson setup
+ 2018  which wayland-scanner
+ 2019  pkg-config --modversion wayland-scanner
+ 2020  meson setup
+ 2021  which wayland-scanner
+ 2022  export PATH=/home/comm/work/myoptrzv2n/sysroots/x86_64-pokysdk-linux/usr/bin:$PATH
+ 2023  meson setup
+ 2024  find /home/comm/work/myoptrzv2n/sysroots/ -name 'wayland-scanner.pc'
+ 2025  pkg-config --modversion wayland-scanner
+ 2026  export PKG_CONFIG_PATH=/home/comm/work/myoptrzv2n/sysroots/aarch64-poky-linux/usr/lib64/pkgconfig:$PKG_CONFIG_PATH
+ 2027  pkg-config --modversion wayland-scanner
+ 2028  meson setup
+ 2029  vi meson.build 
+ 2030  ll
+ 2031  vi protocol/meson.build 
+ 2032  meson setup
+ 2033  vi protocol/meson.build 
+ 2034  export PATH=/home/comm/work/myoptrzv2n/sysroots/x86_64-pokysdk-linux/usr/bin:$PATH
+ 2035  meson setup
+ 2036  which dep_scanner
+ 2037  vi protocol/meson.build 
+ 2038  meson setup
+ 2039  vi protocol/meson.build 
+ 2040  cd ..
+ 2041  cd ../rzv2n/build/tmp/work/aarch64-poky-linux/weston/
+ 2042  ll
+ 2043  cd 8.0.0-r0/build/
+ 2044  ll
+ 2045  cd libweston
+ 2046  ll
+ 2047  cd backend-drm/
+ 2048  ll
+ 2049  which nm
+ 2050  nm drm-backend.so | gep ttt
+ 2051  nm drm-backend.so | gtep ttt
+ 2052  nm drm-backend.so | grep ttt
+ 2053  cd ~
+ 2054  exit
+ 2055  su -
+ 2056  exit
+ 2057  su -
+ 2058  exit
+ 2059  su
+ 2060  exit
+ 2061  history | grep systemc
+ 2062  sudo systemctl status weston-sim
+ 2063  sudo systemctl start weston-sim
+ 2064  history | grep DEBUG
+ 2065  history | grep export
+ 2066  sudo systemctl stop weston-sim
+ 2067  sudo systemctl start weston-sim
+ 2068  export WESTON_DEBUG=drm-backend
+ 2069  sudo systemctl restart weston-sim
+ 2070  sudo systemctl status weston-sim
+ 2071  cat /etc/systemd/system/weston-sim.service
+ 2072  vi /usr/local/bin/weston-start
+ 2073  sudo vi /usr/local/bin/weston-start
+ 2074  sudo systemctl restart weston-sim
+ 2075  kill -s
+ 2076  kill -all
+ 2077  man kill
+ 2078  kill -l
+ 2079  sudo vi /usr/local/bin/weston-start
+ 2080  sudo systemctl restart weston-sim
+ 2081  sudo systemctl stop weston-sim
+ 2082  weston
+ 2083  sudo vi /usr/local/bin/weston-start
+ 2084  pwd
+ 2085  ll
+ 2086  ls
+ 2087  ls -a
+ 2088  ls ./config
+ 2089  ls ./config/
+ 2090  ls .config/
+ 2091  cat .config/weston.ini 
+ 2092  backend=drm-backend.so weston --debug
+ 2093  weston-debug --list
+ 2094  sudo systemctl restart weston-sim
+ 2095  weston-debug drm-backend > /tmp/weston-debug.log 2>&1
+ 2096  sudo weston-debug drm-backend > /tmp/weston-debug.log 2>&1
+ 2097  sudo rm /tmp/weston-debug.log
+ 2098  sudo weston-debug drm-backend > /tmp/weston-debug.log 2>&1
+ 2099  export XDG_RUNTIME_DIR=/run/user/0
+ 2100  export DISPLAY=:0
+ 2101  weston-debug drm-backend > /tmp/weston-debug.log 2>&1
+ 2102  sudo weston-debug drm-backend > /tmp/weston-debug.log 2>&1
+ 2103  gst-launch-1.0 v4l2src device=/dev/video0 ! fpsdisplaysink video-sink=fakesink text-overlay=false sync=false -v
+ 2104  history  grep gst-launch
+ 2105  history | grep gst-launch
+ 2106  pwd
+ 2107  cd work/
+ 2108  ll
+ 2109  cd weston8/weston
+ 2110  ll
+ 2111  history | grep meson
+ 2112  history | grep ninja
+ 2113  ninja -C build
+ 2114  sudo ninja -C build
+ 2115  meson setup build   --prefix=/usr   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 2116  rm -rdf build/
+ 2117  sudo rm -rdf build/
+ 2118  meson setup build   --prefix=/usr   -Ddocumentation=false   -Dtests=false   -Dseat=false   -Dsystemd=false   -Dbackend-drm-screencast-vaapi=false   -Dbackend-rdp=false   -Dbackend-x11=false   -Dxwayland=false   -Dremoting=false   -Dpipewire=false   -Ddemo-clients=false
+ 2119  ninja -C build
+ 2120  sudo ninja -C install
+ 2121  sudo ninja -C build install
+ 2122  sudo chmod +s /usr/bin/weston-launch
+ 2123  history | grep sys
+ 2124  sudo systemctl restart weston-sim
+ 2125  exit
+ 2126  cd work/rzv2n/
+ 2127  ll
+ 2128  history | grep TEMP | grep v2n
+ 2129  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2n/docs/template/conf/ source poky/oe-init-build-env
+ 2130  history | grep bitbake | grep v2n
+ 2131  MACHINE=rzv2n-evk bitbake weston
+ 2132  MACHINE=rzv2n-evk bitbake -c compile weston 
+ 2133  MACHINE=rzv2n-evk bitbake -c compile weston -f
+ 2134  ls /tmp/
+ 2135  ls -l
+ 2136  df -H
+ 2137  ll
+ 2138  cd /tmp
+ 2139  ll
+ 2140  rm weston-start.log 
+ 2141  sudo rm weston-start.log 
+ 2142  ll
+ 2143  tail -F weston-start.log
+ 2144  ll
+ 2145  cp weston-start.log ~/
+ 2146  tail -F weston-start.log
+ 2147  ll
+ 2148  tail weston-debug.log
+ 2149  tail -F weston-debug.log
+ 2150  ll
+ 2151  rm -f weston-debug.log
+ 2152  tail -F weston-debug.log
+ 2153  ll
+ 2154  tail -F weston-debug.log
+ 2155  ll
+ 2156  tail -F weston-start.log
+ 2157  sudo reboot
+ 2158  su -
+ 2159  ll
+ 2160  cd work/weston8/weston
+ 2161  ll
+ 2162  history | grep ninj
+ 2163  sudo ninja -C build install
+ 2164  sudo chmod +s /usr/bin/weston-launch
+ 2165  history | grep system
+ 2166  sudo systemctl restart weston-sim
+ 2167  sudo ninja -C build install
+ 2168  sudo systemctl restart weston-sim
+ 2169  sudo chmod +s /usr/bin/weston-launch
+ 2170  sudo systemctl restart weston-sim
+ 2171  history | grep apt | grep install
+ 2172  man cloc
+ 2173  history | grep cloc
+ 2174  cd ../../
+ 2175  ll
+ 2176  cd GStreamer1163/
+ 2177  ll
+ 2178  cloc gstreamer-1.16.3/
+ 2179  cloc gst-plugins-bad-1.16.3/
+ 2180  cd ../
+ 2181  ll
+ 2182  cd weston8/
+ 2183  ll
+ 2184  ll weston/
+ 2185  cloc weston/
+ 2186  gst-launch-1.0 --version
+ 2187  which gst-launch-1.0
+ 2188  cd ../
+ 2189  ll
+ 2190  cd GStreamer1163/
+ 2191  ll
+ 2192  cd gst-plugins-bad-1.16.3/
+ 2193  ll
+ 2194  rm -rdf build/
+ 2195  meson setup build --prefix=/usr
+ 2196  ninja -C build
+ 2197  meson setup build --prefix=/usr
+ 2198  rm -rdf build/
+ 2199  ninja -C build
+ 2200  meson setup build --prefix=/usr
+ 2201  ninja -C build
+ 2202  ll /usr/
+ 2203  ll /usr/lib64/
+ 2204  find /usr -name libgstwaylandsink.so
+ 2205  ls -l /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstwaylandsink.so
+ 2206  ls -l build/ext/wayland/
+ 2207  sudo cp build/ext/wayland/libgstwaylandsink.so /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstwaylandsink.so
+ 2208  ls -l /usr/lib/x86_64-linux-gnu/gstreamer-1.0/libgstwaylandsink.so
+ 2209  history | grep systemc | tail
+ 2210  sudo systemctl restart weston-sim
+ 2211  tail -F /tmp/weston-start.log
+ 2212  sudo reboot
+ 2213  history | grep xdg
+ 2214  history | less
+ 2215  history | grep enable
+ 2216  history | grep disable
+ 2217  sudo disable weston-sim.service
+ 2218  sudo systemctl disable weston-sim.service
+ 2219  sudo systemctl enable gdm
+ 2220  history | grep gdm
+ 2221  reboot
+ 2222  sudo reboot
+ 2223  startx
+ 2224  history | grep gdm
+ 2225  history | less
+ 2226  sudo systemctl stop gdm
+ 2227  sudo systemctl restart gdm
+ 2228  systemctl status gdm
+ 2229  sudo systemctl status gdm
+ 2230  env
+ 2231  history | grep XDG
+ 2232  env | grep XDG
+ 2233  systemctl status gdm
+ 2234  journalctl -xe | grep gdm
+ 2235  history | grep light
+ 2236  cat /lib/systemd/system/gdm.service
+ 2237  sudo dpkg-reconfigure gdm3
+ 2238  systemctl start gdm
+ 2239  sudo systemctl start gdm
+ 2240  sudo dpkg-reconfigure gdm3
+ 2241  systemctl status gdm
+ 2242  sudo reboot
+ 2243  ls -l /etc/X11/default-display-manager
+ 2244  cat /etc/X11/default-display-manager
+ 2245  systemctl status display-manager.service 
+ 2246  top
+ 2247  ll
+ 2248  cd  work/
+ 2249  ll
+ 2250  cd rzv2n/
+ 2251  ll
+ 2252  view build/conf/bblayers.conf 
+ 2253  cd ..
+ 2254  ll
+ 2255  cd v2ntvmsandbox/
+ 2256  ll
+ 2257  tar zxvf drpai-extension-pack_ver1.2.0.tar.gz 
+ 2258  ll
+ 2259  ll samples/
+ 2260  ll samples/classification/
+ 2261  ll samples/classification/tensorflow_cnn/
+ 2262  ll drpai_compaction_tool/
+ 2263  cd ..
+ 2264  ll
+ 2265  cd myoptrzv2n/
+ 2266  ll
+ 2267  source environment-setup-aarch64-poky-linux
+ 2268  echo $CC
+ 2269  cd -
+ 2270  cd v2ntvmsandbox/
+ 2271  ll
+ 2272  tree
+ 2273  cd samples/classification/pytorch_mobilenetv2/
+ 2274  ll
+ 2275  python2 train.py 
+ 2276  python3 train.py 
+ 2277  pip3 install torch==1.13.1 torchvision==0.14.1 --extra-index-url https://download.pytorch.org/whl/cu118
+ 2278  pip3 install tensorflow==2.18.0  tensorflow-model-optimization==0.8.0  tf_keras==2.18.0  tf2onnx==1.16.1  onnx==1.14.0
+ 2279  cd ..
+ 2280  ll
+ 2281  cd ~
+ 2282  cd work/
+ 2283  ll
+ 2284  tar zcvf myoptrzv2n.ta.gz myoptrzv2n/
+ 2285  drpai_compaction_tool/scripts/setup_tf.sh
+ 2286  ll
+ 2287  exit
+ 2288  history 
+ 2289  reboot
+ 2290  sudo do-release-upgrade 
+ 2291  sudo do-release-upgrade -c
+ 2292  sudo apt update
+ 2293  sudo apt upgrade 
+ 2294  sudo dpkg --configure -a
+ 2295  ps 
+ 2296  sudo dpkg --configure -a
+ 2297  sudo apt install -f
+ 2298  reboot
+ 2299  sudo apt update
+ 2300  sudo apt upgrade 
+ 2301  sudo apt dist-upgrade 
+ 2302  sudo apt autoremove 
+ 2303  sudo reboot
+ 2304  uname -r
+ 2305  uname -a
+ 2306  df -H
+ 2307  ll work/
+ 2308  top
+ 2309  docker ps
+ 2310  exit
+ 2311  docker ps
+ 2312  exit
+ 2313  cd ..
+ 2314  ll
+ 2315  cd edgeai-tidl-tools/
+ 2316  ll
+ 2317  history 
+ 2318  exit
+ 2319  export REPO_LOCATION=artifactory.itg.ti.com/docker-public/library/
+ 2320  export PROXY=http://webproxy.ext.ti.com:80
+ 2321  source ./scripts/docker/build_docker.sh
+ 2322  ll
+ 2323  ll scripts/docker/
+ 2324  cd scripts/docker/
+ 2325  ll
+ 2326  vi Dockerfile
+ 2327  unset PROXY
+ 2328  ./build_docker.sh 
+ 2329  unset REPO_LOCATION
+ 2330  ./build_docker.sh 
+ 2331  ll
+ 2332  find ../../ -name requirements_pc.txt
+ 2333  cd ../../
+ 2334  source ./scripts/docker/build_docker.sh
+ 2335  ll
+ 2336  docker image ls
+ 2337  source ./scripts/docker/run_docker.sh
+ 2338  sudo systemctl restart docker
+ 2339  docker image ls
+ 2340  docker ps
+ 2341  source ./scripts/docker/run_docker.sh
+ 2342  docker ps
+ 2343  source ./scripts/docker/run_docker.sh
+ 2344  ll
+ 2345  cd ..
+ 2346  ll
+ 2347  history | grep git | tail
+ 2348  cd -
+ 2349  git tag 
+ 2350  cd ..
+ 2351  history | grep git | tail
+ 2352  git clone https://gitlab.freedesktop.org/gstreamer/gst-build.git edgeai-tidl-tools-09_02_09_00
+ 2353  git clone https://gitlab.freedesktop.org/gstreamer/gst-build.git edgeai-tidl-tools-10_01_04_00
+ 2354  git clone https://gitlab.freedesktop.org/gstreamer/gst-build.git edgeai-tidl-tools-11_00_08_00
+ 2355  history | grep git | tail
+ 2356  history | grep git
+ 2357  ll
+ 2358  cd edgeai-tidl-tools-09_02_09_00/
+ 2359  ll
+ 2360  git checkout 09_02_09_00
+ 2361  git checkout 11_01_06_00
+ 2362  cd ..
+ 2363  ll
+ 2364  cd edgeai-tidl-tools/
+ 2365  git checkout 11_01_06_00
+ 2366  cd ..
+ 2367  ll
+ 2368  cd edgeai-tidl-tools-09_02_09_00/
+ 2369  git checkout 11_01_06_00
+ 2370  git tag -l
+ 2371  git tag
+ 2372  cd ..
+ 2373  ll
+ 2374  history | grep edgeai-tidl-tools
+ 2375  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git edgeai-tidl-tools-09_02_09_00a
+ 2376  ll
+ 2377  rm -rdf edgeai-tidl-tools-09_02_09_00/ edgeai-tidl-tools-10_01_04_00/ edgeai-tidl-tools-11_00_08_00/
+ 2378  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git edgeai-tidl-tools-10_01_04_00
+ 2379  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git edgeai-tidl-tools-11_00_08_00
+ 2380  ll
+ 2381  cd edgeai-tidl-tools-09_02_09_00a/
+ 2382  git checkout 09_02_09_00
+ 2383  source ./scripts/docker/run_docker.sh
+ 2384  source ./scripts/docker/setup_docker.sh
+ 2385  exit
+ 2386  docker ps
+ 2387  ll
+ 2388  cd work/
+ 2389  ll
+ 2390  mkdir TI
+ 2391  cd TI
+ 2392  mkdir docker
+ 2393  cd docker/
+ 2394  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git
+ 2395  ll
+ 2396  cd edgeai-tidl-tools/
+ 2397  git tag 
+ 2398  git checkout 11_01_06_00
+ 2399  source ./scripts/docker/setup_docker.sh
+ 2400  exit
+ 2401  ll
+ 2402  cd work/TI/
+ 2403  ll
+ 2404  cd docker/
+ 2405  ll
+ 2406  cd edgeai-tidl-tools
+ 2407  history 
+ 2408  source ./scripts/docker/run_docker.sh
+ 2409  cd ..
+ 2410  ll
+ 2411  cd edgeai-tidl-tools-09_02_09_00a/
+ 2412  source ./scripts/docker/run_docker.sh
+ 2413  exit
+ 2414  cd work/TI/
+ 2415  ll
+ 2416  cd docker/
+ 2417  ll
+ 2418  cd edgeai-tidl-tools
+ 2419  ll
+ 2420  cd models/public/
+ 2421  ll
+ 2422  wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet50-v1-7.onnx
+ 2423  ll
+ 2424  cd ~
+ 2425  wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet50-v1-7.onnx
+ 2426  cd -
+ 2427  sudo wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet50-v1-7.onnx
+ 2428  ll
+ 2429  sudo cp resnet50-v1-7.onnx resnet18_opset9.onnx
+ 2430  ll 
+ 2431  ll
+ 2432  sudo cp resnet18_Opset17.onnx resnet18_opset9.onnx
+ 2433  sudo rm resnet18_opset9.onnx
+ 2434  ll
+ 2435  pip install onnx-simplifier onnx
+ 2436  ll
+ 2437  python3 -m onnxsim resnet18_Opset17.onnx resnet18_Opset17_simpl.onnx
+ 2438  sudo python3 -m onnxsim resnet18_Opset17.onnx resnet18_Opset17_simpl.onnx
+ 2439  python3 -m onnxsim resnet18_Opset17.onnx resnet18_Opset17_simpl.onnx
+ 2440  ll
+ 2441  python3 - <<'PY'
+ 2442  import onnx
+ 2443  m = onnx.load("resnet18_opset9.onnx")
+ 2444  print("opset:", [o.version for o in m.opset_import])
+ 2445  print("inputs:", [i.name + ':' + i.type.tensor_type.elem_type.__str__() for i in m.graph.input])
+ 2446  onnx.checker.check_model(m)
+ 2447  print("OK")
+ 2448  PY
+ 2449  python3 - <<'PY'
+ 2450  import onnx
+ 2451  m = onnx.load("resnet50-v1-7.onnx")
+ 2452  print("opset:", [o.version for o in m.opset_import])
+ 2453  print("inputs:", [i.name + ':' + i.type.tensor_type.elem_type.__str__() for i in m.graph.input])
+ 2454  onnx.checker.check_model(m)
+ 2455  print("OK")
+ 2456  PY
+ 2457  ll
+ 2458  python3 - <<'PY'
+ 2459  import onnx
+ 2460  m = onnx.load("resnet18_Opset17.onnx")
+ 2461  print("opset:", [o.version for o in m.opset_import])
+ 2462  print("inputs:", [i.name + ':' + i.type.tensor_type.elem_type.__str__() for i in m.graph.input])
+ 2463  onnx.checker.check_model(m)
+ 2464  print("OK")
+ 2465  PY
+ 2466  ll
+ 2467  sudo cp resnet50-v1-7.onnx resnet18_opset9.onnx
+ 2468  ll
+ 2469  sudo cp /home/comm/work/TI/resnet101-v1-7.onnx ./
+ 2470  sudo cp /home/comm/work/TI/resnet101-v2-7.onnx ./
+ 2471  sudo cp /home/comm/work/TI/resnet18-v1-7.onnx ./
+ 2472  sudo cp /home/comm/work/TI/resnet18-v2-7.onnx ./
+ 2473  sudo cp /home/comm/work/TI/resnet50-caffe2-v1-8.onnx ./
+ 2474  sudo cp /home/comm/work/TI/resnet50-v1-7.onnx ./
+ 2475  sudo cp /home/comm/work/TI/resnet50-v2-7.onnx ./
+ 2476  sudo cp /home/comm/work/TI/modelstry/resnet101-v1-7.onnx ./
+ 2477  sudo cp /home/comm/work/TI/modelstry/resnet101-v2-7.onnx ./
+ 2478  sudo cp /home/comm/work/TI/modelstry/resnet18-v1-7.onnx ./
+ 2479  sudo cp /home/comm/work/TI/modelstry/resnet18-v2-7.onnx ./
+ 2480  sudo cp /home/comm/work/TI/modelstry/resnet50-caffe2-v1-8.onnx ./
+ 2481  sudo cp /home/comm/work/TI/modelstry/resnet50-v1-7.onnx ./
+ 2482  sudo cp /home/comm/work/TI/modelstry/resnet50-v2-7.onnx ./
+ 2483  ll
+ 2484  sudo cp resnet101-v1-7.onnx resnet18_opset9.onnx
+ 2485  ll
+ 2486  sudo cp resnet101-v2-7.onnx resnet18_opset9.onnx
+ 2487  ll
+ 2488  sudo cp resnet18-v1-7.onnx resnet18_opset9.onnx
+ 2489  sudo cp resnet18-v2-7.onnx resnet18_opset9.onnx
+ 2490  ll
+ 2491  sudo cp resnet50-caffe2-v1-8.onnx resnet18_opset9.onnx
+ 2492  ll
+ 2493  top
+ 2494  ps | aux
+ 2495  ps  aux
+ 2496  ps  aux | grep python
+ 2497  top
+ 2498  ll
+ 2499  sudo cp resnet50-v2-7.onnx resnet18_opset9.onnx
+ 2500  sudo rm resnet18_opset9.onnx
+ 2501  ll
+ 2502  sudo cp ssd-lite_mobilenetv2_fpn.onnx resnet18_opset9.onnx
+ 2503  sudo cp deeplabv3lite_mobilenetv2.onnx resnet18_opset9.onnx
+ 2504  exit
+ 2505  cd work/TI/
+ 2506  ll
+ 2507  git clone https://github.com/onnx/models.git
+ 2508  ll
+ 2509  cd models/
+ 2510  ll
+ 2511  find ./ -name resnet18_opset9.onnx
+ 2512  find ./ -name resnet18_*.onnx
+ 2513  find ./ -name resnet18_opset*.onnx
+ 2514  find ./ -name resnet18_Opset*.onnx
+ 2515  cd ./Computer_Vision/resnet18_Opset17_torch_hub/
+ 2516  ll
+ 2517  sudo cp resnet18_Opset17.onnx ~/work/TI/docker/edgeai-tidl-tools/models/public/
+ 2518  python3 - <<'PY'
+ 2519  import onnx
+ 2520  m = onnx.load("model.onnx")
+ 2521  print("opset:", [o.version for o in m.opset_import])
+ 2522  print("inputs:", [i.name + ':' + i.type.tensor_type.elem_type.__str__() for i in m.graph.input])
+ 2523  onnx.checker.check_model(m)
+ 2524  print("OK")
+ 2525  PY
+ 2526  python3 - <<'PY'
+ 2527  import onnx
+ 2528  m = onnx.load("resnet18_Opset17.onnx")
+ 2529  print("opset:", [o.version for o in m.opset_import])
+ 2530  print("inputs:", [i.name + ':' + i.type.tensor_type.elem_type.__str__() for i in m.graph.input])
+ 2531  onnx.checker.check_model(m)
+ 2532  print("OK")
+ 2533  PY
+ 2534  cd ~/work/TI/
+ 2535  git clone https://github.com/CiscoRachel/onnx-models.git
+ 2536  ll
+ 2537  find ./ -name "*.tar.gz"
+ 2538  find ./ -name "*.tar.gz" | xargs ls -l
+ 2539  which git-lfs
+ 2540  sudo apt-get install git-lfs
+ 2541  git lfs install
+ 2542  ll
+ 2543  cd docker/
+ 2544  ll
+ 2545  cd ..
+ 2546  ll
+ 2547  tree modelstry/
+ 2548  pwd
+ 2549  exit
+ 2550  cd work/TI/docker/
+ 2551  ll
+ 2552  cd edgeai-tidl-tools-09_02_09_00a/
+ 2553  vi ./scripts/docker/run_docker.sh
+ 2554  cd ../edgeai-tidl-tools
+ 2555  vi ./scripts/docker/run_docker.sh
+ 2556  cd -
+ 2557  cp ../edgeai-tidl-tools/scripts/docker/run_docker.sh ./scripts/docker/run_docker.sh
+ 2558  source ./scripts/docker/run_docker.sh
+ 2559  ll
+ 2560  cd ..
+ 2561  ll
+ 2562  cd edgeai-tidl-tools
+ 2563  ll
+ 2564  vi ./scripts/docker/run_docker.sh
+ 2565  source ./scripts/docker/run_docker.sh
+ 2566  exit
+ 2567  ll
+ 2568  cd work/
+ 2569  ll
+ 2570  cd v2ntvmsandbox/
+ 2571  ll
+ 2572  cd rzv_drp-ai_tvm/
+ 2573  ll
+ 2574  cd ../../
+ 2575  ll
+ 2576  cd TI
+ 2577  ll
+ 2578  cd docker/
+ 2579  ll
+ 2580  cd edgeai-tidl-tools-10_01_04_00/
+ 2581  ll
+ 2582  find ./ -name Docker*
+ 2583  cd scripts/docker/
+ 2584  ll
+ 2585  vi Dockerfile
+ 2586  vi setup_docker.sh 
+ 2587  vi build_docker.sh 
+ 2588  docker ps
+ 2589  docker image ls
+ 2590  docker ps -a
+ 2591  cd ../../
+ 2592  cd ..
+ 2593  ll
+ 2594  cd edgeai-tidl-tools
+ 2595  ll
+ 2596  history | grep docker
+ 2597  ll
+ 2598  source ./scripts/docker/run_docker.sh
+ 2599  cd ../../../
+ 2600  ll
+ 2601  mkdir v2nCompileDocker
+ 2602  cd v2nCompileDocker
+ 2603  ll
+ 2604  wget https://raw.githubusercontent.com/renesas-rz/rzv_drp-ai_tvm/main/DockerfileV2H -O DockerfileV2H
+ 2605  ll
+ 2606  vi DockerfileV2H 
+ 2607  export PRODUCT=V2N
+ 2608  ll
+ 2609  unzip RTK0EF0189F06000SJ.zip 
+ 2610  ll
+ 2611  mv `find ./ -name "*toolchain*sh"` .
+ 2612  ll
+ 2613  mv ai_sdk_setup/DRP-AI_Translator_i8-v1.04-Linux-x86_64-Install ./
+ 2614  ll
+ 2615  docker build -t drp-ai_tvm_${PRODUCT,,}_image_${USER} -f DockerfileV* --build-arg PRODUCT=${PRODUCT} .
+ 2616  ll
+ 2617  docker run -it --name drp-ai_tvm_${PRODUCT,,}_container_${USER} drp-ai_tvm_${PRODUCT,,}_image_${USER}
+ 2618  docker build -t drp-ai_tvm_${PRODUCT,,}_image_${USER} -f DockerfileV* --build-arg PRODUCT=${PRODUCT} .
+ 2619  ll
+ 2620  rm DRP-AI_Translator_i8-v1.04-Linux-x86_64-Install
+ 2621  docker build -t drp-ai_tvm_${PRODUCT,,}_image_${USER} -f DockerfileV* --build-arg PRODUCT=${PRODUCT} .
+ 2622  ll
+ 2623  vi DockerfileV2H 
+ 2624  docker build -t drp-ai_tvm_${PRODUCT,,}_image_${USER} -f DockerfileV* --build-arg PRODUCT=${PRODUCT} .
+ 2625  vi DockerfileV2H 
+ 2626  docker build -t drp-ai_tvm_${PRODUCT,,}_image_${USER} -f DockerfileV* --build-arg PRODUCT=${PRODUCT} .
+ 2627  vi DockerfileV2H 
+ 2628  docker build -t drp-ai_tvm_${PRODUCT,,}_image_${USER} -f DockerfileV* --build-arg PRODUCT=${PRODUCT} .
+ 2629  docker image ls
+ 2630  df -H
+ 2631  docker image rm 5e994d3c572d 
+ 2632  docker container rm f5297c67c797
+ 2633  docker image rm 5e994d3c572d 
+ 2634  df -H
+ 2635  docker image ls
+ 2636  docker run -it -v $(pwd):/workspace -w /workspace --name drp-ai_tvm_${PRODUCT,,}_container_${USER} drp-ai_tvm_${PRODUCT,,}_image_${USER}
+ 2637  exit
+ 2638  df -h
+ 2639  ll
+ 2640  rm -rf sandbox2 sandbox3 sandbox4
+ 2641  ll foss
+ 2642  df -H
+ 2643  cd work/
+ 2644  ls
+ 2645  docker image ls
+ 2646  history | grep docker
+ 2647  docker image ls
+ 2648  docker image rm 6b15544cd9ea
+ 2649  docker container rm 253299f3f7e9
+ 2650  docker image rm 6b15544cd9ea
+ 2651  df -H
+ 2652  docker image ls
+ 2653  sudo du -sh /var/lib/docker/*
+ 2654  docker system df
+ 2655  docker volume ls
+ 2656  docker builder prune
+ 2657  df -H
+ 2658  docker system prune
+ 2659  df -H
+ 2660  docker image ls
+ 2661  docker ps
+ 2662  docker ps -a
+ 2663  ll
+ 2664  du -smmyoptrzv2n.ta.gz
+ 2665  du -sm myoptrzv2n.ta.gz
+ 2666  cd v2nCompileDocker/
+ 2667  ll
+ 2668  cd ../v2ntvmsandbox/
+ 2669  ll
+ 2670  ll rzv_drp-ai_tvm/
+ 2671  vi DockerfileV2H
+ 2672  cd  rzv_drp-ai_tvm/
+ 2673  ll
+ 2674  cd  rzv_drp-ai_tvm/
+ 2675  d -
+ 2676  vi DockerfileV2H
+ 2677  ll
+ 2678  cd ../../
+ 2679  mkdir ai_sdk_work
+ 2680  cd ai_sdk_work/
+ 2681  ll
+ 2682  unzip RTK0EF0160F05000SJ.zip 
+ 2683  ll
+ 2684  ai_sdk_setup/
+ 2685  cd ai_sdk_setup/
+ 2686  ll
+ 2687  sudo docker build -t rzv2l_ai_sdk_image --build-arg SDK="/opt/poky/3.1.31" --build-arg PRODUCT="V2L" .
+ 2688  docker image ls
+ 2689  ll
+ 2690  mkdit data
+ 2691  mkdir data
+ 2692  sudo docker run -it --name rzv2l_ai_sdk_container -v $(pwd)/data:/drp-ai_tvm/data rzv2l_ai_sdk_image
+ 2693  docker ps
+ 2694  sudo docker start -i  rzv2l_ai_sdk_container
+ 2695  docker ps
+ 2696  sudo docker start -i  rzv2l_ai_sdk_container
+ 2697  ll
+ 2698  cd data/
+ 2699  ll
+ 2700  git clone https://github.com/renesas-rz/rzv_ai_sdk.git
+ 2701  ll
+ 2702  sudo docker start -i  rzv2l_ai_sdk_container
+ 2703  cd ../../../
+ 2704  ll
+ 2705  cd v2ntvmsandbox/
+ 2706  ll
+ 2707  cd rzv_drp-ai_tvm/
+ 2708  ll
+ 2709  cd tutorials/
+ 2710  ll
+ 2711  wget https://github.com/onnx/models/raw/main/validated/vision/classification/resnet/model/resnet50-v1-7.onnx
+ 2712  ll
+ 2713  python3 compile_cpu_only_onnx_model.py ./resnet50-v1-7.onnx -o resnet50_v1_onnx_cpu -s 1,3,224,224 -i data
+ 2714  ll ../../
+ 2715  ll ../../drpai_compaction_tool/
+ 2716  cd ../../
+ 2717  mount
+ 2718  mount | grep sd
+ 2719  sudo umount /dev/sdb1
+ 2720  df -h
+ 2721  sudo mkfs.ext4 /dev/sdb1
+ 2722  ll /media/
+ 2723  ll /media/comm/
+ 2724  sudo mkdir /media/HD-ADU3
+ 2725  sudo mount /dev/sdb1 /media/HD-ADU3
+ 2726  sudo e2label /dev/sdb1 HD-ADU3
+ 2727  sudo blkid /dev/sdb1
+ 2728  sudo vi /etc/fstab 
+ 2729  sudo reboot
+ 2730  top
+ 2731  df -h
+ 2732  docker ps
+ 2733  df -h
+ 2734  docker image ls
+ 2735  df -h
+ 2736  mount
+ 2737  mount |grep sd
+ 2738  df -h
+ 2739  cd /media/HD-ADU3/
+ 2740  ll
+ 2741  touch buydate20251104.txt
+ 2742  ll 
+ 2743  ll /media/
+ 2744  sudo chown -R comm:comm /media/HD-ADU3
+ 2745  ll
+ 2746  touch buydate20251104.txt
+ 2747  ll
+ 2748  sudo reboot
+ 2749  ll
+ 2750  cd hddwork 
+ 2751  ll /mnt
+ 2752  cd hddwork exit
+ 2753  exit
+ 2754  ls -l
+ 2755  ls /mnt/hdd/
+ 2756  pwd
+ 2757  ln -s /mnt/hdd ~/hddwork
+ 2758  ll hddwork 
+ 2759  rm hddwork 
+ 2760  ln -s /mnt/hdd ~/hddwork
+ 2761  cd hddwork
+ 2762  ll
+ 2763  exit
+ 2764  cd hddwork
+ 2765  ll
+ 2766  which git
+ 2767  git info
+ 2768  git info mailinfo
+ 2769  git  mailinfo
+ 2770  git config
+ 2771  git config -l
+ 2772  ll
+ 2773  mv rzv2n/ rzv2n500
+ 2774  cd rzv2n500
+ 2775  pwd
+ 2776  ll
+ 2777  cd build/
+ 2778  ll
+ 2779  cd conf/
+ 2780  ll
+ 2781  vi bblayers.conf 
+ 2782  cd ../../
+ 2783  history | grep TEMP
+ 2784  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2n/docs/template/conf/ source poky/oe-init-build-env
+ 2785  history | grep bitbake | grep v2n
+ 2786  MACHINE=rzv2n-evk bitbake core-image-weston
+ 2787  exit
+ 2788  mount
+ 2789  mount | grep sd
+ 2790  df -H
+ 2791  ll
+ 2792  ln -s /media/HD-ADU3 ~/hddwork
+ 2793  cd hddwork
+ 2794  ll
+ 2795  ls ~/work/
+ 2796  ls ~/work/kernel-source_rzv2m
+ 2797  ls -l ~/work/kernel-source_rzv2m
+ 2798  sudo mv ~/work/kernel-source_rzv2m ./
+ 2799  ll
+ 2800  sync
+ 2801  du -sm kernel-source_rzv2m/
+ 2802  ll ~/work/
+ 2803  ll ~/work/pacRZV2N/
+ 2804  sudo apt-get update
+ 2805  sudo apt-get install gawk wget git diffstat unzip texinfo gcc build-essential chrpath socat cpio python3 python3-pip python3-pexpect xz-utils debianutils iputils-ping python3-git python3-jinja2 python3-subunit zstd liblz4-tool file locales libacl1 bmap-tools
+ 2806  mkdir pacV2N600
+ 2807  cd pacV2N600/
+ 2808  pwd
+ 2809  sudo nano /etc/samba/smb.conf
+ 2810  sudo systemctl restart smbd
+ 2811  sudo systemctl status smbd
+ 2812  ll
+ 2813  unzip RTK0EF0189F06000SJ_linux-src.zip 
+ 2814  ll
+ 2815  cd ../
+ 2816  mkdir v2n600
+ 2817  cd v2n600/
+ 2818  tar zxvf ../pacV2N600/rzv2n_ai-sdk_yocto_recipe_v6.00.tar.gz 
+ 2819  ll
+ 2820  ll patch/
+ 2821  TEMPLATECONF=$PWD/meta-renesas/meta-rz-boards/conf/templates/rz-conf/ source poky/oe-init-build-env build
+ 2822  bitbake-layers add-layer ../meta-rz-features/meta-rz-graphics
+ 2823  bitbake-layers add-layer ../meta-rz-features/meta-rz-drpai
+ 2824  bitbake-layers add-layer ../meta-rz-features/meta-rz-opencva
+ 2825  bitbake-layers add-layer ../meta-rz-features/meta-rz-codecs
+ 2826  bitbake-layers add-layer ../meta-econsys
+ 2827  patch -p1 < ../patch/0000-AI_SDK-settings.patch
+ 2828  patch -p1 < ../patch/0001-tesseract.patch
+ 2829  patch -p1 < ../patch/0002-openmp.patch
+ 2830  7z x ../../pacV2N600/oss_pkg_rzv_v6.00.7z 
+ 2831  ll
+ 2832  MACHINE=rzv2n-evk bitbake core-image-weston
+ 2833  ll /media/HD-ADU3/v2n600/build/downloads/swig-4.2.1.tar.gz
+ 2834  MACHINE=rzv2n-evk bitbake core-image-weston
+ 2835  ll /media/HD-ADU3/v2n600/build/downloads/swig-4.2.1.tar.gz
+ 2836  vi /media/HD-ADU3/v2n600/build/../poky/meta/recipes-devtools/swig/swig_4.2.1.bb
+ 2837  vi conf/local.conf 
+ 2838  MACHINE=rzv2n-evk bitbake core-image-weston
+ 2839  ll /media/HD-ADU3/v2n600/build/downloads/swig-4.2.1.tar.gz
+ 2840  cd downloads/
+ 2841  wget https://downloads.sourceforge.net/swig/swig-4.2.1.tar.gz
+ 2842  cd -
+ 2843  MACHINE=rzv2n-evk bitbake core-image-weston
+ 2844  ll
+ 2845  du -sm /media/HD-ADU3/v2n600/
+ 2846  cd tmp/work-shared/rzv2n-evk/kernel-source/drivers/clk/renesas/
+ 2847  la
+ 2848  cd ~
+ 2849  ll
+ 2850  cp -rp work/rzv2n/ /media/HD-ADU3/
+ 2851  pwd
+ 2852  ll
+ 2853  cd work/
+ 2854  ls
+ 2855  cp RTK0EF0160F05000SJ_linux-src.zip /media/HD-ADU3/
+ 2856  exit
+ 2857  ll
+ 2858  pwd
+ 2859  ll work/
+ 2860  ll hddwork
+ 2861  ll hddwork/
+ 2862  df -h
+ 2863  exit
+ 2864  hs
+ 2865  ls
+ 2866  cd HD-ADU3
+ 2867  ll
+ 2868  mkdir TI
+ 2869  cd TI
+ 2870  wget https://dr-download.ti.com/software-development/software-development-kit-sdk/MD-O34VjGn5mM/11.00.00.08/ti-processor-sdk-linux-edgeai-j721s2-evm-11_00_00_08-Linux-x86-Install.bin
+ 2871  git clone https://github.com/meta-qt6/meta-qt6.git
+ 2872  git config -l
+ 2873  ls -l
+ 2874  cd yacto/
+ 2875  ls -l
+ 2876  cd oe-layersetup/build/deploy-ti/
+ 2877  ls -l
+ 2878  cd images/am62xx-evm/
+ 2879  cd rootfsti
+ 2880  ll
+ 2881  tree -L 3
+ 2882  cd ~/HD-ADU3/TI/
+ 2883  ll
+ 2884  chmod +x ti-processor-sdk-linux-edgeai-j721s2-evm-11_00_00_08-Linux-x86-Install.bin 
+ 2885  . ti-processor-sdk-linux-edgeai-j721s2-evm-11_00_00_08-Linux-x86-Install.bin 
+ 2886  ll
+ 2887  ./ti-processor-sdk-linux-edgeai-j721s2-evm-11_00_00_08-Linux-x86-Install.bin 
+ 2888  cd ~
+ 2889  ll
+ 2890  cd ti-processor-sdk-linux-edgeai-j721s2-evm-11_00_00_08/
+ 2891  ll
+ 2892  cd yocto-build/
+ 2893  ll
+ 2894  ll src/
+ 2895  cat README 
+ 2896  ll
+ 2897  ll conf
+ 2898  ll conf/layer.conf 
+ 2899  cat conf/layer.conf 
+ 2900  ll
+ 2901  tree
+ 2902  ll
+ 2903  cd ..
+ 2904  ll
+ 2905  ll example-applications/
+ 2906  ll example-applications/arm-benchmarks-1.3/
+ 2907  ll filesystem/
+ 2908  exit
+ 2909  docker pull ghcr.io/texasinstruments/ubuntu-distro:latest
+ 2910  cd HD-ADU3/TI/
+ 2911  ll
+ 2912  mkdir yacto
+ 2913  cd yacto/
+ 2914  pwd
+ 2915  docker run --privileged -it -v ${WORK_DIR}:/home/tisdk -v /dev:/dev -v /media/:/media/ -w /home/tisdk ghcr.io/texasinstruments/ubuntu-distro:latest
+ 2916  export WORK_DIR=/home/comm/HD-ADU3/TI/yacto
+ 2917  docker run --privileged -it -v ${WORK_DIR}:/home/tisdk -v /dev:/dev -v /media/:/media/ -w /home/tisdk ghcr.io/texasinstruments/ubuntu-distro:latest
+ 2918  exit
+ 2919  ll
+ 2920  cd HD-ADU3
+ 2921  ll
+ 2922  mount
+ 2923  df -h
+ 2924  reboot
+ 2925  sudo reboot
+ 2926  cd HD-ADU3/TI/
+ 2927  ll
+ 2928  cd yoctospace10011004/uzip/
+ 2929  ll
+ 2930  cd yocto-build/
+ 2931  ll
+ 2932  cd build/
+ 2933  ll
+ 2934  history 
+ 2935  cd ..
+ 2936  ll
+ 2937  cd configs/
+ 2938  ll
+ 2939  cd processor-sdk-analytics/
+ 2940  ll
+ 2941  cat processor-sdk-analytics-10_01-config.txt
+ 2942  cd ../../
+ 2943  ./oe-layertool-setup.sh -f configs/processor-sdk-analytics/processor-sdk-analytics-10_01-config.txt 
+ 2944  cd build/
+ 2945  . conf/setenv
+ 2946  echo 'ARAGO_BRAND = "edgeai"' >> conf/local.conf
+ 2947  MACHINE="am68-sk" bitbake -k tisdk-edgeai-image
+ 2948  export REPO_LOCATION=artifactory.itg.ti.com/docker-public/library/
+ 2949  source ./scripts/docker/build_docker.sh
+ 2950  source ./scripts/docker/run_docker.sh
+ 2951  cd ../../../
+ 2952  ll
+ 2953  cd TI/
+ 2954  ll
+ 2955  touch advanced_setup_md_1_is_10_01_00_02
+ 2956  ll
+ 2957  mkdir advanced_setup_md_2/
+ 2958  cd advanced_setup_md_2/
+ 2959  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git
+ 2960  cd edgeai-tidl-tools
+ 2961  git tag
+ 2962  git checkout 09_01_01_01
+ 2963  export REPO_LOCATION=artifactory.itg.ti.com/docker-public/library/
+ 2964  source ./scripts/docker/build_docker.sh
+ 2965  ll
+ 2966  find ./ -name build_docker.sh
+ 2967  find ./ -name docker.sh
+ 2968  find ./ -name *docker*
+ 2969  ll
+ 2970  ll dockers/
+ 2971  tree dockers/
+ 2972  find ./ -name *docker*.sh
+ 2973  source ./dockers/J721E/ubuntu_20.04/docker_build.sh
+ 2974  git checkout 11_01_06_00
+ 2975  source ./scripts/docker/build_docker.sh
+ 2976  exit
+ 2977  vi ./scripts/docker/setup_docker.sh
+ 2978  source ./scripts/docker/setup_docker.sh
+ 2979  exit
+ 2980  xs HD-ADU3
+ 2981  cd HD-ADU3
+ 2982  ll
+ 2983  cd TI/
+ 2984  ll
+ 2985  mkdir advanced_setup_md_1
+ 2986  cd advanced_setup_md_1/
+ 2987  vi readme
+ 2988  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git
+ 2989  ll
+ 2990  cd edgeai-tidl-tools/
+ 2991  ll
+ 2992  git tags
+ 2993  git tag
+ 2994  git checkout 10_01_00_02
+ 2995  source ./scripts/docker/setup_docker.sh
+ 2996  exit
+ 2997  vi ./scripts/docker/setup_docker.sh
+ 2998  ping artifactory.itg.ti.com
+ 2999  exit
+ 3000  cd HD-ADU3/TI/advanced_setup_md_2/
+ 3001  ll
+ 3002  export REPO_LOCATION=artifactory.itg.ti.com/docker-public/library/
+ 3003  cd edgeai-tidl-tools/
+ 3004  source ./scripts/docker/build_docker.sh
+ 3005  export PROXY=http://webproxy.ext.ti.com:80
+ 3006  source ./scripts/docker/build_docker.sh
+ 3007  source ./scripts/docker/setup_docker.sh
+ 3008  source ./scripts/docker/build_docker.sh
+ 3009  exit
+ 3010  ll
+ 3011  cd HD-ADU3/TI/advanced_setup_md_1
+ 3012  ll
+ 3013  cd edgeai-tidl-tools/
+ 3014  ll
+ 3015  checkout 11_01_06_00
+ 3016  git checkout 11_01_06_00
+ 3017  git commit -m "force to 11_01_06_00"
+ 3018  cd ../
+ 3019  cd -
+ 3020  source ./scripts/docker/run_docker.sh
+ 3021  ll
+ 3022  cd edgeai-tidl-tools/
+ 3023  source ./scripts/docker/run_docker.sh
+ 3024  exit
+ 3025  cd HD-ADU3/TI/
+ 3026  ll
+ 3027  mkdir docker1106
+ 3028  cd docker1106/
+ 3029  docker pull ghcr.io/texasinstruments/edgeai-tidl-tools:11_01_06_00
+ 3030  ll
+ 3031  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git
+ 3032  ll
+ 3033  cd edgeai-tidl-tools/
+ 3034  ll
+ 3035  cd ../../advanced_setup_md_2
+ 3036  ll
+ 3037  cd edgeai-tidl-tools/
+ 3038  ll
+ 3039  tree
+ 3040  ll
+ 3041  cat requirements_pc.txt
+ 3042  cp requirements_pc.txt requirements_pc.txt_org
+ 3043  vi requirements_pc.txt
+ 3044  export REPO_LOCATION=artifactory.itg.ti.com/docker-public/library/
+ 3045  cd ../../
+ 3046  ll
+ 3047  mkdir advanced_setup_md_3_myreq
+ 3048  cd advanced_setup_md_3_myreq/
+ 3049  ll
+ 3050  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git
+ 3051  cd edgeai-tidl-tools
+ 3052  git checkout 11_01_06_00
+ 3053  vi requirements_pc.txt 
+ 3054  export REPO_LOCATION=artifactory.itg.ti.com/docker-public/library/
+ 3055  export PROXY=http://webproxy.ext.ti.com:80
+ 3056  source ./scripts/docker/build_docker.sh
+ 3057  unset PROXY
+ 3058  source ./scripts/docker/build_docker.sh
+ 3059  export PROXY=http://webproxy.ext.ti.com:80
+ 3060  source ./scripts/docker/build_docker.sh
+ 3061  echo $PROXY
+ 3062  exit
+ 3063  docker ps
+ 3064  docker ps -a
+ 3065  docker container ls
+ 3066  docker container ls -a
+ 3067  docker ps -a
+ 3068  cd HD-ADU3
+ 3069  cd TI/advanced_setup_md_1/
+ 3070  ll
+ 3071  cd edgeai-tidl-tools/
+ 3072  ll
+ 3073  cd edgeai-tidl-tools/
+ 3074  ll
+ 3075  git tag
+ 3076  cd examples/
+ 3077  ll
+ 3078  cd osrt_python/
+ 3079  ll
+ 3080  cd ../../
+ 3081  ll
+ 3082  cd ..
+ 3083  ll
+ 3084  exit
+ 3085  top
+ 3086  df -h
+ 3087  top
+ 3088  reboot
+ 3089  ll
+ 3090  cd HD-ADU3
+ 3091  ll
+ 3092  mkdir pacG2LPlus
+ 3093  cd pacG2LPlus
+ 3094  mkdir yocto
+ 3095  cd yocto/
+ 3096  git clone https://git.yoctoproject.org/git/poky
+ 3097  cd poky/
+ 3098  git checkout -b tmp ae2d52758fc2fcb0ed996aa234430464ebf4b310
+ 3099  cd ..
+ 3100  git clone https://git.yoctoproject.org/meta-arm
+ 3101  ll
+ 3102  cd meta-arm/
+ 3103  git checkout -b tmp 8e0f8af90fefb03f08cd2228cde7a89902a6b37c
+ 3104  cd ..
+ 3105  git clone https://git.openembedded.org/meta-openembedded
+ 3106  ll
+ 3107  cd meta-openembedded/
+ 3108  git checkout -b tmp c29a18fa39ede952f3f6108ec007c1906e2d9a0d
+ 3109  cd ..
+ 3110  git clone https://github.com/renesas-rz/meta-renesas
+ 3111  cd meta-renesas
+ 3112  git checkout -b tmp BSP-PLUS-K6.12-V2.0
+ 3113  cd ..
+ 3114  TEMPLATECONF=${PWD}/meta-renesas/meta-rz-distro/conf/templates/rz-bsp-plus-conf/ source poky/oe-init-build-env build
+ 3115  MACHINE=smarc-rzg2l bitbake core-image-minimal
+ 3116  cd ../../../
+ 3117  ll
+ 3118  rm HD-ADU3
+ 3119  ll
+ 3120  ll v2n600/build/tmp/
+ 3121  ll v2n600/build/tmp/deploy/
+ 3122  exit
+ 3123  cd HD-ADU3/
+ 3124  ll
+ 3125  mkdir pacG2L
+ 3126  cd pacG2L/
+ 3127  ll
+ 3128  mkdr yocto
+ 3129  mkdir yocto
+ 3130  cd yocto/
+ 3131  ll
+ 3132  ll ../
+ 3133  pwd
+ 3134  cd ../
+ 3135  ll
+ 3136  cd yocto/
+ 3137  cd ..
+ 3138  ll
+ 3139  unzip RTK0EF0045Z0035AZJ-v4.0.0.zip 
+ 3140  ll
+ 3141  ll RTK0EF0045Z0035AZJ-v4.0.0
+ 3142  cd yocto/
+ 3143  tar zxvf ../RTK0EF0045Z0035AZJ-v4.0.0/rz_vlp_v4.0.0.tar.gz 
+ 3144  ll
+ 3145  TEMPLATECONF=$PWD/meta-renesas/meta-rz-distro/conf/templates/rz-conf/ source poky/oe-init-build-env build
+ 3146  bitbake-layers add-layer ../meta-openembedded/meta-filesystems
+ 3147  bitbake-layers add-layer ../meta-openembedded/meta-networking
+ 3148  bitbake-layers add-layer ../meta-openembedded/meta-filesystems
+ 3149  bitbake-layers add-layer ../meta-virtualization
+ 3150  vi conf/bblayers.conf 
+ 3151  7z x ../../oss_pkg_rz_v4.0.0.7z 
+ 3152  ll
+ 3153  MACHINE=smarc-rzg2l bitbake core-image-minimal
+ 3154  exit
+ 3155  cd HD-ADU3
+ 3156  ll
+ 3157  pwd
+ 3158  mkdir myoptv2n600
+ 3159  cd v2n600/build/tmp/deploy/sdk/
+ 3160  ls
+ 3161  ./rz-vlp-glibc-x86_64-core-image-weston-cortexa55-rzv2n-evk-toolchain-5.0.6.sh
+ 3162  cd ~
+ 3163  cd HD-ADU3/myoptv2n600/
+ 3164  ll
+ 3165  source environment-setup-cortexa55-poky-linux 
+ 3166  echo $CC
+ 3167  exti
+ 3168  exit
+ 3169  source ./scripts/docker/build_docker.sh
+ 3170  unset PROXY
+ 3171  source ./scripts/docker/build_docker.sh
+ 3172  echo $PROXY
+ 3173  unset REPO_LOCATION
+ 3174  source ./scripts/docker/build_docker.sh
+ 3175  export PROXY=http://webproxy.ext.ti.com:80
+ 3176  source ./scripts/docker/build_docker.sh
+ 3177  export PROXY=http://webproxy.ext.ti.com:80
+ 3178  source ./scripts/docker/build_docker.sh
+ 3179  unset REPO_LOCATION
+ 3180  source ./scripts/docker/build_docker.sh
+ 3181  unset PROXY
+ 3182  source ./scripts/docker/build_docker.sh
+ 3183  unset PROXY
+ 3184  source ./scripts/docker/build_docker.sh
+ 3185  vi requirements_pc.txt 
+ 3186  source ./scripts/docker/build_docker.sh
+ 3187  exit
+ 3188  cd HD-ADU3
+ 3189  ll
+ 3190  cd TI/advanced_setup_md_3_myreq/
+ 3191  cd edgeai-tidl-tools/
+ 3192  ll
+ 3193  export REPO_LOCATION=artifactory.itg.ti.com/docker-public/library/
+ 3194  source ./scripts/docker/build_docker.sh
+ 3195  d ..
+ 3196  cd ..
+ 3197  ll
+ 3198  mv edgeai-tidl-tools/ _edgeai-tidl-tools/
+ 3199  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git
+ 3200  cd edgeai-tidl-tools/
+ 3201  source ./scripts/docker/build_docker.sh
+ 3202  PROXY=http://webproxy.ext.ti.com:80
+ 3203  source ./scripts/docker/build_docker.sh
+ 3204  env
+ 3205  env | grep PROXY
+ 3206  export PROXY=http://webproxy.ext.ti.com:80
+ 3207  env | grep PROXY
+ 3208  source ./scripts/docker/build_docker.sh
+ 3209  env | grep PROXY
+ 3210  history 
+ 3211  ll
+ 3212  cat requirements_pc.txt
+ 3213  cd ../
+ 3214  ll
+ 3215  mv _edgeai-tidl-tools/ my_edgeai-tidl-tools/
+ 3216  source ./scripts/docker/setup_docker.sh
+ 3217  cd my_edgeai-tidl-tools/
+ 3218  source ./scripts/docker/setup_docker.sh
+ 3219  exit
+ 3220  ./scripts/docker/build_docker.sh
+ 3221  cd ,,.,,.
+ 3222  cd ../../../
+ 3223  cd TI/
+ 3224  llk
+ 3225  ll
+ 3226  cd yacto/oe-layersetup/
+ 3227  ll
+ 3228  tree -L 2
+ 3229  tree -L 1
+ 3230  ll sample-files/
+ 3231  ll sample-files/denzil/
+ 3232  cd ../../
+ 3233  ll
+ 3234  mkdir edgeai-sdk
+ 3235  pwd
+ 3236  ./ti-processor-sdk-linux-edgeai-j721s2-evm-11_00_00_08-Linux-x86-Install.bin
+ 3237  ls edgeai-sdk/
+ 3238  ls edgeai-sdk/filesystem/
+ 3239  ls -l edgeai-sdk/filesystem/
+ 3240  exit
+ 3241  ll
+ 3242  cd HD-ADU3/TI/advanced_setup_md_3_myreq/edgeai-tidl-tools/
+ 3243  ll
+ 3244  source ./scripts/docker/setup_docker.sh
+ 3245  exit
+ 3246  ll
+ 3247  cd HD-ADU3
+ 3248  ll
+ 3249  cd v2n600/
+ 3250  ll
+ 3251  history | grep TEMP | tail
+ 3252  ll meta-renesas/meta-rz-distro
+ 3253  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2n/docs/template/conf/ source poky/oe-init-build-env
+ 3254  ll
+ 3255  TEMPLATECONF=${PWD}/meta-renesas/meta-rzv2n/docs/template/conf/ source poky/oe-init-build-env
+ 3256  ll meta-renesas/meta-rz-boards/
+ 3257  TEMPLATECONF=$PWD/meta-renesas/meta-rz-boards/conf/templates/rz-conf/ source poky/oe-init-build-env build
+ 3258  history 
+ 3259  MACHINE=rzv2n-evk bitbake core-image-weston -c populatesdk
+ 3260  MACHINE=rzv2n-evk bitbake core-image-weston -c compile populatesdk
+ 3261  history | grep sdk
+ 3262  history | grep populate
+ 3263  MACHINE=rzv2n-evk bitbake core-image-weston -c populate_sdk
+ 3264  ll
+ 3265  cd tmp/work-shared/rzv2n-evk/
+ 3266  ll
+ 3267  ll kernel-source/
+ 3268  ll
+ 3269  tar -cf ../../../../kernel-source.tar kernel-source/
+ 3270  exit
+ 3271  ll
+ 3272  cd HD-ADU3
+ 3273  ll
+ 3274  cd myoptv2n600/
+ 3275  ll
+ 3276  source environment-setup-cortexa55-poky-linux 
+ 3277  echo $CC
+ 3278  which ldd
+ 3279  cd ~/HD-ADU3/aisdk/rzv_ai_sdk/R01_object_detection
+ 3280  ll
+ 3281  cd exe_v2h/
+ 3282  ll
+ 3283  ldd object_detection 
+ 3284  echo $CC
+ 3285  aarch64-poky-linux-readelf -d object_detection | grep NEEDED
+ 3286  cd ../exe_v2n/
+ 3287  aarch64-poky-linux-readelf -d object_detection | grep NEEDED
+ 3288  ll
+ 3289  exit
+ 3290  top
+ 3291  ll
+ 3292  vi Mera.cpp
+ 3293  ls /sys/kernel/debug/
+ 3294  sudo ls /sys/kernel/debug/
+ 3295  uname -a
+ 3296  sudo ls /sys/kernel/
+ 3297  sudo ls -l /sys/kernel/
+ 3298  sudo ls -l /sys/
+ 3299  sudo ls -l /sys/dev
+ 3300  sudo ls -l /sys/dev/block/
+ 3301  sudo ls -l /sys/devices/
+ 3302  sudo ls -l /sys/devices/platform/
+ 3303  mount
+ 3304  mount | grep sys
+ 3305  ll /
+ 3306  ll /sys
+ 3307  ll /sys/bus
+ 3308  ll /sys/bus/platform/
+ 3309  ll /sys/bus/platform/devices/
+ 3310  ll /sys/bus/platform/drivers
+ 3311  ll /sys/bus/platform/drivers/clk-fch/
+ 3312  ll /sys/bus/platform/drivers/clk-fch/uevent 
+ 3313  cd /etc
+ 3314  ls
+ 3315  cd udev/
+ 3316  ls
+ 3317  cd rules.d/
+ 3318  ls
+ 3319  ls -l
+ 3320  cat 70-snap.vlc.rules
+ 3321  cat 70-snap.firefox.rules
+ 3322  cd ..
+ 3323  ll
+ 3324  cat udev.conf 
+ 3325  cd /usr/lib/udev/
+ 3326  ls
+ 3327  ls -l
+ 3328  cd ../modules
+ 3329  ls
+ 3330  ls -l
+ 3331  uname -a
+ 3332  cd 6.8.0-90-generic
+ 3333  ll
+ 3334  ll kernel/
+ 3335  ll kernel/samples/
+ 3336  ll kernel/samples/trace_printk/
+ 3337  ll kernel/drivers/
+ 3338  ll kernel/drivers/media/
+ 3339  ll kernel/drivers/media/v4l2-core/
+ 3340  cd ~
+ 3341  cd HD-ADU3
+ 3342  ll
+ 3343  ll pacV2N600/
+ 3344  cd HD-ADU3
+ 3345  ll
+ 3346  cd TI
+ 3347  ll
+ 3348  cd docker1106/
+ 3349  ll
+ 3350  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git edgeai-tidl-tools_GPU
+ 3351  ll
+ 3352  cd edgeai-tidl-tools_GPU/
+ 3353  git checkout 11_01_06_00
+ 3354  ll
+ 3355  vi ./scripts/docker/run_docker.sh
+ 3356  export SOC=am68a
+ 3357  export TIDL_TOOLS_TYPE=GPU
+ 3358  ll
+ 3359  vi setup.sh 
+ 3360  source ./scripts/docker/build_docker.sh
+ 3361  source ./scripts/docker/run_docker.sh
+ 3362  vi ./scripts/docker/run_docker.sh
+ 3363  exit
+ 3364  lsblk
+ 3365  cd HD-ADU3/TI
+ 3366  ll
+ 3367  cd docker1106/
+ 3368  ll
+ 3369  exit
+ 3370  docker ps
+ 3371  docker ps -a
+ 3372  docker ps image -a
+ 3373  docker ps image ls
+ 3374  docker ps image ls -a
+ 3375  docker image ls -a
+ 3376  docker ps 
+ 3377  docker image ls -a
+ 3378  history | grep wget
+ 3379  ll
+ 3380  cd HD-ADU3/TI/
+ 3381  ll
+ 3382  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-mmdet/yolox_nano_lite_416x416_20220214_model.prototxt
+ 3383  ll
+ 3384  cp yolox_nano_lite_416x416_20220214_model.onnx docker1106/edgeai-tidl-tools/models/public/
+ 3385  sudo cp yolox_nano_lite_416x416_20220214_model.onnx docker1106/edgeai-tidl-tools/models/public/
+ 3386  sudo cp yolox_nano_lite_416x416_20220214_model.prototxt docker1106/edgeai-tidl-tools/models/public/
+ 3387  ll
+ 3388  cd sdcard/sd2fs/opt/model_zoo/TFL-OD-2020-ssdLite-mobDet-DSP-coco-320x320/model/
+ 3389  ll
+ 3390  pwd
+ 3391  lsblk
+ 3392  mount | grep sdd
+ 3393  sudo umount /media/comm/3659-C94A
+ 3394  df -h
+ 3395  lsblk
+ 3396  cd ~/HD-ADU3/TI
+ 3397  ll
+ 3398  docker ps
+ 3399  docker image ls
+ 3400  ll
+ 3401  cd docker1106/
+ 3402  ll
+ 3403  docker save edgeai_tidl_tools_x86_ubuntu_22:latest | gzip > edgeai_tidl_tools_x86_ubuntu_22.tar.gz
+ 3404  cd ..
+ 3405  ll
+ 3406  cd wic11000008/
+ 3407  lsblk
+ 3408  sudo bmaptool copy --nobmap tisdk-edgeai-image-j721s2-evm.wic.xz /dev/sdd
+ 3409  df -h
+ 3410  lsblk
+ 3411  exit
+ 3412  top
+ 3413  df -h
+ 3414  lsblk
+ 3415  sudo umount /media/comm/BOOT
+ 3416  sudo umount /media/comm/rootfs
+ 3417  lsblk
+ 3418  exit
+ 3419  vi ./scripts/docker/setup_docker.sh
+ 3420  vi ./scripts/docker/run_docker.sh
+ 3421  source ./scripts/docker/run_docker.sh
+ 3422  cd ../
+ 3423  ll
+ 3424  lsblk
+ 3425  which parted
+ 3426  sudo parted /dev/sdd
+ 3427  lsblk
+ 3428  sudo e2fsck -f /dev/sdd2
+ 3429  sudo resize2fs /dev/sdd2
+ 3430  lsblk -f
+ 3431  sudo apt install build-essential pkg-config libblkid-dev libuuid-dev
+ 3432  sudo apt install build-essential pkg-config libblkid-dev
+ 3433  sudo apt install libuuid-dev
+ 3434  sudo apt update
+ 3435  sudo apt install libuuid-dev
+ 3436  ll
+ 3437  cd ..
+ 3438  ll
+ 3439  mkdir e2fsprogs-1.47.0
+ 3440  cd e2fsprogs-1.47.0
+ 3441  wget https://www.kernel.org/pub/linux/kernel/people/tytso/e2fsprogs/v1.47.0/e2fsprogs-1.47.0.tar.gz
+ 3442  ll
+ 3443  tar xf e2fsprogs-1.47.0.tar.gz
+ 3444  ll
+ 3445  cd e2fsprogs-1.47.0/
+ 3446  ./configure --prefix=/usr/local
+ 3447  make -j$(nproc)
+ 3448  e2fsck --version
+ 3449  ll
+ 3450  find ./ -name resize2fs
+ 3451  ll resize/
+ 3452  find ./ -name e2fsck
+ 3453  sudo make install
+ 3454  cd ../../
+ 3455  ll
+ 3456  sudo e2fsck -f /dev/sdd2
+ 3457  sudo resize2fs /dev/sdd2
+ 3458  lsblk
+ 3459  df -h
+ 3460  ls /mnt
+ 3461  ls /mnt/sd
+ 3462  sudo mount /dev/sdd2 /mnt/sd
+ 3463  ll
+ 3464  cd docker1106/
+ 3465  ll
+ 3466  ls /mnt/sd
+ 3467  ls /mnt/sd/home/
+ 3468  ls /mnt/sd/home/weston/
+ 3469  df -h
+ 3470  sudo cp edgeai_tidl_tools_x86_ubuntu_22.tar.gz /mnt/sd/home/weston/
+ 3471  sync
+ 3472  ll
+ 3473  du -sm edgeai-tidl-tools
+ 3474  df -h
+ 3475  tar -zcf edgeai-tidl-tools/ edgeai-tidl-tools_1106.tar.gz
+ 3476  tar -zcf edgeai-tidl-tools_1106.tar.gz edgeai-tidl-tools/
+ 3477  ll
+ 3478  sudo cp edgeai-tidl-tools_1106.tar.gz /mnt/sd/home/weston/
+ 3479  sync
+ 3480  ls /mnt/sd/home/weston/
+ 3481  ls -l /mnt/sd/home/weston/
+ 3482  sudo umount /mnt/sd
+ 3483  df -h
+ 3484  lsblk
+ 3485  sudo eject /dev/sdd
+ 3486  lsblk
+ 3487  ll
+ 3488  sudo mount /dev/sdd2 /mnt/sd
+ 3489  df -h
+ 3490  sudo cp EdgeAIStudio.7z /mnt/sd/home/weston/
+ 3491  sync
+ 3492  ls -l /mnt/sd/home/weston/
+ 3493  sudo umount /mnt/sd
+ 3494  lsblk
+ 3495  sudo eject sdd
+ 3496  lsblk
+ 3497  ll
+ 3498  history | grep git | tail
+ 3499  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git edgeai-tidl-tools_11_01_05_00
+ 3500  ll
+ 3501  cd edgeai-tidl-tools_11_01_05_00/
+ 3502  ll
+ 3503  git tag
+ 3504  history | grep git
+ 3505  git checkout 11_01_05_00
+ 3506  history | grep git | grep tmp
+ 3507  git checkout -b tmp 11_01_05_00
+ 3508  git br
+ 3509  git branch 
+ 3510  ll
+ 3511  history | grep run | tail
+ 3512  ll
+ 3513  cp -rp ../edgeai-tidl-tools/models/ ./
+ 3514  ll
+ 3515  source ./scripts/docker/run_docker.sh
+ 3516  exit
+ 3517  pwd
+ 3518  ll
+ 3519  cd HD-ADU3/TI/
+ 3520  ll
+ 3521  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-mmdet/yolox_nano_lite_416x416_20220214_model.onnx
+ 3522  ll
+ 3523  lsblk
+ 3524  cd wic10010004_2024Dec18/
+ 3525  ll
+ 3526  history 
+ 3527  history > ~/hist20260111.txt
+ 3528  ls -a ~
+ 3529  vi ~/.bashrc
+ 3530  source ~/.bashrc
+ 3531  ll
+ 3532  docker image ls
+ 3533  docker image ls -a
+ 3534  docker ps -a
+ 3535  ll
+ 3536  cd ..
+ 3537  ll
+ 3538  cd docker1106/
+ 3539  ll
+ 3540  cd edgeai-tidl-tools/
+ 3541  ll
+ 3542  git --log | more
+ 3543  git -log | more
+ 3544  git log | more
+ 3545  ll
+ 3546  vi scripts/docker/setup_docker.sh 
+ 3547  export REPO_LOCATION=artifactory.itg.ti.com/docker-public/library/
+ 3548  export PROXY=http://webproxy.ext.ti.com:80
+ 3549  source ./scripts/docker/build_docker.sh
+ 3550  unset PROXY
+ 3551  unset REPO_LOCATION
+ 3552  source ./scripts/docker/build_docker.sh
+ 3553  source ./scripts/docker/setup_docker.sh
+ 3554  exit
+ 3555  cd HD-ADU3/pacV2H620/
+ 3556  ll
+ 3557  cd ..d
+ 3558  cd ..
+ 3559  kdir v2h620/
+ 3560  ls
+ 3561  mkdir v2h620/
+ 3562  cd v2h620/
+ 3563  cd ../pacV2H
+ 3564  cd ../pacV2H620/
+ 3565  unzip RTK0EF0180F06000SJ.zip 
+ 3566  ll
+ 3567  cd RTK0EF0180F06000SJ_linux-src/
+ 3568  unzip RTK0EF0180F06000SJ_linux-src.zip 
+ 3569  tar zxvf rzv2h_ai-sdk_yocto_recipe_v6.00.tar.gz -C ../../v2h620/
+ 3570  ll
+ 3571  cd ../../v2h620/
+ 3572  ll
+ 3573  TEMPLATECONF=$PWD/meta-renesas/meta-rz-distro/conf/templates/rz-conf/ source poky/oe-init-build-env build
+ 3574  bitbake-layers add-layer ../meta-rz-features/meta-rz-graphics
+ 3575  bitbake-layers add-layer ../meta-rz-features/meta-rz-drpai
+ 3576  bitbake-layers add-layer ../meta-rz-features/meta-rz-opencva
+ 3577  bitbake-layers add-layer ../meta-rz-features/meta-rz-codecs
+ 3578  cat conf/bblayers.conf 
+ 3579  patch -p1 < ../patch/0000-AI_SDK-settings.patch
+ 3580  patch -p1 < ../patch/0001-tesseract.patch
+ 3581  patch -p1 < ../patch/0002-openmp.patch
+ 3582  7z x ../../pacV2H620/RTK0EF0180F06000SJ_linux-src/oss_pkg_rzv_v6.00.7z 
+ 3583  vi conf/local.conf 
+ 3584  MACHINE=rzv2h-evk bitbake core-image-weston
+ 3585  df -h
+ 3586  pwd
+ 3587  ll /etc/docker/
+ 3588  ll /etc/docker*
+ 3589  ll -a /etc/docker/
+ 3590  systemctl status docker
+ 3591  vi /lib/systemd/system/docker.service
+ 3592  ll /opt/
+ 3593  ll /opt/containerd/
+ 3594  sudo ll /opt/containerd/
+ 3595  sudo ls -l /opt/containerd/
+ 3596  ls /var
+ 3597  ls /var/lib/
+ 3598  ls /var/lib/docker/
+ 3599  sudo ls /var/lib/docker/
+ 3600  sudo ls /var/lib/docker/image
+ 3601  sudo ls /var/lib/docker/image/overlay2
+ 3602  ls /etc/
+ 3603  ls /etc/docker/
+ 3604  find . -name *.json
+ 3605  find /etc -name *.json
+ 3606  sudo find /etc -name *.json
+ 3607  sduo du -sm /var/lib/docker
+ 3608  sudo du -sm /var/lib/docker
+ 3609  pwd
+ 3610  sudo systemctl stop docker
+ 3611  sudo systemctl stop docker.socket
+ 3612  sudo systemctl status docker
+ 3613  cd ../../
+ 3614  ll
+ 3615  ll dockerspace/
+ 3616  sudo mkdir -p /media/HD-ADU3/docker
+ 3617  sudo chown root:root /media/HD-ADU3/docker
+ 3618  sudo chmod 711 /media/HD-ADU3/docker
+ 3619  ll
+ 3620  sudo rsync -aHAX --info=progress2 /var/lib/docker/ /media/HD-ADU3/docker/
+ 3621  [200~sudo nano /etc/docker/daemon.json
+ 3622  sudo nano /etc/docker/daemon.json
+ 3623  sudo systemctl daemon-reload
+ 3624  sudo systemctl restart docker
+ 3625  docker info | grep "Docker Root Dir"
+ 3626  lsblk -f
+ 3627  docker image
+ 3628  docker image ls
+ 3629  vi /etc/fstab 
+ 3630  df -h
+ 3631  sudo rm -rf /var/lib/docker
+ 3632  df -h
+ 3633  exit
+ 3634  ll
+ 3635  cd HD-ADU3
+ 3636  ll
+ 3637  cd TI/
+ 3638  ll
+ 3639  mkdir docker100008
+ 3640  cd docker100008/
+ 3641  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git
+ 3642  ll
+ 3643  mv edgeai-tidl-tools/ edgeai-tidl-tools-10-01-00-02tag
+ 3644  cd edgeai-tidl-tools-10-01-00-02tag/
+ 3645  git checkout 10_01_00_02
+ 3646  ll
+ 3647  source scripts/docker/build_docker.sh
+ 3648  source scripts/docker/run_docker.sh 
+ 3649  exit
+ 3650  ls
+ 3651  docker image ps
+ 3652  docker image ls
+ 3653  history  | grep drp-ai_tvm_v2h_image_comm
+ 3654  history  | grep drp-ai_tvm
+ 3655  history 
+ 3656  docker image ls
+ 3657  docker ps -a
+ 3658  cd HD-ADU3/dockerspace/
+ 3659  ll
+ 3660  ll tvmv2h/
+ 3661  ll
+ 3662  mkdir asobi20260201
+ 3663  cd asobi20260201/
+ 3664  mkdir data
+ 3665  mkdir workspace
+ 3666  docker ps -a
+ 3667  docker start drp-ai_tvm_v2h_container_comm
+ 3668  docker ps
+ 3669  docker exec -it drp-ai_tvm_v2h_container_comm /bin/bash
+ 3670  docker exec -it -v $(pwd):/workspace -w /workspace drp-ai_tvm_v2h_container_comm /bin/bash
+ 3671  docker inspect drp-ai_tvm_v2h_container_comm
+ 3672  docker inspect drp-ai_tvm_v2h_container_comm | grep work
+ 3673  docker exec -it drp-ai_tvm_v2h_container_comm /bin/bash
+ 3674  docker stop drp-ai_tvm_v2h_container_comm
+ 3675  docker rm drp-ai_tvm_v2h_container_comm
+ 3676  docker run -it   -v $(pwd):/workspace   -w /workspace   --name drp-ai_tvm_v2h_container_comm   drp-ai_tvm_v2h_image_comm   /bin/bash
+ 3677  docker ps
+ 3678  docker rm drp-ai_tvm_v2h_container_comm
+ 3679  docker run -it   -v $(pwd)/workerspac:/home/workspace   -w /workspace   --name drp-ai_tvm_v2h_container_comm   drp-ai_tvm_v2h_image_comm   /bin/bash
+ 3680  docker rm drp-ai_tvm_v2h_container_comm
+ 3681  docker run -it   -v $(pwd)/workerspac:/home/workspace   --name drp-ai_tvm_v2h_container_comm   drp-ai_tvm_v2h_image_comm   /bin/bash
+ 3682  docker rm drp-ai_tvm_v2h_container_comm
+ 3683  docker run -it   -v $(pwd)/workspace:/home/workspace   --name drp-ai_tvm_v2h_container_comm   drp-ai_tvm_v2h_image_comm   /bin/bash
+ 3684  ll
+ 3685  cd ..
+ 3686  ll
+ 3687  mkdir tvmv2hV270
+ 3688  cd tvmv2hV270
+ 3689  export PRODUCT=V2H
+ 3690  wget https://raw.githubusercontent.com/renesas-rz/rzv_drp-ai_tvm/main/Dockerfile -O Dockerfile
+ 3691  ll
+ 3692  vi Dockerfile 
+ 3693  mk docker_build
+ 3694  mkdir docker_build
+ 3695  ll
+ 3696  vi sdk.sh
+ 3697  chmod +x sdk.sh 
+ 3698  ./sdk.sh 
+ 3699  ll
+ 3700  unzip r20ut5460ej0111-drp-ai-translator-i8.zip
+ 3701  ll
+ 3702  cp Dockerfile ./docker_build/
+ 3703  cp DRP-AI_Translator_i8-v1.11-Linux-x86_64-Install ./docker_build/
+ 3704  cp rz-vlp-glibc-x86_64-core-image-weston-cortexa55-rzv2h-evk-toolchain-5.0.11.sh ./docker_build/
+ 3705  cd docker_build/
+ 3706  docker build -t drp-ai_tvm_${PRODUCT,,}_image_${USER} -f Dockerfile --build-arg PRODUCT=${PRODUCT} .
+ 3707  dock ps
+ 3708  dock image ps
+ 3709  dock image ls
+ 3710  docker image ls
+ 3711  cd ..
+ 3712  ll
+ 3713  mkdir workspace
+ 3714  docker run -it   -v $(pwd)/workspace:/home/workspace   --name drp-ai_tvm_v2h_container_comm_v270   drp-ai_tvm_v2h_image_comm   /bin/bash
+ 3715  cd HD-ADU3/myoptv2n600/
+ 3716  ll
+ 3717  source environment-setup-cortexa55-poky-linux
+ 3718  cd ..
+ 3719  cd cip-linux/rz_linux-cip/
+ 3720  make defconfig
+ 3721  make menuconfig
+ 3722  make preparemodeule
+ 3723  make preparemodule
+ 3724  make prepare module
+ 3725  make modules_prepare
+ 3726  make -j$(proc)
+ 3727  make -j1
+ 3728  ll
+ 3729  pwd
+ 3730  export KERNELSRC=/home/comm/HD-ADU3/cip-linux/rz_linux-cip
+ 3731  ll
+ 3732  cd ..
+ 3733  ll
+ 3734  cd mmngrbuf/
+ 3735  ll
+ 3736  cd drv/
+ 3737  ll
+ 3738  make -C $(KERNELSRC) M=$(PWD) modules
+ 3739  echo $KERNELSRC
+ 3740  echo $(KERNELSRC)
+ 3741  make -C ${KERNELSRC} M=${PWD} modules
+ 3742  ll
+ 3743  cd ../../mmngr
+ 3744  cd ../../mmngrdrv/
+ 3745  ll
+ 3746  cd drv/
+ 3747  ll
+ 3748  make -C ${KERNELSRC} M=${PWD} modules
+ 3749  grep -R "MMNGR_" -n .
+ 3750  make -C ${KERNELSRC} M=${PWD} modules
+ 3751  ls
+ 3752  modinfo mmngr.ko
+ 3753  exit
+ 3754  history | grep drp-ai_tvm_v2h_container_comm
+ 3755  docker ps
+ 3756  history | grep docker
+ 3757  history | grep docker | grep it
+ 3758  ll
+ 3759  w
+ 3760  cd HD-ADU3/
+ 3761  ll
+ 3762  mkdir cip-linux
+ 3763  cd cip-linux/
+ 3764  git clone https://github.com/renesas-rz/rz_linux-cip.git
+ 3765  ll
+ 3766  cd rz_linux-cip/
+ 3767  git br
+ 3768  git branch 
+ 3769  git branch all
+ 3770  git branch  ls
+ 3771  git branches
+ 3772  git branch -h
+ 3773  git branch -a
+ 3774  git branch remotes/origin/rz-6.12-cip8
+ 3775  git branch 
+ 3776  git branch git checkout -b rz-6.12-cip8 origin/rz-6.12-cip8
+ 3777  git checkout -b rz-6.12-cip8 origin/rz-6.12-cip8
+ 3778  git branch 
+ 3779  make defconfig
+ 3780  make mrproper
+ 3781  ll ../../v2h620/build/tmp/deploy/
+ 3782  cd  ../../v2h620/build/tmp/deploy/
+ 3783  cd ../../
+ 3784  cd ..
+ 3785  history | grep TEMP | tail
+ 3786  TEMPLATECONF=$PWD/meta-renesas/meta-rz-distro/conf/templates/rz-conf/ source poky/oe-init-build-env build
+ 3787  history | grep populate | tail
+ 3788  history | grep MACHINE= | tail
+ 3789  MACHINE=rzv2h-evk bitbake core-image-weston -c populate_sdk
+ 3790  top
+ 3791  exit
+ 3792  docker image ls
+ 3793  docker ps -a
+ 3794  docker start -ai great_shirley
+ 3795  ll
+ 3796  cd work/
+ 3797  ll
+ 3798  cd TI/
+ 3799  ll
+ 3800  pwd
+ 3801  cd ~
+ 3802  cd HD-ADU3/TI
+ 3803  ll
+ 3804  mkdir worksspace
+ 3805  docker start -ai great_shirley -v ./worksspace:/home/share
+ 3806  docker start -ai great_shirley -v $(pwd)/worksspace:/home/share
+ 3807  history | grep docker | tail
+ 3808  history | grep docker | grep run|tail
+ 3809  history | grep docker | grep run | grep -v tvm |tail
+ 3810  ll
+ 3811  cd docker100008/
+ 3812  ll
+ 3813  cd edgeai-tidl-tools-10-01-00-02tag/
+ 3814  ;;
+ 3815  ll
+ 3816  vi ./scripts/docker/run_docker.sh
+ 3817  ll
+ 3818  cd ../
+ 3819  ll
+ 3820  mkdir workspace
+ 3821  sudo docker run -it 
+ 3822  sudo docker run -it  -v $(pwd)/workspace:/home/share  --name ti_container_100008_10-01-00-02tag  --shm-size=4096m --mount source=$(pwd),target=/home/root,type=bind x86_ubuntu_22
+ 3823  docker ps -a
+ 3824  docker rm ti_container_100008_10-01-00-02tag
+ 3825  sudo docker run -it  -v $(pwd)/workspace:/home/share  --name ti_container_100008_10-01-00-02tag  --shm-size=4096m --mount source=$(pwd),target=/home/root,type=bind x86_ubuntu_22
+ 3826  ll
+ 3827  cd edgeai-tidl-tools-10-01-00-02tag_b/
+ 3828  ll
+ 3829  ll scripts/
+ 3830  ll scripts/docker/
+ 3831  cd scripts/docker/
+ 3832  vi build_docker.sh 
+ 3833  cd -
+ 3834  cd ..
+ 3835  ll
+ 3836  sudo docker run -it  -v $(pwd)/workspace:/home/share  --name ti_container_100008_10-01-00-02tag  --shm-size=4096m --mount source=$(pwd),target=/home/root,type=bind x86_ubuntu_22
+ 3837  docker start -ai ti_container_100008_10-01-00-02tag
+ 3838  exit
+ 3839  history | more
+ 3840  top
+ 3841  cd HD-ADU3
+ 3842  ll
+ 3843  cd TI/docker100008/
+ 3844  ll
+ 3845  mkdir workspace_10-01-00-02
+ 3846  sudo docker run -it  -v $(pwd)/workspace:/home/share  --name ti_container_tidl_current  --shm-size=4096m --mount source=$(pwd),target=/home/root,type=bind x86_ubuntu_22
+ 3847  exit
+ 3848  top
+ 3849  ll
+ 3850  cd HD-ADU3/TI/
+ 3851  mkdir offcialdockerimgs
+ 3852  cd offcialdockerimgs/
+ 3853  docker pull ghcr.io/texasinstruments/edgeai-tidl-tools:10.01.00.02
+ 3854  docker pull texasinsstruments/edgeai-tidl-tools:10.01.00.02
+ 3855  docker pull texasinstruments/edgeai-tidl-tools:10.01.00.02
+ 3856  docker pull texasinstruments/edgeai-tidl-tools:latest
+ 3857  cd ~
+ 3858  ll
+ 3859  cd ti-processor-sdk-linux-edgeai-j721s2-evm-11_00_00_08/
+ 3860  ll
+ 3861  find ./ -name docker*
+ 3862  cd ~
+ 3863  cd HD-ADU3/TI/
+ 3864  ll
+ 3865  ./ti-processor-sdk-linux-edgeai-j721s2-evm-10_00_00_08-Linux-x86-Install.bin
+ 3866  cd ~
+ 3867  ll
+ 3868  cd ti-processor-sdk-linux-edgeai-j721s2-evm-10_00_00_08/
+ 3869  find ./ -name *docker*
+ 3870  find ./ -name *.tar.gz
+ 3871  find ./ -name *.tar*
+ 3872  find ./ -name *.tar.*
+ 3873  ll
+ 3874  find ./ -name edgeai-tidl*
+ 3875  cd ../../
+ 3876  exit
+ 3877  cd HD-ADU3/TI/docker100008/
+ 3878  ll
+ 3879  history | grep doceker | tail
+ 3880  history | grep docker | tail
+ 3881  docker ps -a
+ 3882  docker -ai ti_container_100008_10-01-00-02tag
+ 3883  docker start -ai ti_container_100008_10-01-00-02tag
+ 3884  exit
+ 3885  mount
+ 3886  lsblk
+ 3887  sudo umount /media/comm/D98E-B798
+ 3888  lsblk
+ 3889  cd HD-ADU3/TI/
+ 3890  ll
+ 3891  cd docker100008/
+ 3892  ll
+ 3893  cd ..
+ 3894  ll
+ 3895  cd wic11000008_2024Aug19/
+ 3896  ll
+ 3897  history | grep wic.xz
+ 3898  lsblk
+ 3899  sudo bmaptool copy --nobmap tisdk-edgeai-image-j721s2-evm.wic.xz /dev/sdd
+ 3900  lsblk
+ 3901  ll
+ 3902  sudo mount /dev/sdd2 /mnt/sd/
+ 3903  ll
+ 3904  sudo ls /mnt/sd/
+ 3905  sudo cp -rp /mnt/sd/ ./
+ 3906  ll
+ 3907  sudo chown -R comm:comm sd
+ 3908  ll
+ 3909  ll sd/
+ 3910  ll sd/opt/
+ 3911  ll sd/opt/model_zoo/
+ 3912  ll sd/opt/model_zoo/ONR-OD-8220-yolox-s-lite-mmdet-coco-640x640/
+ 3913  ll sd/opt/model_zoo/ONR-OD-8220-yolox-s-lite-mmdet-coco-640x640/artifacts/
+ 3914  cat sd/opt/model_zoo/ONR-OD-8220-yolox-s-lite-mmdet-coco-640x640/artifacts/onnxrtMetaData.txt
+ 3915  cd ../
+ 3916  ll
+ 3917  cd sdcard/sd2
+ 3918  cd sdcard/sd2fs/
+ 3919  ll
+ 3920  cd opt/
+ 3921  ll
+ 3922  cd model_zoo/
+ 3923  ll
+ 3924  cd ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416/artifacts/
+ 3925  ll
+ 3926  cat allowedNode.txt
+ 3927  exit
+ 3928  cd HD-ADU3/TI/docker100008/workspace
+ 3929  ll
+ 3930  cd edgeai-tidl-tools_11_00_08_00z/models/public/
+ 3931  ll
+ 3932  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models//vision/segmentation/ade20k32/edgeai-tv/deeplabv3plus_mobilenetv2_edgeailite_512x512_20210308_outby4.onnx
+ 3933  ll
+ 3934  sudo wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models//vision/segmentation/ade20k32/edgeai-tv/deeplabv3plus_mobilenetv2_edgeailite_512x512_20210308_outby4.onnx
+ 3935  sudo wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-mmdet/yolox_nano_lite_416x416_20220214_model.onnx
+ 3936  sudo wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models/vision/detection/coco/edgeai-mmdet/yolox_nano_lite_416x416_20220214_model.prototxt
+ 3937  sudo wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models//vision/detection/coco/edgeai-mmdet/ssd_mobilenetv2_lite_512x512_20201214_model.onnx
+ 3938  sudo wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models///vision/detection/coco/edgeai-mmdet/ssd_mobilenetv2_lite_512x512_20201214_model.prototxt
+ 3939  sudo wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models//vision/detection/coco/edgeai-mmdet/yolox_s_lite_640x640_20220221_model.onnx
+ 3940  sudo get http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models//vision/detection/coco/edgeai-mmdet/yolox_s_lite_640x640_20220221_model.prototxt
+ 3941  sudo wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models//vision/detection/coco/edgeai-mmdet/yolox_s_lite_640x640_20220221_model.prototxt
+ 3942  sudo wget http://software-dl.ti.com/jacinto7/esd/modelzoo/latest/models//vision/classification/imagenet1k/fbr-pycls/regnetx-200mf.onnx
+ 3943  sudo wget https://git.ti.com/cgit/jacinto-ai/jacinto-ai-modelzoo/plain/models/vision/classification/imagenet1k/torchvision/mobilenet_v2_tv_opset9.onnx
+ 3944  cd ../../
+ 3945  ll
+ 3946  cd model-artifacts/
+ 3947  ll
+ 3948  sudo wget http://software-dl.ti.com/jacinto7/esd/modelzoo/11_00_00/modelartifacts/AM68A/8bits/od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz
+ 3949  ll
+ 3950  cp -rp od-8220_onnxrt_coco_edgeai-mmdet_yolox_s_lite_640x640_20220221_model_onnx_local
+ 3951  sudo cp -rp od-8220_onnxrt_coco_edgeai-mmdet_yolox_s_lite_640x640_20220221_model_onnx_local
+ 3952  sudo cp -rp od-8220_onnxrt_coco_edgeai-mmdet_yolox_s_lite_640x640_20220221_model_onnx od-8220_onnxrt_coco_edgeai-mmdet_yolox_s_lite_640x640_20220221_model_onnx_local
+ 3953  sudo tar zxvf od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz
+ 3954  ll
+ 3955  cd ~
+ 3956  lsblk
+ 3957  sudo mount /dev/sdd2 /mnt/sd
+ 3958  mount | grep sdd2
+ 3959  cd /mnt/sd/
+ 3960  ls
+ 3961  cd opt/
+ 3962  ls
+ 3963  less vx_app_arm_remote_log.out 
+ 3964  cd model_zoo/
+ 3965  ll
+ 3966  cd ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416/
+ 3967  ll
+ 3968  cd artifacts/
+ 3969  ll
+ 3970  cat onnxrtMetaData.txt 
+ 3971  cd ../../../ltp/
+ 3972  cd ../../
+ 3973  ll
+ 3974  cd lib
+ 3975  ls
+ 3976  ls *rt*
+ 3977  ls *tvm*
+ 3978  cd ../
+ 3979  ls
+ 3980  cd /usr/include/
+ 3981  ls
+ 3982  cd /root
+ 3983  sudo ls /root
+ 3984  sudo ls -a /root
+ 3985  sudo cat /root/.bashrc
+ 3986  sudo ls -a /root
+ 3987  sudo cat /root/ttt.txt
+ 3988  cd ../../
+ 3989  cd opt/
+ 3990  ls
+ 3991  cd /mnt/sd/opt
+ 3992  ll
+ 3993  cd edgeai-gst-apps/
+ 3994  ll
+ 3995  cat README.md 
+ 3996  cat download_models.sh
+ 3997  ll
+ 3998  cp download_models.sh ~/HD-ADU3/TI/
+ 3999  cd configs/
+ 4000  ll
+ 4001  cd ~/HD-ADU3/TI/
+ 4002  ll
+ 4003  mkdir downloadmodeltest
+ 4004  cd downloadmodeltest
+ 4005  mv ../download_models.sh ./
+ 4006  ./download_models.sh 
+ 4007  vi download_models.sh 
+ 4008  SOC=j721s2 ./download_models.sh
+ 4009  vi download_models.sh 
+ 4010  SOC=j721s2 ./download_models.sh
+ 4011  vi download_models.sh 
+ 4012  SOC=j721s2 ./download_models.sh
+ 4013  vi download_models.sh 
+ 4014  SOC=j721s2 ./download_models.sh
+ 4015  sudo apt install dialog
+ 4016  SOC=j721s2 ./download_models.sh
+ 4017  ll
+ 4018  ll ../model_zoo/
+ 4019  ll ../model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416/
+ 4020  ll ../model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416/artifacts/
+ 4021  cat ../model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416/artifacts/onnxrtMetaData.txt 
+ 4022  sudo umount /mnt/sd
+ 4023  lsblk
+ 4024  cd ..
+ 4025  ll
+ 4026  cd wic10000008/
+ 4027  ll
+ 4028  cd ../
+ 4029  mkdir wic_11.00.00.08_2025_05_22
+ 4030  cd wic_11.00.00.08_2025_05_22
+ 4031  touch 6fa434e24a2bd5b54ece53863f3c2a99df0db14edf3112927be65400776e016c
+ 4032  rm 6fa434e24a2bd5b54ece53863f3c2a99df0db14edf3112927be65400776e016c 
+ 4033  touch 4efef3fd1d61ebdf1e747336991b09f7c545e3a8cf8e4fec3e1fd4afbe8bcf1f
+ 4034  wget https://dr-download.ti.com/software-development/software-development-kit-sdk/MD-O34VjGn5mM/11.00.00.08/tisdk-edgeai-image-j721s2-evm.wic.xz
+ 4035  ll
+ 4036  history | grep tisdk-edgeai-image-j721s2-evm.wic.xz
+ 4037  sudo bmaptool copy --nobmap tisdk-edgeai-image-j721s2-evm.wic.xz /dev/sdd
+ 4038  lsblk
+ 4039  sudo mount /dev/sdd2 /mnt/sd 
+ 4040  sudo cp /mnt/sd/opt/model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416/ ./
+ 4041  sudo cp -rp /mnt/sd/opt/model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416/ ./
+ 4042  ll
+ 4043  exit
+ 4044  top
+ 4045  exit
+ 4046  docker ps -a
+ 4047  cd HD-ADU3/TI/docker100008/
+ 4048  ll
+ 4049  ll workspace
+ 4050  rm -rdf edgeai-tidl-tools/
+ 4051  sudo rm -rdf edgeai-tidl-tools/
+ 4052  history | grep docker start
+ 4053  history | grep "docker start"
+ 4054  docker ps -a
+ 4055  docker start -ai ti_container_tidl_current
+ 4056  docker ps -a
+ 4057  history | grep ti_container_tidl_current
+ 4058  docker image ls
+ 4059  ll
+ 4060  ll workspace
+ 4061  ll
+ 4062  sudo docker run -it  -v $(pwd)/workspace:/home/share  --name ti_container_tidl_11_00_08_00z  --shm-size=4096m --mount source=$(pwd),target=/home/root,type=bind edgeai_tidl_tools_x86_ubuntu_22
+ 4063  exit
+ 4064  docker image ls 
+ 4065  cd HD-ADU3/TI/
+ 4066  ll
+ 4067  mkdir dockerbox
+ 4068  cd dockerbox/
+ 4069  ll
+ 4070  touch newestversion
+ 4071  mkdir workspace
+ 4072  cd workspace/
+ 4073  ll
+ 4074  history | grep clone
+ 4075  git clone https://github.com/renesas-rz/rz_linux-cip.git
+ 4076  ll
+ 4077  ls
+ 4078  ls -a
+ 4079  git clone https://github.com/TexasInstruments/edgeai-tidl-tools.git
+ 4080  ll
+ 4081  cd edgeai-tidl-tools/
+ 4082  git log
+ 4083  ll
+ 4084  cd scripts/
+ 4085  ll
+ 4086  cd docker/
+ 4087  ll
+ 4088  vi Dockerfile
+ 4089  vi build_docker.sh 
+ 4090  vi setup_docker.sh 
+ 4091  cd ../../
+ 4092  TIDL_TOOLS_TYPE=CPU ./scripts/docker/run_docker.sh
+ 4093  TIDL_TOOLS_TYPE=CPU ./scripts/docker/build_docker.sh
+ 4094  vi ./scripts/docker/build_docker.sh
+ 4095  export TIDL_TOOLS_TYPE=CPU
+ 4096  pwd
+ 4097  vi ./scripts/docker/build_docker.sh
+ 4098  TIDL_TOOLS_TYPE=CPU ./scripts/docker/build_docker.sh
+ 4099  vi ./scripts/docker/build_docker.sh
+ 4100  TIDL_TOOLS_TYPE=CPU ./scripts/docker/build_docker.sh
+ 4101  ll scripts/setup/
+ 4102  ll
+ 4103  vi ./scripts/docker/build_docker.sh
+ 4104  vi ./scripts/docker/Dockerfile
+ 4105  ll scripts/setup/requirements_pc.txt
+ 4106  vi ./scripts/docker/build_docker.sh
+ 4107  vi ./scripts/docker/Dockerfile
+ 4108  TIDL_TOOLS_TYPE=CPU ./scripts/docker/build_docker.sh
+ 4109  ll
+ 4110  vi scripts/docker/build_docker.sh 
+ 4111  vf ..
+ 4112  ll
+ 4113  vf ..
+ 4114  ll
+ 4115  cd ..
+ 4116  ll
+ 4117  git clone https://github.com/TexasInstruments/edgeai-tensorlab.git
+ 4118  ll
+ 4119  mv edgeai-tensorlab/ edgeai-tensorlab_master
+ 4120  cd edgeai-tensorlab_master
+ 4121  ll
+ 4122  cd edgeai-benchmark/
+ 4123  ll
+ 4124  cd docker/
+ 4125  ll
+ 4126  vi Dockerfile 
+ 4127  vi docker_build.sh
+ 4128  ./docker_build.sh
+ 4129  lstat docker
+ 4130  vi docker_build.sh
+ 4131  vi Dockerfile 
+ 4132  vi docker_build.sh
+ 4133  cd ../
+ 4134  ./docker/docker_build.sh
+ 4135  view docker/docker_run.sh 
+ 4136  cp docker/docker_run.sh ../docker/docker_run.sh
+ 4137  cd ..
+ 4138  ll
+ 4139  cd ../
+ 4140  cp ~/HD-ADU3/TI/dockerbox/workspace/edgeai-tensorlab_master/edgeai-benchmark/docker/docker_run.sh ./
+ 4141  ll
+ 4142  vi docker_run_benchmark_master.sh
+ 4143  cp docker_run.sh docker_run_benchmark_master.sh
+ 4144  vi docker_run_benchmark_master.sh
+ 4145  docker image ls
+ 4146  ./docker_run_benchmark_master.sh
+ 4147  ./docker_run_benchmark_master.sh am68a
+ 4148  whoami
+ 4149  grep comm /etc/passwd
+ 4150  vi docker_run_benchmark_master.sh
+ 4151  docker ps -a
+ 4152  docker rm benchmark-am68a
+ 4153  ./docker_run_benchmark_master.sh am68a
+ 4154  vi docker_run_benchmark_master.sh
+ 4155  ./docker_run_benchmark_master.sh am68a
+ 4156  ll
+ 4157  docker ps -a
+ 4158  ll
+ 4159  cp docker_run_benchmark_master.sh docker_run_benchmark_r11.0.sh
+ 4160  ll
+ 4161  vi docker_run_benchmark_r11.0.sh
+ 4162  ./docker_run_benchmark_r11.0.sh
+ 4163  history 
+ 4164  ./docker_run_benchmark_r11.0.sh AM68A
+ 4165  ll
+ 4166  cp docker_run_benchmark_r11.0.sh  docker_run_benchmark_r11.0_egdltoolinstall.sh
+ 4167  vi docker_run_benchmark_r11.0_egdltoolinstall.sh
+ 4168  ll
+ 4169  ./docker_run_benchmark_r11.0_egdltoolinstall.sh
+ 4170  ./docker_run_benchmark_r11.0_egdltoolinstall.sh am68a
+ 4171  top
+ 4172  exit
+ 4173  df -h
+ 4174  cd HD-ADU3/TI/dockerbox/workspace/
+ 4175  ll
+ 4176  cd edgeai-tensorlab_r11_0/edgeai-benchmark/work_dirs/
+ 4177  ll
+ 4178  cd modelartifacts/
+ 4179  ll
+ 4180  cd AM68A/
+ 4181  ll
+ 4182  cd 8bits/
+ 4183  ll
+ 4184  tree od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx/
+ 4185  lsblk
+ 4186  tree
+ 4187  ll
+ 4188  cd ../../../
+ 4189  cd ../../
+ 4190  cd ../
+ 4191  ll
+ 4192  mkdir downloadmodel
+ 4193  cd downloadmodel/
+ 4194  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/11_00_00/modelartifacts/AM68A/8bits/od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz
+ 4195  tar zxvf od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz 
+ 4196  ll
+ 4197  mv od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz  11_00_00_od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz 
+ 4198  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/10_01_00/modelartifacts/AM68A/8bits/od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz
+ 4199  ll
+ 4200  tar zxvf od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz -C 11_01_00_prebuild_od8200
+ 4201  tar zxvf od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz -D 11_01_00_prebuild_od8200
+ 4202  ll
+ 4203  llman tar
+ 4204  man tar
+ 4205  tar zxvf od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz -C 11_01_00_prebuild_od8200
+ 4206  mkdir 11_01_00_prebuild_od8200
+ 4207  tar zxvf od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz -C 11_01_00_prebuild_od8200
+ 4208  mount
+ 4209  mount | grep sd
+ 4210  sudo ls -l /mnt/sd/opt
+ 4211  sudo ls -l /mnt/sd/opt/model_zoo/
+ 4212  sudo cp -rp /mnt/sd/opt/model_zoo/ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416 ./
+ 4213  ll
+ 4214  mv ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416/ sd2_ONR-OD-8200-yolox-nano-lite-mmdet-coco-416x416/
+ 4215  ll
+ 4216  rm od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz 
+ 4217  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/11_01_00/modelartifacts/AM68A/8bits/od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz
+ 4218  ll
+ 4219  mkdir 11_01_00_prebuild_od-8200_onnxrt
+ 4220  tar zxvf od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz  -C 11_01_00_prebuild_od-8200_onnxrt
+ 4221  ll
+ 4222  rm od
+ 4223  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/10_00_00/modelartifacts/AM68A/8bits/od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz
+ 4224  mkdir prebuild_tag_v10.0.2_od8200
+ 4225  tar zxvf od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz -C prebuild_tag_v10.0.2_od8200
+ 4226  ll
+ 4227  mv od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz od-8200.ta.gz
+ 4228  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/10_00_00/modelartifacts/AM68A/8bits/od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz
+ 4229  ll
+ 4230  rm od-8200.ta.gz od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz od-8200_onnxrt_coco_edgeai-mmdet_yolox_nano_lite_416x416_20220214_model_onnx.tar.gz.1
+ 4231  ll
+ 4232  cd ../
+ 4233  ll
+ 4234  cd edgeai-tensorlab_r11_0/
+ 4235  find ./ -name settings_import_on_pc.yaml
+ 4236  ll
+ 4237  cd ../../
+ 4238  ll
+ 4239  cd workspace/
+ 4240  ll
+ 4241  cd downloadmodel/
+ 4242  ll
+ 4243  mkdir od2020
+ 4244  cd od2020/
+ 4245  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/11_00_00/modelartifacts/AM68A/8bits/od-2020_tflitert_coco_tf1-models_ssdlite_mobiledet_dsp_320x320_coco_20200519_tflite.tar.gz
+ 4246  wget http://software-dl.ti.com/jacinto7/esd/modelzoo/11_00_00/modelartifacts/AM68A/8bits/od-5120_tvmdlr_coco_tf1-models_ssdlite_mobiledet_dsp_320x320_coco_20200519_tflite.tar.gz
+ 4247  ll
+ 4248  mkdir 0d5120
+ 4249  tar zxvf od-5120_tvmdlr_coco_tf1-models_ssdlite_mobiledet_dsp_320x320_coco_20200519_tflite.tar.gz -C 0d5120
+ 4250  ll
+ 4251  ls /mnt/sd/opt/model_zoo/
+ 4252  sudo cp -rp /mnt/sd/opt/model_zoo/TFL-OD-2020-ssdLite-mobDet-DSP-coco-320x320 ./
+ 4253  sudo cp -rp /mnt/sd/opt/model_zoo/TVM-OD-5120-ssdLite-mobDet-DSP-coco-320x320 ./
+ 4254  ll
+ 4255  docker image ls
+ 4256  lsblk
+ 4257  df -h
+ 4258  cd ../../
+ 4259  ll
+ 4260  cd edgeai-tensorlab_r11_0/edgeai-benchmark/work_dirs/modelartifacts/AM68A/8bits/od-5120_tvmdlr_coco_tf1-models_ssdlite_mobiledet_dsp_320x320_coco_20200519_tflite/
+ 4261  ll
+ 4262  tail -F run.log 
+ 4263  cd ../../../
+ 4264  cd ../../.../
+ 4265  cd ../../..
+ 4266  cd ..
+ 4267  ll
+ 4268  mkdir tmp_11000800whl
+ 4269  cd tmp_11000800whl/
+ 4270  wget https://software-dl.ti.com/jacinto7/esd/tidl-tools/11_00_08_00/OSRT_TOOLS/X86_64_LINUX/UBUNTU_22_04/dlr-1.13.0-py3-none-any.whl
+ 4271  ll
+ 4272  wget https://software-dl.ti.com/jacinto7/esd/tidl-tools/11_00_08_00/OSRT_TOOLS/X86_64_LINUX/UBUNTU_22_04/tvm-0.12.0-cp310-cp310-linux_x86_64.whl
+ 4273  wget https://software-dl.ti.com/jacinto7/esd/tidl-tools/11_00_08_00/OSRT_TOOLS/X86_64_LINUX/UBUNTU_22_04/onnxruntime_tidl-1.15.0-cp310-cp310-linux_x86_64.whl
+ 4274  wget https://software-dl.ti.com/jacinto7/esd/tidl-tools/11_00_08_00/OSRT_TOOLS/X86_64_LINUX/UBUNTU_22_04/tflite_runtime-2.12.0-cp310-cp310-linux_x86_64.whl
+ 4275  ll
+ 4276  wget https://software-dl.ti.com/jacinto7/esd/tidl-tools/11_00_08_00/TIDL_TOOLS/AM68A/tidl_tools.tar.gz
+ 4277  ll
+ 4278  tar zxvf tidl_tools.tar.gz 
+ 4279  ll tidl_tools
+ 4280  cat tidl_tools/device_config.cfg 
+ 4281  exit
+ 4282  man install
+ 4283  exit
+ 4284  pstree -c
+ 4285  exit
+ 4286  lspci
+ 4287  ls /dev
+ 4288  which pciutils
+ 4289  sudo apt install pciutils
+ 4290  which pciutils
+ 4291  which pciheader
+ 4292  df -h
+ 4293  ll
+ 4294  cd HD-ADU3
+ 4295  ll
+ 4296  mkdir pacrzV2L700
+ 4297  mkdir rzv2L700
+ 4298  cd pacrzV2L700
+ 4299  ll
+ 4300  unzip RTK0EF0160F07000SJ_linux-src.zip 
+ 4301  cd ../rzv2L700
+ 4302  tar zxvf ../pacrzV2L700/rzv2l_ai-sdk_yocto_recipe_v7.00.tar.gz 
+ 4303  ll
+ 4304  TEMPLATECONF=$PWD/meta-renesas/meta-rz-distro/conf/templates/rz-conf/ source poky/oe-init-build-env build
+ 4305  bitbake-layers add-layer ../meta-rz-features/meta-rz-graphics
+ 4306  bitbake-layers add-layer ../meta-rz-features/meta-rz-codecs
+ 4307  bitbake-layers add-layer ../meta-rz-features/meta-rz-drpai
+ 4308  ll ../
+ 4309  ll ../../
+ 4310  ll ../../rzv2L700/
+ 4311  7z x ../../pacrzV2L700/oss_pkg_rzv_v7.00.7z 
+ 4312  patch -p1 < ../patch/0000-AI_SDK-settings.patch
+ 4313  patch -p1 < ../patch/0001-tesseract.patch
+ 4314  patch -p1 < ../patch/0002-openmp.patch
+ 4315  MACHINE=smarc-rzv2l bitbake core-image-weston
+ 4316  exit
+ 4317  cd HD-ADU3/
+ 4318  ll
+ 4319  cd pacV2N630/
+ 4320  ll
+ 4321  unzip RTK0EF0189F06300SJ_linux-src.zip 
+ 4322  ll
+ 4323  cd ../
+ 4324  mkdir v2n630
+ 4325  cd v2n630
+ 4326  tar zxf ../pacV2N630/rzv2n_ai-sdk_yocto_recipe_v6.30.tar.gz 
+ 4327  ll
+ 4328  TEMPLATECONF=$PWD/meta-renesas/meta-rz-distro/conf/templates/vlp-v4-conf/ source poky/oe-init-build-env build
+ 4329  bitbake-layers add-layer ../meta-rz-features/meta-rz-graphics
+ 4330  bitbake-layers add-layer ../meta-rz-features/meta-rz-drpai
+ 4331  bitbake-layers add-layer ../meta-rz-features/meta-rz-opencva
+ 4332  bitbake-layers add-layer ../meta-rz-features/meta-rz-codecs
+ 4333  patch -p1 < ../patch/0000-AI_SDK-settings.patch
+ 4334  patch -p1 < ../patch/0001-tesseract.patch
+ 4335  patch -p1 < ../patch/0002-openmp.patch
+ 4336  7z x ../../pacV2N630/oss_pkg_rzv_v6.30.7z 
+ 4337  MACHINE=rzv2n-evk bitbake core-image-weston
+ 4338  exit
+ 4339  top
+ 4340  df -h
+ 4341  exit
+ 4342  docker --version
+ 4343  top
+ 4344  ll
+ 4345  cd HD-ADU3/
+ 4346  mkdir sandbox
+ 4347  cd sandbox/
+ 4348  git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git
+ 4349  git br
+ 4350  git branch 
+ 4351  ll
+ 4352  cd turtlebot3_simulations/
+ 4353  git branch 
+ 4354  git branch all
+ 4355  cd turtlebot3_simulations/cd ../
+ 4356  ll
+ 4357  cd ../
+ 4358  ll
+ 4359  rm -rdf turtlebot3_simulations/
+ 4360  git clone https://github.com/ROBOTIS-GIT/turtlebot3_simulations.git -b humble
+ 4361  ll
+ 4362  git clone https://github.com/renesas-rz/rzv2h_ros2.git
+ 4363  ll
+ 4364  cd rzv2h_ros2/
+ 4365  ll
+ 4366  git log
+ 4367  top
+ 4368  cd HD-ADU3/dockerspace/ros2/rzv2h_ros2-main/rzv2-ros-docker/
+ 4369  ll
+ 4370  docker build -f Dockerfile_for_pc -t humble0 ./
+ 4371  df -h
+ 4372  docker build -f Dockerfile_for_pc -t humble0 ./
+ 4373  docker image ls
+ 4374  docker image prune
+ 4375  docker image ls
+ 4376  ll
+ 4377  docker build -f Dockerfile_for_rzv2h -t humble1rzv2h ./
+ 4378  sudo apt update
+ 4379  sudo apt-get install qemu-user-static
+ 4380  docker build -f Dockerfile_for_rzv2h -t humble1rzv2h ./
+ 4381  docker build --platform linux/arm64 -f Dockerfile_for_rzv2h -t humble1rzv2h ./
+ 4382  docker image ls
+ 4383  ll
+ 4384  docker build --no-cache -f Dockerfile_for_pc_humble -t humble-cross ./
+ 4385  docker image ls
+ 4386  docker image rm 0eac6c0e6da2
+ 4387  docker image rm 7e829cd13edd
+ 4388  docker container ls
+ 4389  ls -a | grep 5e075b3f68b2
+ 4390  docker container ls -a
+ 4391  docker container rm 675bd2955b49
+ 4392  docker container rm 5e075b3f68b2
+ 4393  docker image rm 0eac6c0e6da2
+ 4394  docker image rm 7e829cd13edd
+ 4395  docker container rm 78ccb6920efd
+ 4396  docker image rm 7e829cd13edd
+ 4397  docker container rm f45584e326a5
+ 4398  docker image rm 7e829cd13edd
+ 4399  docker image ls
+ 4400  docker image ls -a
+ 4401  docker login
+ 4402  docker login -u sykazcr@hotmail.com
+ 4403  docker image ls
+ 4404  docker tag humble-cross:latest sykazcr@hotmail.com/humble-cross:latest
+ 4405  docker tag humble-cross:latest sykazcr/humble-cross:latest
+ 4406  docker push sykazcr/humble-cross:latest
+ 4407  docker tag humble-cross:latest sykazcr/humble1rzv2h:latest
+ 4408  docker push sykazcr/humble1rzv2h:latest
+ 4409  docker tag humble1rzv2h:latest sykazcr/humble1rzv2h:latest
+ 4410  docker push sykazcr/humble1rzv2h:latest
+ 4411  ls /etc
+ 4412  cat /proc/cpuinfo
+ 4413  docker tag humble0:latest sykazcr/humble0:latest
+ 4414  docker push sykazcr/humble0:latest
+ 4415  sudo apt install python3-colcon-common-extensions
+ 4416  sudo apt update
+ 4417  sudo apt install python3-colcon-common-extensions
+ 4418  sudo sh -c 'echo "deb [arch=$(dpkg --print-architecture)] http://repo.ros2.org/ubuntu/main $(lsb_release -cs) main" > /etc/apt/sources.list.d/ros2-latest.list'
+ 4419  sudo apt install python3-colcon-common-extensions
+ 4420  sudo apt update
+ 4421  sudo apt install python3-colcon-common-extensions
+ 4422  curl -s https://raw.githubusercontent.com/ros/rosdistro/master/ros.asc | sudo apt-key add -
+ 4423  sudo apt update
+ 4424  sudo apt install python3-colcon-common-extensions
+ 4425  mkdir -p ~/ros2_ws/src
+ 4426  cd ~/ros2_ws/src
+ 4427  git clone https://github.com/leggedrobotics/darknet_ros.git -b foxy
+ 4428  ll
+ 4429  cd darknet_ros
+ 4430  ll
+ 4431  rm -r darknet darknet_ros
+ 4432  cd ../../
+ 4433  ll
+ 4434  source /opt/ros/humble/setup.bash
+ 4435  locale  
+ 4436  sudo apt install software-properties-common
+ 4437  sudo add-apt-repository universe
+ 4438  sudo apt update
+ 4439  sudo apt install ros-humble-desktop
+ 4440  sudo apt install ros-humble-ros-base
+ 4441  sudo apt install ros-dev-tools
+ 4442  source /opt/ros/humble/setup.bash
+ 4443  export RMW_IMPLEMENTATION=rmw_cyclonedds_cpp
+ 4444  export ROS_DOMAIN_ID=0
+ 4445  ros2 run demo_nodes_cpp listener
+ 4446  ros2 run demo_nodes_cpp talker
+ 4447  dpkg -l | grep cyclonedds
+ 4448  sudo apt install ros-humble-rmw-cyclonedds-cpp
+ 4449  ros2 run demo_nodes_cpp listener
+ 4450  which rqt
+ 4451  env
+ 4452  docker image ls
+ 4453  docker ps
+ 4454  docker ps -a
+ 4455  docker run -itd --env="DISPLAY=${DISPLAY}" --privileged --net=host --name humble_container humble0 bash
+ 4456  xhost +local:
+ 4457  docker exec -it humble_container bash
+ 4458  xhost +local:
+ 4459  echo $DISPLAY
+ 4460  export DISPLAY=:0
+ 4461  pgrep -a Xorg
+ 4462  xhost +local:
+ 4463  docker exec -it humble_container bash
+ 4464  docker ps
+ 4465  docker stop humble_container
+ 4466  docker ps
+ 4467  docker container rm humble_container
+ 4468  docker run -itd --env="DISPLAY=${DISPLAY}" --privileged --net=host --name humble_container humble0 bash
+ 4469  docker exec -it humble_container bash
+ 4470  ll
+ 4471  vi memo
+ 4472  docker image ls 
+ 4473  docker ps -a 
+ 4474  history | less
+ 4475  cd ..
+ 4476  ll
+ 4477  cd work/
+ 4478  ll
+ 4479  cd v2ntvmsandbox/
+ 4480  ll
+ 4481  ll samples/
+ 4482  ll rzv_drp-ai_tvm/
+ 4483  cd ~
+ 4484  cd HD-ADU3
+ 4485  ll
+ 4486  ll sandbox/
+ 4487  ll dockerspace/
+ 4488  cd dockerspace/
+ 4489  ll
+ 4490  cd tvmv2hV270/
+ 4491  ll
+ 4492  docker ps -a | grep tvm
+ 4493  docker start drp-ai_tvm_v2h_container_comm_v270
+ 4494  docker exec -it drp-ai_tvm_v2h_container_comm_v270 bash
+ 4495  docker ps
+ 4496  cd ~/work/v2ntvmsandbox/
+ 4497  ll
+ 4498  docker cp 2c52c335ea42:/sample_yolox.tar.gz .
+ 4499  ll
+ 4500  docker image ls
+ 4501  df -h
+ 4502  ll
+ 4503  docker exec -it drp-ai_tvm_v2h_container_comm_v270 bash
+ 4504  docker ps
+ 4505  docker stop romantic_wescoff
+ 4506  docker image ls
+ 4507  docker exec -it drp-ai_tvm_v2n_container_comm
+ 4508  docker exec -it drp-ai_tvm_v2n_container_comm bash
+ 4509  history | grep docker | grep docker
+ 4510  history | grep docker | grep tvm
+ 4511  history | grep docker | grep tvm | grep v2n
+ 4512  ll
+ 4513  history > histzcr2002604.txt

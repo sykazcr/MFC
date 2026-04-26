@@ -36,3 +36,25 @@ Dockerfile_for_rzv2h:116
 117 |
 118 |     # Install TurtleBot3 packages
 ERROR: failed to solve: process "/bin/sh -c /bin/bash -c "source /opt/ros/humble/setup.sh && MAKEFLAGS=-j4 colcon build --symlink-install --cmake-args -DCMAKE_BUILD_TYPE=Release --parallel-workers 1"" did not complete successfully: exit code: 1
+
+
+--tvm
+oot@45e25af7dccf:/drp-ai_tvm/tutorials# env
+HOSTNAME=45e25af7dccf
+TVM_ROOT=/drp-ai_tvm
+PWD=/drp-ai_tvm/tutorials
+HOME=/root
+LESSCLOSE=/usr/bin/lesspipe %s %s
+PYTHONPATH=/opt/DRP-AI_Translator_i8/drpAI_Quantizer/
+TERM=xterm
+LESSOPEN=| /usr/bin/lesspipe %s
+LIBRARY_PATH=:
+PRODUCT=V2H
+QUANTIZER=/opt/DRP-AI_Translator_i8/drpAI_Quantizer/
+SHLVL=1
+SDK=/opt/rz-vlp/5.0.11/sysroots/../
+LD_LIBRARY_PATH=:
+PATH=/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin
+TRANSLATOR=/opt/DRP-AI_Translator_i8/translator/DRP-AI_Translator/python_api/../../
+_=/usr/bin/env
+root@45e25af7dccf:/drp-ai_tvm/tutorials#
